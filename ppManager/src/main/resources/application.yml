@@ -1,16 +1,8 @@
 server:
-  context-path: /wwlsManager
+  context-path: /ppManager
   port: 8088
 spring:
   profiles:
     active: offline
 mybatis:
   mapper-locations: classpath:mapper/**.xml
-
-
-
-img.url.test: ceshi/
-
-url:
-  target:
-    default: https://www.zhujujinfu.com/
