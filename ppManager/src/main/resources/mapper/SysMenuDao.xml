@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.pp.mapper.SysMenuDao">
+    <resultMap id="BaseResultMap" type="app.pp.entity.SysMenuEntity">
+        <id column="menu_id" jdbcType="INTEGER" property="menuId"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="perms" jdbcType="VARCHAR" property="perms"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="parentName" jdbcType="VARCHAR" property="parentName"/>
+        <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+    </resultMap>
+
+
+    <select id="queryListParentId" resultType="app.pp.entity.SysMenuEntity" resultMap="BaseResultMap">
+		select * from wwls_sys_menu where parent_id = #{parentId} order by order_num asc
+	</select>
+
+    <select id="queryNotButtonList" resultMap="BaseResultMap">
+		select * from wwls_sys_menu where type != 2 order by order_num asc
+	</select>
+    <select id="selectList" resultMap="BaseResultMap">
+		select * from wwls_sys_menu
+	</select>
+    <select id="selectById" resultType="app.pp.entity.SysMenuEntity" resultMap="BaseResultMap">
+		SELECT s1.*,s2.name AS parentName FROM wwls_sys_menu s1	LEFT JOIN wwls_sys_menu s2 ON s1.parent_id=s2.menu_id
+      where s1.menu_id=#{value}
+	</select>
+    <delete id="deleteById" parameterType="java.lang.Long">
+		  delete  from wwls_sys_menu where menu_id=#{menuId}
+	</delete>
+    <insert id="insert" parameterType="app.pp.entity.SysMenuEntity">
+		insert into wwls_sys_menu(parent_id,`name`,url,perms,`type`,icon,order_num)values (
+		#{parentId},#{name},#{url},#{perms},#{type},#{icon},#{orderNum})
+
+	</insert>
+    <update id="updateById" parameterType="app.pp.entity.SysMenuEntity">
+        update wwls_sys_menu
+        <set>
+            <if test="parentId!=null and parentId!=''">
+                parent_id=#{parentId},
+            </if>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="url!=null and url!=''">
+                url=#{url},
+            </if>
+            <if test="perms!=null and perms!=''">
+                perms=#{perms},
+            </if>
+            <if test="type!=null and type!=''">
+                type=#{type},
+            </if>
+            <if test="icon!=null and icon!=''">
+                icon=#{icon},
+            </if>
+            <if test="orderNum!=null and orderNum!=''">
+                order_num=#{orderNum},
+            </if>
+        </set>
+        where menu_id=#{menuId}
+    </update>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from wwls_sys_menu
+    </select>
+
+    <select id="selectAllByType2" resultMap="BaseResultMap">
+        select * from wwls_sys_menu where `type`=2
+    </select>
+
+    <select id="userrolemenu" parameterType="Long" resultMap="BaseResultMap">
+        SELECT m.* FROM wwls_sys_menu m INNER JOIN  wwls_sys_role_menu r
+        ON m.menu_id = r.menu_id
+        INNER JOIN wwls_sys_user_role u ON u.role_id = r.role_id
+        WHERE u.user_id = #{userid}
+    </select>
+</mapper>

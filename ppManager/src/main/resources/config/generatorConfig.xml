@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--根节点 -->
+<generatorConfiguration>
+    <!-- 指定外部的属性元素 -->
+    <properties resource="application.yml"/>
+    <!-- 必须 指定生成一组对象的环境 -->
+    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!--分隔符 -->
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+
+        <!--  &lt;!&ndash; 通用mapper插件 &ndash;&gt;
+          <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+              &lt;!&ndash; 此处的 MyMapper注意一定不能被扫描到&ndash;&gt;
+              <property name="mappers" value="com.demo.utils.MyMapper"/>
+          </plugin>-->
+        <!-- 注释 规则-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://47.94.255.221:3306/sjgj"
+                        userId="root"
+                        password="Zhzr66@$">
+        </jdbcConnection>
+
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/kindle-manager"
+                        userId="root"
+                        password="123">
+        </jdbcConnection>-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="app.pp.entity" targetProject="src/main/java">
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="true"/>
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+            <property name="trimStrings" value="true"/>
+
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <javaClientGenerator targetPackage="app.pp.mapper" targetProject="src/main/java"
+                             type="XMLMAPPER">
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table tableName="sdx_loantemplate">
+            &lt;!&ndash;mysql 配置&ndash;&gt;
+            <property name="useActualColumnNames" value="true"/>
+            &lt;!&ndash;<generatedKey column="id" sqlStatement="Mysql" />&ndash;&gt;&lt;!&ndash;自增id&ndash;&gt;
+            &lt;!&ndash;<generatedKey column="id" sqlStatement="JDBC" />&ndash;&gt;&lt;!&ndash;uuid&ndash;&gt;
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            &lt;!&ndash;oracle 配置&ndash;&gt;
+            &lt;!&ndash;<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>&ndash;&gt;
+        </table>-->
+        <!--<table tableName="wwls_lawyerevaluate" domainObjectName="WwlsLawyerevaluate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+         <table tableName="wwls_pushinfo" domainObjectName="WwlsPushInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+    </context>
+</generatorConfiguration>

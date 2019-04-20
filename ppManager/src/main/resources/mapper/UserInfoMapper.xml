@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.pp.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="app.pp.entity.UserInfo">
+    <id column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wwls_user_info
+    where `uid` = #{uid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="app.pp.entity.UserInfo">
+    <selectKey keyProperty="uid" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wwls_user_info (`uid`, `name`, `password`,
+      salt, `state`, username
+      )
+    values (#{uid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}, #{username,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="app.pp.entity.UserInfo">
+    update wwls_user_info
+    set `name` = #{name,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=TINYINT},
+      username = #{username,jdbcType=VARCHAR}
+    where `uid` = #{uid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select `uid`, `name`, `password`, salt, `state`, username
+    from wwls_user_info
+    where `uid` = #{uid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select `uid`, `name`, `password`, salt, `state`, username
+    from wwls_user_info
+  </select>
+</mapper>

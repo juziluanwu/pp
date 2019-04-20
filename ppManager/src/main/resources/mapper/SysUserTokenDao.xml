@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.pp.mapper.SysUserTokenDao">
+    <resultMap id="BaseResultMap" type="app.pp.entity.SysUserTokenEntity">
+        <result property="userId" jdbcType="INTEGER" column="user_id" />
+        <result property="token" jdbcType="VARCHAR" column="token" />
+        <result property="expireTime" jdbcType="TIMESTAMP" column="expire_time" />
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time" />
+    </resultMap>
+
+    <select id="queryByToken" resultMap="BaseResultMap">
+		select * from wwls_sys_user_token where token = #{value}
+	</select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+		select * from wwls_sys_user_token where user_id = #{userId}
+	</select>
+    <update id="updateById" parameterType="app.pp.entity.SysUserTokenEntity">
+        update wwls_sys_user_token
+        <set>
+            <if test="token!=null and token!=''">
+                token=#{token},
+            </if>
+            <if test="expireTime!=null">
+                expire_time=#{expireTime},
+            </if>
+            <if test="updateTime!=null ">
+                update_time=#{updateTime}
+            </if>
+        </set>
+        where user_id=#{userId}
+    </update>
+
+    <insert id="insert" parameterType="app.pp.entity.SysUserTokenEntity">
+
+        insert into `wwls_sys_user_token` (user_id, token, expire_time,update_time
+        )
+        values (#{userId}, #{token}, #{expireTime}, #{updateTime}
+        )
+    </insert>
+</mapper>
