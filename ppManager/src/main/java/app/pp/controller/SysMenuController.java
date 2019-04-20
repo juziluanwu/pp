@@ -104,8 +104,8 @@ public class SysMenuController extends AbstractController {
 	@GetMapping("/userrolemenu")
 	public Result  userrolemenu(){
 		List<SysMenuEntity> menuList = null;
-		int type = getUser().getType();
-		if(getUserId() == Constant.SUPER_ADMIN || 0 == type ){
+		//int type = getUser().getType();
+		if(getUserId() == Constant.SUPER_ADMIN  ){
 			menuList = sysMenuService.selectList();
 		}else{
 			menuList = sysMenuService.userrolemenu(getUserId());

@@ -39,20 +39,11 @@ public class SysUserEntity implements Serializable {
 	private String password;
 
 	/**
-	 * 盐
-	 */
-	private String salt;
-
-	/**
-	 * 邮箱
+	 * 名称
 	 */
 
-	private String email;
+	private String name;
 
-	/**
-	 * 手机号
-	 */
-	private String mobile;
 
 	/**
 	 * 状态  0：禁用   1：正常
@@ -76,16 +67,12 @@ public class SysUserEntity implements Serializable {
 	private Date createTime;
 
 	/**
-	 * 用户类型
+	 * 分组id
 	 */
 
-	private Integer type;
+	private Integer groupid;
 
-	/**
-	 * 用户类型
-	 */
 
-	private Integer expats;
 
 	/**
 	 * 设置：
@@ -134,38 +121,7 @@ public class SysUserEntity implements Serializable {
 	public String getPassword() {
 		return password;
 	}
-	
-	/**
-	 * 设置：邮箱
-	 * @param email 邮箱
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
-	/**
-	 * 获取：邮箱
-	 * @return String
-	 */
-	public String getEmail() {
-		return email;
-	}
-	
-	/**
-	 * 设置：手机号
-	 * @param mobile 手机号
-	 */
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-	/**
-	 * 获取：手机号
-	 * @return String
-	 */
-	public String getMobile() {
-		return mobile;
-	}
 	
 	/**
 	 * 设置：状态  0：禁用   1：正常
@@ -215,28 +171,19 @@ public class SysUserEntity implements Serializable {
 		this.createUserId = createUserId;
 	}
 
-	public String getSalt() {
-		return salt;
+	public String getName() {
+		return name;
 	}
 
-	public void setSalt(String salt) {
-		this.salt = salt;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Integer getType() {
-		return type;
+	public Integer getGroupid() {
+		return groupid;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setGroupid(Integer groupid) {
+		this.groupid = groupid;
 	}
-
-	public Integer getExpats() {
-		return expats;
-	}
-
-	public void setExpats(Integer expats) {
-		this.expats = expats;
-	}
-
 }

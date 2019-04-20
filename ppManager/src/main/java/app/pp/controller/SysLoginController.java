@@ -48,7 +48,7 @@ public class SysLoginController extends AbstractController {
 		SysUserEntity user = sysUserService.queryByUserName(username);
 
 		//账号不存在、密码错误
-		if(user == null || !user.getPassword().equals(new Sha256Hash(password, user.getSalt()).toHex())) {
+		if(user == null || !user.getPassword().equals(password)) {
 			return ResultUtils.fail("账号或密码不正确");
 		}
 

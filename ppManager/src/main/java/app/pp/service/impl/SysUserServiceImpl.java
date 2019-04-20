@@ -66,12 +66,8 @@ public class SysUserServiceImpl implements SysUserService {
 
         SysUserEntity s = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
         List<Long> rolelist = user.getRoleIdList();
-
         user.setCreateTime(new Date());
-        //sha256加密
-        String salt = RandomStringUtils.randomAlphanumeric(20);
-        user.setPassword(new Sha256Hash(user.getPassword(), salt).toHex());
-        user.setSalt(salt);
+        user.setPassword(user.getPassword());
         Integer i = sysUserDao.insert(user);
 		/*//检查角色是否越权
 		checkRole(user);*/
@@ -95,7 +91,7 @@ public class SysUserServiceImpl implements SysUserService {
         } else {
             SysUserEntity sysUserEntity = sysUserDao.selectById(user.getUserId());
             if (!user.getPassword().equals(sysUserEntity.getPassword())) {
-                user.setPassword(new Sha256Hash(user.getPassword(), sysUserEntity.getSalt()).toHex());
+                user.setPassword(user.getPassword());
             }
         }
         sysUserDao.updateById(user);
