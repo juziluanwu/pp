@@ -10,14 +10,14 @@
     </resultMap>
 
     <select id="queryByToken" resultMap="BaseResultMap">
-		select * from wwls_sys_user_token where token = #{value}
+		select * from sys_user_token where token = #{value}
 	</select>
 
     <select id="selectById" resultMap="BaseResultMap">
-		select * from wwls_sys_user_token where user_id = #{userId}
+		select * from sys_user_token where user_id = #{userId}
 	</select>
     <update id="updateById" parameterType="app.pp.entity.SysUserTokenEntity">
-        update wwls_sys_user_token
+        update sys_user_token
         <set>
             <if test="token!=null and token!=''">
                 token=#{token},
@@ -34,7 +34,7 @@
 
     <insert id="insert" parameterType="app.pp.entity.SysUserTokenEntity">
 
-        insert into `wwls_sys_user_token` (user_id, token, expire_time,update_time
+        insert into `sys_user_token` (user_id, token, expire_time,update_time
         )
         values (#{userId}, #{token}, #{expireTime}, #{updateTime}
         )

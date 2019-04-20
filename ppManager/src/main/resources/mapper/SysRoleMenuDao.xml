@@ -4,22 +4,22 @@
 <mapper namespace="app.pp.mapper.SysRoleMenuDao">
 	
 	<select id="queryMenuIdList" resultType="long">
-		select menu_id from wwls_sys_role_menu where role_id = #{value}
+		select menu_id from sys_role_menu where role_id = #{value}
 	</select>
 	<select id="queryMenuIdListType2" resultType="long">
-		SELECT a.menu_id FROM wwls_sys_role_menu a LEFT JOIN wwls_sys_menu  b ON a.`menu_id`=b.`menu_id` WHERE
+		SELECT a.menu_id FROM sys_role_menu a LEFT JOIN sys_menu  b ON a.`menu_id`=b.`menu_id` WHERE
 -- 		 b.`type`=2 AND
 		  role_id = #{value}
 	</select>
 
 	<delete id="deleteBatch">
-		delete from wwls_sys_role_menu where role_id in
+		delete from sys_role_menu where role_id in
 		<foreach item="roleId" collection="array" open="(" separator="," close=")">
 			#{roleId}
 		</foreach>
 	</delete>
     <delete id="deleteByMap" parameterType="map">
-		delete from wwls_sys_role_menu
+		delete from sys_role_menu
 		<where>
 			<if test="menu_id!=null and menu_id!=''">
 				and menu_id=#{menu_id}
@@ -28,7 +28,7 @@
 
 	</delete>
 	<insert id="insertBatch">
-		INSERT INTO wwls_sys_role_menu(role_id,menu_id)
+		INSERT INTO sys_role_menu(role_id,menu_id)
 		VALUES
 		<foreach collection="sysRoleMenus" item="sysRoleMenu" separator=",">
 			(#{sysRoleMenu.roleId},#{sysRoleMenu.menuId})

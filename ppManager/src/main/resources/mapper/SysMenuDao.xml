@@ -16,29 +16,29 @@
 
 
     <select id="queryListParentId" resultType="app.pp.entity.SysMenuEntity" resultMap="BaseResultMap">
-		select * from wwls_sys_menu where parent_id = #{parentId} order by order_num asc
+		select * from sys_menu where parent_id = #{parentId} order by order_num asc
 	</select>
 
     <select id="queryNotButtonList" resultMap="BaseResultMap">
-		select * from wwls_sys_menu where type != 2 order by order_num asc
+		select * from sys_menu where type != 2 order by order_num asc
 	</select>
     <select id="selectList" resultMap="BaseResultMap">
-		select * from wwls_sys_menu
+		select * from sys_menu
 	</select>
     <select id="selectById" resultType="app.pp.entity.SysMenuEntity" resultMap="BaseResultMap">
-		SELECT s1.*,s2.name AS parentName FROM wwls_sys_menu s1	LEFT JOIN wwls_sys_menu s2 ON s1.parent_id=s2.menu_id
+		SELECT s1.*,s2.name AS parentName FROM sys_menu s1	LEFT JOIN sys_menu s2 ON s1.parent_id=s2.menu_id
       where s1.menu_id=#{value}
 	</select>
     <delete id="deleteById" parameterType="java.lang.Long">
-		  delete  from wwls_sys_menu where menu_id=#{menuId}
+		  delete  from sys_menu where menu_id=#{menuId}
 	</delete>
     <insert id="insert" parameterType="app.pp.entity.SysMenuEntity">
-		insert into wwls_sys_menu(parent_id,`name`,url,perms,`type`,icon,order_num)values (
+		insert into sys_menu(parent_id,`name`,url,perms,`type`,icon,order_num)values (
 		#{parentId},#{name},#{url},#{perms},#{type},#{icon},#{orderNum})
 
 	</insert>
     <update id="updateById" parameterType="app.pp.entity.SysMenuEntity">
-        update wwls_sys_menu
+        update sys_menu
         <set>
             <if test="parentId!=null and parentId!=''">
                 parent_id=#{parentId},
@@ -66,17 +66,17 @@
     </update>
 
     <select id="selectAll" resultMap="BaseResultMap">
-        select * from wwls_sys_menu
+        select * from sys_menu
     </select>
 
     <select id="selectAllByType2" resultMap="BaseResultMap">
-        select * from wwls_sys_menu where `type`=2
+        select * from sys_menu where `type`=2
     </select>
 
     <select id="userrolemenu" parameterType="Long" resultMap="BaseResultMap">
-        SELECT m.* FROM wwls_sys_menu m INNER JOIN  wwls_sys_role_menu r
+        SELECT m.* FROM sys_menu m INNER JOIN  sys_role_menu r
         ON m.menu_id = r.menu_id
-        INNER JOIN wwls_sys_user_role u ON u.role_id = r.role_id
+        INNER JOIN sys_user_role u ON u.role_id = r.role_id
         WHERE u.user_id = #{userid}
     </select>
 </mapper>

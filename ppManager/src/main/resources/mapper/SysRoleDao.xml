@@ -12,10 +12,10 @@
     </resultMap>
     <!-- 查询用户创建的角色ID列表 -->
     <select id="queryRoleIdList" resultType="long">
-        select role_id from wwls_sys_role where create_user_id = #{createUserId}
+        select role_id from sys_role where create_user_id = #{createUserId}
     </select>
     <update id="updateById" parameterType="app.pp.entity.SysRoleEntity">
-        update wwls_sys_role
+        update sys_role
         <set>
             <if test="roleName!=null and roleName!=''">
                 role_name=#{roleName},
@@ -30,13 +30,13 @@
         where role_id=#{roleId}
     </update>
     <delete id="deleteBatchIds" parameterType="java.util.List">
-        delete from wwls_sys_role where role_id in
+        delete from sys_role where role_id in
         <foreach item="id" collection="list" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
     <select id="selectByMap" parameterType="map" resultMap="BaseResultMap">
-        select * from wwls_sys_role
+        select * from sys_role
         <where>
             <if test="roleName!=null and roleName !=''">
                 and  role_name like CONCAT('%',#{roleName},'%' )
@@ -47,10 +47,10 @@
         </where>
     </select>
     <select id="selectById" parameterType="java.lang.Long"  resultMap="BaseResultMap">
-        select * from wwls_sys_role where role_id=#{roleId}
+        select * from sys_role where role_id=#{roleId}
     </select>
     <insert id="insert" parameterType="app.pp.entity.SysRoleEntity" useGeneratedKeys="true" keyProperty="roleId" keyColumn="role_id">
-        insert into wwls_sys_role
+        insert into sys_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="roleId != null">
                 role_id,

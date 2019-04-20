@@ -4,20 +4,20 @@
 <mapper namespace="app.pp.mapper.SysUserRoleDao">
 
 	<delete id="deleteBatch">
-		delete from wwls_sys_user_role where role_id in
+		delete from sys_user_role where role_id in
 		<foreach item="roleId" collection="array" open="(" separator="," close=")">
 			#{roleId}
 		</foreach>
 	</delete>
 
 	<select id="queryRoleIdList" resultType="long">
-		select role_id from wwls_sys_user_role where user_id = #{value}
+		select role_id from sys_user_role where user_id = #{value}
 	</select>
 	<delete id="deleteByMap" parameterType="java.util.Map">
-		delete from wwls_sys_user_role where  user_id = #{user_id}
+		delete from sys_user_role where  user_id = #{user_id}
 	</delete>
 	<insert id="insertBatch">
-		INSERT INTO wwls_sys_user_role(role_id,user_id)
+		INSERT INTO sys_user_role(role_id,user_id)
 		VALUES
 		<foreach collection="sysUserRoles" item="sysUserRole" separator=",">
 			(#{sysUserRole.roleId},#{sysUserRole.userId})
