@@ -1,6 +1,7 @@
 package app.pp;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -23,7 +24,7 @@ public class PpManagerApplication extends SpringBootServletInitializer {
 	}
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(PpManagerApplication.class).web(true).run(args);
+		SpringApplication.run(PpManagerApplication.class, args);
 	}
 	@Bean
 	public MultipartConfigElement multipartConfigElement() {
