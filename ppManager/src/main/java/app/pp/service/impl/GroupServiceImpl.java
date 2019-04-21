@@ -76,7 +76,7 @@ public class GroupServiceImpl implements GroupService {
         return list;
     }
 
-    private void getChild( List<Group> list ,List<Group> child){
+    public void getChild( List<Group> list ,List<Group> child){
         if(child != null && !child.isEmpty()) {
             for (Group group : child) {
                 List<Group> childlist = groupMapper.selectByPid(group.getId());

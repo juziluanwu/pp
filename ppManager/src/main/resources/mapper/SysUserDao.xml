@@ -68,6 +68,12 @@
             <if test="createUserId!=null and createUserId !=''">
                 and  u.create_user_id=#{createUserId}
             </if>
+            <if test="groups != null">
+                and u.groupid in
+                <foreach collection="groups" open="(" close=")" separator="," item="group">
+                    #{group.id}
+                </foreach>
+            </if>
         </where>
         order by u.user_id desc
     </select>

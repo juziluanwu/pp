@@ -1,14 +1,18 @@
 package app.pp.service.impl;
 
 
+import app.pp.entity.Group;
 import app.pp.entity.SysRoleEntity;
+import app.pp.entity.SysUserEntity;
 import app.pp.exceptions.GlobleException;
+import app.pp.mapper.GroupMapper;
 import app.pp.mapper.SysRoleDao;
 import app.pp.service.SysRoleMenuService;
 import app.pp.service.SysRoleService;
 import app.pp.service.SysUserRoleService;
 import app.pp.service.SysUserService;
 import app.pp.utils.Constant;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +40,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
 	private SysRoleDao sysRoleDao;
-
+	@Autowired
+	private GroupMapper groupMapper;
 	@Override
     @Transactional(rollbackFor = Exception.class)
     public void save(SysRoleEntity role) {
@@ -82,6 +87,11 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Override
 	public List<SysRoleEntity> selectByMap(Map<String, Object> map) {
+		SysUserEntity user = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
+		Group group = groupMapper.selectById(user.getGroupid());
+		if(group != null && 0 !=group.getType()){
+			map.put("type",1);
+		}
 		return sysRoleDao.selectByMap(map);
 	}
 

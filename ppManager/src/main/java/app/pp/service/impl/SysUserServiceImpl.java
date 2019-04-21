@@ -1,9 +1,12 @@
 package app.pp.service.impl;
 
 import app.pp.common.Result;
+import app.pp.entity.Group;
 import app.pp.entity.SysUserEntity;
 import app.pp.enums.ErrorEnum;
+import app.pp.mapper.GroupMapper;
 import app.pp.mapper.SysUserDao;
+import app.pp.service.GroupService;
 import app.pp.service.SysRoleService;
 import app.pp.service.SysUserRoleService;
 import app.pp.service.SysUserService;
@@ -17,10 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -38,6 +38,10 @@ public class SysUserServiceImpl implements SysUserService {
     private SysRoleService sysRoleService;
     @Autowired
     private SysUserDao sysUserDao;
+    @Autowired
+    private GroupMapper groupMapper;
+    @Autowired
+    private GroupService groupService;
 
 
     @Override
@@ -140,6 +144,18 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public List<SysUserEntity> selectByMap(Map params) {
+        SysUserEntity s = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
+        Group group =groupMapper.selectById(s.getGroupid());
+        if(group != null){
+            if(0 == group.getType()){
+                //管理员分组
+
+            }else{
+                //非管理员分组
+                List<Group> groups = groupService.selectall();
+                params.put("groups",groups);
+            }
+        }
         return sysUserDao.selectByMap(params);
     }
 
