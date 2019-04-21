@@ -2,5 +2,91 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="app.pp.mapper.GroupMapper">
-  
+    <select id="selectAll"  resultType="app.pp.entity.Group">
+          select * from `group` where isdel = 0
+    </select>
+
+    <select id="selectById" parameterType="Integer" resultType="app.pp.entity.Group">
+          select * from `group` where id = #{id}
+    </select>
+
+    <select id="selectByPid"  parameterType="Integer" resultType="app.pp.entity.Group">
+        select * from `group` where isdel = 0 and pid = #{id}
+    </select>
+
+    <select id="selectCountByPid" parameterType="Integer" resultType="int">
+         select count(1) from `group` where isdel = 0 and pid = #{id}
+    </select>
+
+    <insert id="insert" parameterType="app.pp.entity.Group" useGeneratedKeys="true" keyProperty="id" >
+        insert into `group`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="isdel != null">
+                isdel,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createdtime != null">
+                createdtime,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="pid != null">
+                #{pid},
+            </if>
+            <if test="isdel != null">
+                #{isdel},
+            </if>
+            <if test="creator != null">
+                #{creator},
+            </if>
+            <if test="createdtime != null">
+                #{createdtime},
+            </if>
+
+        </trim>
+    </insert>
+
+
+    <update id="update" parameterType="app.pp.entity.Group">
+        update `group`
+        <set>
+            <if test="name !=null">
+                name=#{name},
+            </if>
+            <if test="type!=null">
+                type=#{type},
+            </if>
+            <if test="pid != null">
+                pid=#{pid},
+            </if>
+            <if test="isdel != null">
+                isdel=#{isdel},
+            </if>
+            <if test="updator != null">
+                updator=#{updator},
+            </if>
+            <if test="updatedtime != null">
+                updatedtime=#{updatedtime},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
 </mapper>

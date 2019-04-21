@@ -10,6 +10,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -55,8 +56,36 @@ public class GroupServiceImpl implements GroupService {
     }
 
     public List<Group> selectall() {
+        List<Group> list = new ArrayList<>();
+        SysUserEntity user = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
+        Group group = groupMapper.selectById(user.getGroupid());
+        if(group != null){
+            if(0 == group.getType()){
+                //管理员权限的分组   可以查看所有分组
+                list = groupMapper.selectAll();
 
-        return null;
+            }else{
+                //其他权限分组 只能查看自己及子集
+                list.add(group);
+                List<Group> child = new ArrayList<>();
+                child.add(group);
+                getChild(list,child);
+            }
+        }
+
+        return list;
+    }
+
+    private void getChild( List<Group> list ,List<Group> child){
+        if(child != null && !child.isEmpty()) {
+            for (Group group : child) {
+                List<Group> childlist = groupMapper.selectByPid(group.getId());
+                if (childlist != null && !childlist.isEmpty()) {
+                    list.addAll(childlist);
+                    getChild(list, childlist);
+                }
+            }
+        }
     }
 
 }
