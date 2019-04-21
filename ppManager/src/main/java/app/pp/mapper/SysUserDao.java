@@ -51,4 +51,6 @@ public interface SysUserDao extends BaseMapper<SysUserEntity> {
 	List<String> selectPermissByUserId(@Param("userId") Long userId);
 
 	SysUserEntity selectByUsername(String username);
+
+	int selectCountByGroupid(Integer groupid);
 }

@@ -74,7 +74,7 @@ public class SysUserServiceImpl implements SysUserService {
 
         //保存用户与角色关系
         sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
-        return ResultUtils.result(ErrorEnum.SUCCESSH, "创建用户成功");
+        return ResultUtils.result(ErrorEnum.SUCCESS, "创建用户成功");
     }
 
     @Override
@@ -102,7 +102,7 @@ public class SysUserServiceImpl implements SysUserService {
         //保存用户与角色关系
         sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
 
-        return ResultUtils.result(ErrorEnum.SUCCESSH, "修改成功");
+        return ResultUtils.result(ErrorEnum.SUCCESS, "修改成功");
     }
 
     @Override

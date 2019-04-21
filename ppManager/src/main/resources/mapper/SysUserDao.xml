@@ -94,4 +94,8 @@
     <select id="selectByUsername" parameterType="String" resultMap="BaseResultMap">
         select * from sys_user where username = #{username}
     </select>
+
+    <select id="selectCountByGroupid" parameterType="Integer" resultType="int">
+        select count(1) from sys_user where status = 1 and groupid = #{groupid}
+    </select>
 </mapper>

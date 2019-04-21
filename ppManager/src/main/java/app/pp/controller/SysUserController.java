@@ -48,7 +48,7 @@ public class SysUserController   extends AbstractController {
 		PageHelper.startPage(null == page ? 1 : page, GlobleUtils.DEFAULT_PAGE_SIZE);
 		List<SysUserEntity> list = sysUserService.selectByMap(params);
 		PageInfo<SysUserEntity> pageInfo = new PageInfo(list);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,pageInfo);
+		return ResultUtils.result(ErrorEnum.SUCCESS,pageInfo);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class SysUserController   extends AbstractController {
 	 */
 	@GetMapping("/info")
 	public Result info(){
-		return ResultUtils.result(ErrorEnum.SUCCESSH,getUser());
+		return ResultUtils.result(ErrorEnum.SUCCESS,getUser());
 
 	}
 
@@ -72,7 +72,7 @@ public class SysUserController   extends AbstractController {
 		//获取用户所属的角色列表
 		List<Long> roleIdList = sysUserRoleService.queryRoleIdList(userId);
 		user.setRoleIdList(roleIdList);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,user);
+		return ResultUtils.result(ErrorEnum.SUCCESS,user);
 
 	}
 
@@ -87,7 +87,7 @@ public class SysUserController   extends AbstractController {
 		if(!flag){
 			return ResultUtils.fail("原密码不正确");
 		}else{
-            return ResultUtils.result(ErrorEnum.SUCCESSH,"更新密码成功");
+            return ResultUtils.result(ErrorEnum.SUCCESS,"更新密码成功");
         }
 
 
@@ -131,6 +131,6 @@ public class SysUserController   extends AbstractController {
 
 		Integer i = sysUserService.deleteBatch(userIds);
 
-		return ResultUtils.result(ErrorEnum.SUCCESSH,i);
+		return ResultUtils.result(ErrorEnum.SUCCESS,i);
 	}
 }

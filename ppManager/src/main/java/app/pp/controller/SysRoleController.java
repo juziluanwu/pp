@@ -46,7 +46,7 @@ public class SysRoleController  extends AbstractController {
 		List<SysRoleEntity>  list = sysRoleService.selectByMap(map);
 		PageHelper.startPage(null == page ? 1 : page, GlobleUtils.DEFAULT_PAGE_SIZE);
 		PageInfo<SysRoleEntity> pageInfo = new PageInfo(list);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,pageInfo);
+		return ResultUtils.result(ErrorEnum.SUCCESS,pageInfo);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class SysRoleController  extends AbstractController {
 	public Result select(){
 		Map<String, Object> map = new HashMap<>();
 		List<SysRoleEntity> list = sysRoleService.selectByMap(map);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,list);
+		return ResultUtils.result(ErrorEnum.SUCCESS,list);
 
 	}
 
@@ -70,7 +70,7 @@ public class SysRoleController  extends AbstractController {
 		//查询角色对应的菜单
 		List<Long> menuIdList = sysRoleMenuService.queryMenuIdListType2(roleId);
 		role.setMenuIdList(menuIdList);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,role);
+		return ResultUtils.result(ErrorEnum.SUCCESS,role);
 
 	}
 
@@ -83,7 +83,7 @@ public class SysRoleController  extends AbstractController {
 		role.setCreateUserId(getUserId());
 		role.setCreateTime(new Date());
 		sysRoleService.save(role);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,"添加成功");
+		return ResultUtils.result(ErrorEnum.SUCCESS,"添加成功");
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class SysRoleController  extends AbstractController {
 	@RequiresPermissions("sys:role:update")
 	public Result update(@RequestBody SysRoleEntity role){
 		sysRoleService.update(role);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,"修改成功");
+		return ResultUtils.result(ErrorEnum.SUCCESS,"修改成功");
 	}
 
 	/**
@@ -103,6 +103,6 @@ public class SysRoleController  extends AbstractController {
 	@RequiresPermissions("sys:role:delete")
 	public Result delete(@RequestBody Long[] roleIds){
 		sysRoleService.deleteBatch(roleIds);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,"删除成功");
+		return ResultUtils.result(ErrorEnum.SUCCESS,"删除成功");
 	}
 }

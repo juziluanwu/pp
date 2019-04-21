@@ -61,7 +61,7 @@ public class SysLoginController extends AbstractController {
 		Map results = new HashMap();
 		results.put("user",user);
 		results.putAll(result);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,results);
+		return ResultUtils.result(ErrorEnum.SUCCESS,results);
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class SysLoginController extends AbstractController {
 	@PostMapping("/sys/logout")
 	public Result logout() {
 		sysUserTokenService.logout(getUserId());
-		return ResultUtils.result(ErrorEnum.SUCCESSH,null);
+		return ResultUtils.result(ErrorEnum.SUCCESS,null);
 	}
 	
 }

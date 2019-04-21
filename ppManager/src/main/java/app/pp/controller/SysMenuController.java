@@ -58,7 +58,7 @@ public class SysMenuController extends AbstractController {
 		List<SysMenuEntity> menuList = sysMenuService.getUserMenuList(getUserId());
 		Map result = new HashMap();
 		result.put("menuList", menuList);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,result);
+		return ResultUtils.result(ErrorEnum.SUCCESS,result);
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class SysMenuController extends AbstractController {
 	public Result navPermission(){
 
 		List<String> permissions = shiroService.getPermissions(getUserId());
-		return ResultUtils.result(ErrorEnum.SUCCESSH,permissions);
+		return ResultUtils.result(ErrorEnum.SUCCESS,permissions);
 	}
 
 	/*	*//**
@@ -79,7 +79,7 @@ public class SysMenuController extends AbstractController {
 	public Result navPermission(@PathVariable("menuId") Long menuId,@PathVariable("permission") String permission){
 		List<String> permissions = shiroService.getPermissions(getUserId(),menuId);
 		if (permissions.contains(permission)){
-			return ResultUtils.result(ErrorEnum.SUCCESSH,null);
+			return ResultUtils.result(ErrorEnum.SUCCESS,null);
 		}else{
 			return ResultUtils.fail("没有访问权限");
 		}
@@ -96,7 +96,7 @@ public class SysMenuController extends AbstractController {
 				sysMenuEntity.setParentName(parentMenuEntity.getName());
 			}
 		}
-		return ResultUtils.result(ErrorEnum.SUCCESSH,menuList);
+		return ResultUtils.result(ErrorEnum.SUCCESS,menuList);
 	}
 	/**
 	 * 用户菜单列表
@@ -117,7 +117,7 @@ public class SysMenuController extends AbstractController {
 				sysMenuEntity.setParentName(parentMenuEntity.getName());
 			}
 		}
-		return ResultUtils.result(ErrorEnum.SUCCESSH,menuList);
+		return ResultUtils.result(ErrorEnum.SUCCESS,menuList);
 	}
 	/**
 	 * 选择菜单(添加、修改菜单)
@@ -134,7 +134,7 @@ public class SysMenuController extends AbstractController {
 		root.setParentId(-1L);
 		root.setOpen(true);
 		menuList.add(root);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,menuList);
+		return ResultUtils.result(ErrorEnum.SUCCESS,menuList);
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class SysMenuController extends AbstractController {
 	@RequiresPermissions("sys:menu:info")
 	public Result info(@PathVariable("menuId") Long menuId){
 		SysMenuEntity menu = sysMenuService.selectById(menuId);
-		return ResultUtils.result(ErrorEnum.SUCCESSH,menu);
+		return ResultUtils.result(ErrorEnum.SUCCESS,menu);
 	}
 
 	/**
@@ -159,7 +159,7 @@ public class SysMenuController extends AbstractController {
 
 		sysMenuService.insert(menu);
 
-		return ResultUtils.result(ErrorEnum.SUCCESSH,"保存成功");
+		return ResultUtils.result(ErrorEnum.SUCCESS,"保存成功");
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class SysMenuController extends AbstractController {
 
 		sysMenuService.updateById(menu);
 
-		return ResultUtils.result(ErrorEnum.SUCCESSH,"修改成功");
+		return ResultUtils.result(ErrorEnum.SUCCESS,"修改成功");
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class SysMenuController extends AbstractController {
 		}
 		sysMenuService.delete(menuId);
 
-		return ResultUtils.result(ErrorEnum.SUCCESSH,"删除成功");
+		return ResultUtils.result(ErrorEnum.SUCCESS,"删除成功");
 	}
 
 	/**
