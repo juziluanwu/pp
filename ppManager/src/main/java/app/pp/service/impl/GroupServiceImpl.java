@@ -57,8 +57,7 @@ public class GroupServiceImpl implements GroupService {
 
     public List<Group> selectall() {
         List<Group> list = new ArrayList<>();
-        SysUserEntity user = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
-        Group group = groupMapper.selectById(user.getGroupid());
+        Group group = getCurrentGroup();
         if(group != null){
             if(0 == group.getType()){
                 //管理员权限的分组   可以查看所有分组
@@ -88,4 +87,13 @@ public class GroupServiceImpl implements GroupService {
         }
     }
 
+
+    public  Group getCurrentGroup(){
+        SysUserEntity user = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
+        Group group = groupMapper.selectById(user.getGroupid());
+        if(group == null){
+            throw new GlobleException("当前账号没有分组");
+        }
+        return group;
+    }
 }
