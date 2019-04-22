@@ -71,7 +71,7 @@ public class GroupController extends AbstractController {
     /**
      * 删除分组
      */
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     @RequiresPermissions("sys:group:delete")
     public Result delete(@PathVariable(value = "id")Integer id) {
         groupService.delete(id);
