@@ -26,7 +26,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://47.94.255.221:3306/sjgj"
+                        connectionURL="jdbc:mysql://47.94.255.221:3306/pp"
                         userId="root"
                         password="Zhzr66@$">
         </jdbcConnection>
@@ -68,7 +68,7 @@
             &lt;!&ndash;<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>&ndash;&gt;
         </table>-->
         <!--<table tableName="wwls_lawyerevaluate" domainObjectName="WwlsLawyerevaluate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-         <table tableName="wwls_pushinfo" domainObjectName="WwlsPushInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+         <table tableName="policy" domainObjectName="Policy" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 
     </context>
 </generatorConfiguration>
