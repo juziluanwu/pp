@@ -4,6 +4,8 @@ import app.pp.entity.Model;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Mapper
 public interface ModelMapper {
@@ -18,4 +20,6 @@ public interface ModelMapper {
     int updateByPrimaryKeySelective(Model record);
 
     int updateByPrimaryKey(Model record);
+
+    List<Model> selectAll();
 }

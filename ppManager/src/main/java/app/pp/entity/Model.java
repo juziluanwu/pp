@@ -17,6 +17,16 @@ public class Model {
 
     private Long createuser;
 
+    private Integer isdel;
+
+
+    public Integer getIsdel() {
+        return isdel;
+    }
+
+    public void setIsdel(Integer isdel) {
+        this.isdel = isdel;
+    }
 
     public Long getCreateuser() {
         return createuser;

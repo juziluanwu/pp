@@ -3,10 +3,12 @@ package app.pp.service.impl;
 import app.pp.common.Result;
 import app.pp.entity.Model;
 import app.pp.entity.SysRoleMenuEntity;
+import app.pp.entity.SysUserEntity;
 import app.pp.enums.ErrorEnum;
 import app.pp.mapper.ModelMapper;
 import app.pp.service.ModelService;
 import app.pp.utils.ResultUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +26,51 @@ public class ModelServiceImpl implements ModelService {
     @Override
     //添加保单模版的实现
     public Result saveModel(Model model) {
-        SysRoleMenuEntity sysRoleMenuEntity = new SysRoleMenuEntity();
+        SysUserEntity s = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
         model.setCreatetime(new Date());
-        model.setCreateuser(sysRoleMenuEntity.getId());
-        modelMapper.insertSelective(model);
-        return ResultUtils.result(ErrorEnum.SUCCESS,"保存成功");
+        model.setCreateuser(s.getUserId());
+        int i = modelMapper.insertSelective(model);
+        if(i>0){
+            return ResultUtils.result(ErrorEnum.SUCCESS,"保存成功");
+        }else{
+            return ResultUtils.fail("保存失败");
+        }
+
+    }
+
+    @Override
+    //删除保单模板
+    public Result del(Integer id) {
+        Model model = new Model();
+        model.setId(id);
+        model.setIsdel(0);
+        int i = modelMapper.updateByPrimaryKeySelective(model);
+        if(i>0){
+            return ResultUtils.result(ErrorEnum.SUCCESS,"模板删除成功");
+        }else{
+            return ResultUtils.fail("模板删除失败");
+        }
+
+    }
+
+    @Override
+    //启用禁用模板
+    public Result disoren(Integer id, Integer state) {
+        Model model = new Model();
+        model.setId(id);
+        model.setState(state);
+        int i = modelMapper.updateByPrimaryKeySelective(model);
+        if(i>0){
+            return ResultUtils.result(ErrorEnum.SUCCESS,"操作成功");
+        }else{
+            return ResultUtils.fail("操作失败");
+        }
+    }
+
+    @Override
+    //模板列表查询
+    public Result list() {
+
+        return ResultUtils.result(ErrorEnum.SUCCESS,modelMapper.selectAll());
     }
 }
