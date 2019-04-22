@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.pp.mapper.PolicyMapper">
+  <resultMap id="BaseResultMap" type="app.pp.entity.Policy">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pnum" jdbcType="VARCHAR" property="pnum" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="saleid" jdbcType="INTEGER" property="saleid" />
+    <result column="groupid" jdbcType="INTEGER" property="groupid" />
+    <result column="isdel" jdbcType="INTEGER" property="isdel" />
+    <result column="createdtime" jdbcType="TIMESTAMP" property="createdtime" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="prefix" jdbcType="VARCHAR" property="prefix" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pnum, `state`, saleid, groupid, isdel, createdtime, creator, `prefix`, `number`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from policy
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from policy
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="java.util.List">
+    insert into policy (id, pnum, `state`, 
+      saleid, groupid, isdel, 
+      createdtime, creator, `prefix`, 
+      `number`)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.id,jdbcType=INTEGER}, #{item.pnum,jdbcType=VARCHAR}, #{item.state,jdbcType=INTEGER},
+      #{item.saleid,jdbcType=INTEGER}, #{item.groupid,jdbcType=INTEGER}, #{item.isdel,jdbcType=INTEGER},
+      #{item.createdtime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=BIGINT}, #{item.prefix,jdbcType=VARCHAR},
+      #{item.number,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="app.pp.entity.Policy">
+    insert into policy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pnum != null">
+        pnum,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="saleid != null">
+        saleid,
+      </if>
+      <if test="groupid != null">
+        groupid,
+      </if>
+      <if test="isdel != null">
+        isdel,
+      </if>
+      <if test="createdtime != null">
+        createdtime,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="prefix != null">
+        `prefix`,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pnum != null">
+        #{pnum,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="saleid != null">
+        #{saleid,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null">
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="prefix != null">
+        #{prefix,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="app.pp.entity.Policy">
+    update policy
+    <set>
+      <if test="pnum != null">
+        pnum = #{pnum,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="saleid != null">
+        saleid = #{saleid,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null">
+        groupid = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="createdtime != null">
+        createdtime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="prefix != null">
+        `prefix` = #{prefix,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        `number` = #{number,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="app.pp.entity.Policy">
+    update policy
+    set pnum = #{pnum,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=INTEGER},
+      saleid = #{saleid,jdbcType=INTEGER},
+      groupid = #{groupid,jdbcType=INTEGER},
+      isdel = #{isdel,jdbcType=INTEGER},
+      createdtime = #{createdtime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=BIGINT},
+      `prefix` = #{prefix,jdbcType=VARCHAR},
+      `number` = #{number,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrefix" parameterType="String" resultType="java.lang.Integer">
+    select count(prefix) from policy where prefix = #{prefix}
+  </select>
+  <select id="selectNumber" parameterType="String" resultType="java.lang.Integer">
+
+    select Max(number) from policy where prefix = #{prefix}
+
+  </select>
+
+  <delete id="del" parameterType="int">
+    update set isdel = 0  where id = #{policyid}
+  </delete>
+</mapper>
