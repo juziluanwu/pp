@@ -32,4 +32,10 @@ public interface GroupService {
      * @return
      */
     List<Group> selectall();
+
+    /**
+     * 获取当前账号的分组
+     * @return
+     */
+    Group getCurrentGroup();
 }

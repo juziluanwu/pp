@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.pp.mapper.SaleSlipMapper">
+    <select id="selectAll" parameterType="map" resultType="app.pp.entity.SaleSlip">
+        select ss.*,d.devicenum,p.pnum,su.name creatorname,g.name firstbeneficiaryname
+        from saleslip ss
+        left join device d on ss.deviceid = d.id
+        left join policy p on p.id = ss.policyid
+        left join sys_user su on ss.creator = su.name
+        left join group g on g.id = ss.firstbeneficiary
+        <where>
+            <if test="devicenum != null and devicenum != ''">
+                and d.devicenum like '%${devicenum}%'
+            </if>
+            <if test="pnum != null and pnum != ''">
+                and p.pnum like '%${pnum}%'
+            </if>
+            <if test="customername != null and customername != ''">
+                and ss.customername like '%${customername}%'
+            </if>
+            <if test="username != null and username != ''">
+                and su.name like '%${username}%'
+            </if>
+            <if test="firstbeneficiary != null">
+                and ss.firstbeneficiary = #{firstbeneficiary}
+            </if>
+            <if test="policystate != null">
+                and ss.policystate = #{policystate}
+            </if>
+
+               <if test="pstarttime != null">
+                and ss.pstarttime  <![CDATA[ >= ]]> #{pstarttime}
+              </if>
+              <if test="pendtime != null">
+                and ss.pendtime <![CDATA[ <= ]]> #{pendtime}
+              </if>
+
+            <if test="groups != null">
+                and ss.groupid in
+                <foreach collection="groups" open="(" close=")" separator="," item="group">
+                    #{group.id}
+                </foreach>
+            </if>
+        </where>
+        order by ss.id desc
+    </select>
+
+    <select id="selectById" parameterType="Integer" resultType="app.pp.entity.SaleSlip">
+          select ss.*,d.devicenum,p.pnum,su.name creatorname,g.name firstbeneficiaryname
+        from saleslip ss
+        left join device d on ss.deviceid = d.id
+        left join policy p on p.id = ss.policyid
+        left join sys_user su on ss.creator = su.name
+        left join group g on g.id = ss.firstbeneficiary
+        where ss.id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="app.pp.entity.SaleSlip" useGeneratedKeys="true" keyProperty="id" >
+        insert into saleslip
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="salenum != null">
+                salenum,
+            </if>
+            <if test="deviceid != null">
+                deviceid,
+            </if>
+            <if test="policyid != null">
+                policyid,
+            </if>
+            <if test="printstate != null">
+                printstate,
+            </if>
+            <if test="policydate != null">
+                policydate,
+            </if>
+            <if test="pstarttime != null">
+                pstarttime,
+            </if>
+            <if test="pendtime != null">
+                pendtime,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="policyid != null">
+                policyid,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="customertype != null">
+                customertype,
+            </if>
+            <if test="customername != null">
+                customername,
+            </if>
+            <if test="certificatetype != null">
+                certificatetype,
+            </if>
+            <if test="certificatenum != null">
+                certificatenum,
+            </if>
+            <if test="shop4s != null">
+                shop4s,
+            </if>
+            <if test="carnum != null">
+                carnum,
+            </if>
+            <if test="enginenum != null">
+                enginenum,
+            </if>
+            <if test="frame != null">
+                frame,
+            </if>
+            <if test="buytime != null">
+                buytime,
+            </if>
+            <if test="salemanid != null">
+                salemanid,
+            </if>
+            <if test="carbrandid != null">
+                carbrandid,
+            </if>
+            <if test="carsysid != null">
+                carsysid,
+            </if>
+            <if test="buycartype != null">
+                buycartype,
+            </if>
+            <if test="firstbeneficiary != null">
+                firstbeneficiary,
+            </if>
+            <if test="carprice != null">
+                carprice,
+            </if>
+            <if test="compensation != null">
+                compensation,
+            </if>
+            <if test="installtime != null">
+                installtime,
+            </if>
+            <if test="installman != null">
+                installman,
+            </if>
+            <if test="policyamount != null">
+                policyamount,
+            </if>
+            <if test="groupid != null">
+                groupid,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createdtime != null">
+                createdtime,
+            </if>
+            <if test="policystate != null">
+                policystate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="salenum != null">
+                #{salenum},
+            </if>
+            <if test="deviceid != null">
+                #{deviceid},
+            </if>
+            <if test="policyid != null">
+                #{policyid},
+            </if>
+            <if test="printstate != null">
+                #{printstate},
+            </if>
+            <if test="policydate != null">
+                #{policydate},
+            </if>
+            <if test="pstarttime != null">
+                #{pstarttime},
+            </if>
+            <if test="pendtime != null">
+                #{pendtime},
+            </if>
+            <if test="phone != null">
+                #{phone},
+            </if>
+            <if test="policyid != null">
+                #{policyid},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="customertype != null">
+                #{customertype},
+            </if>
+            <if test="customername != null">
+                #{customername},
+            </if>
+            <if test="certificatetype != null">
+                #{certificatetype},
+            </if>
+            <if test="certificatenum != null">
+                #{certificatenum},
+            </if>
+            <if test="shop4s != null">
+                #{shop4s},
+            </if>
+            <if test="carnum != null">
+                #{carnum},
+            </if>
+            <if test="enginenum != null">
+                #{enginenum},
+            </if>
+            <if test="frame != null">
+                #{frame},
+            </if>
+            <if test="buytime != null">
+                #{buytime},
+            </if>
+            <if test="salemanid != null">
+                #{salemanid},
+            </if>
+            <if test="carbrandid != null">
+                #{carbrandid},
+            </if>
+            <if test="carsysid != null">
+                #{carsysid},
+            </if>
+            <if test="buycartype != null">
+                #{ buycartype},
+            </if>
+            <if test="firstbeneficiary != null">
+                #{firstbeneficiary},
+            </if>
+            <if test="carprice != null">
+                #{carprice},
+            </if>
+            <if test="compensation != null">
+                #{compensation},
+            </if>
+            <if test="installtime != null">
+                #{installtime},
+            </if>
+            <if test="installman != null">
+                #{installman},
+            </if>
+            <if test="policyamount != null">
+                #{policyamount},
+            </if>
+            <if test="groupid != null">
+                #{groupid},
+            </if>
+            <if test="creator != null">
+                #{creator},
+            </if>
+            <if test="createdtime != null">
+                #{createdtime},
+            </if>
+            <if test="policystate != null">
+                #{policystate},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="update" parameterType="app.pp.entity.SaleSlip">
+        update saleslip
+        <set>
+            <if test="salenum !=null">
+                salenum=#{salenum},
+            </if>
+            <if test="deviceid!=null">
+                deviceid=#{deviceid},
+            </if>
+            <if test="policyid != null">
+                policyid=#{policyid},
+            </if>
+            <if test="printstate !=null">
+                printstate=#{printstate},
+            </if>
+            <if test="policydate!=null">
+                policydate=#{policydate},
+            </if>
+            <if test="pstarttime != null">
+                pstarttime=#{pstarttime},
+            </if>
+            <if test="pendtime !=null">
+                pendtime=#{pendtime},
+            </if>
+            <if test="phone!=null">
+                phone=#{phone},
+            </if>
+            <if test="address != null">
+                address=#{address},
+            </if>
+            <if test="customertype !=null">
+                customertype=#{customertype},
+            </if>
+            <if test="phone!=null">
+                phone=#{phone},
+            </if>
+            <if test="customername != null">
+                customername=#{customername},
+            </if>
+            <if test="certificatetype !=null">
+                certificatetype=#{certificatetype},
+            </if>
+            <if test="certificatenum!=null">
+                certificatenum=#{certificatenum},
+            </if>
+            <if test="shop4s != null">
+                shop4s=#{shop4s},
+            </if>
+            <if test="carnum !=null">
+                carnum=#{carnum},
+            </if>
+            <if test="enginenum!=null">
+                enginenum=#{enginenum},
+            </if>
+            <if test="frame != null">
+                frame=#{frame},
+            </if>
+            <if test="buytime !=null">
+                buytime=#{buytime},
+            </if>
+            <if test="salemanid!=null">
+                salemanid=#{salemanid},
+            </if>
+            <if test="carbrandid != null">
+                carbrandid=#{carbrandid},
+            </if>
+            <if test="carsysid !=null">
+                carsysid=#{carsysid},
+            </if>
+            <if test="buycartype!=null">
+                buycartype=#{buycartype},
+            </if>
+            <if test="firstbeneficiary != null">
+                firstbeneficiary=#{firstbeneficiary},
+            </if>
+            <if test="carprice !=null">
+                carprice=#{carprice},
+            </if>
+            <if test="compensation!=null">
+                compensation=#{compensation},
+            </if>
+            <if test="installtime != null">
+                installtime=#{installtime},
+            </if>
+            <if test="installman != null">
+                installman=#{installman},
+            </if>
+            <if test="policyamount != null">
+                policyamount=#{policyamount},
+            </if>
+            <if test="groupid != null">
+                groupid=#{groupid},
+            </if>
+
+            <if test="updator != null">
+                updator=#{updator},
+            </if>
+            <if test="updatedtime != null">
+                updatedtime=#{updatedtime},
+            </if>
+            <if test="policystate != null">
+                policystate=#{policystate},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>

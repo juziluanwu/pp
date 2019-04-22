@@ -3,7 +3,7 @@
 
 <mapper namespace="app.pp.mapper.SalemanMapper">
     <select id="selectAll" parameterType="map" resultType="app.pp.entity.Saleman">
-        select * from `group` where isdel = 0
+        select * from saleman where isdel = 0
           <if test="name != null and name != ''">
               and name like '%${name}%'
           </if>
@@ -16,7 +16,7 @@
         order by id desc
     </select>
 
-    <select id="selectById" parameterType="Integer" resultType="app.pp.entity.Group">
+    <select id="selectById" parameterType="Integer" resultType="app.pp.entity.Saleman">
           select * from saleman where id = #{id}
     </select>
 

@@ -28,7 +28,7 @@ public class SalemanController extends AbstractController {
     private SalemanService salemanService;
 
     /**
-     * 分组菜单
+     * 销售人员列表
      */
     @GetMapping("/list")
     public Result list(@RequestParam(value = "name",required = false) String name,
@@ -43,7 +43,7 @@ public class SalemanController extends AbstractController {
 
 
     /**
-     * 新增分组
+     * 新增销售人员
      */
     @PostMapping("/save")
     @RequiresPermissions("sys:saleman:save")
@@ -55,7 +55,7 @@ public class SalemanController extends AbstractController {
     }
 
     /**
-     * 修改分组
+     * 修改销售人员
      */
     @PostMapping("/update")
     @RequiresPermissions("sys:saleman:update")
@@ -67,7 +67,7 @@ public class SalemanController extends AbstractController {
     }
 
     /**
-     * 删除分组
+     * 删除销售人员
      */
     @GetMapping("/delete/{id}")
     @RequiresPermissions("sys:saleman:delete")
