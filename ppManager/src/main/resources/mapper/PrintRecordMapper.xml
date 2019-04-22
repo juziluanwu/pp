@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.pp.mapper.PrintRecordMapper">
+
+    <insert id="insert" parameterType="app.pp.entity.PrintRecord" useGeneratedKeys="true" keyProperty="id" >
+        insert into printrecord
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="saleslipid != null">
+                saleslipid,
+            </if>
+            <if test="modelid != null">
+                modelid,
+            </if>
+            <if test="printlimit != null">
+                printlimit,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createdtime != null">
+                createdtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="saleslipid != null">
+                #{saleslipid},
+            </if>
+            <if test="modelid != null">
+                #{modelid},
+            </if>
+            <if test="printlimit != null">
+                #{printlimit},
+            </if>
+            <if test="creator != null">
+                #{creator},
+            </if>
+            <if test="createdtime != null">
+                #{createdtime},
+            </if>
+
+        </trim>
+    </insert>
+
+</mapper>
