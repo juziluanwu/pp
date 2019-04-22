@@ -1,6 +1,7 @@
 package app.pp.mapper;
 
 import app.pp.entity.Policy;
+import app.pp.entity.PolicyEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -29,4 +30,7 @@ public interface PolicyMapper {
 
     //删除保单号
     int del(Integer policyid);
+
+    //保单号查询
+    List<PolicyEntity> list(PolicyEntity policyEntity);
 }

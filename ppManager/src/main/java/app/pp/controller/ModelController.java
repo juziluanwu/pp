@@ -41,8 +41,8 @@ public class ModelController {
     /**
      * 模板列表
      */
-    @GetMapping("list")
-    public Result list(){
-        return modelService.list();
+    @GetMapping("list/{page}")
+    public Result list(@PathVariable(value = "page") Integer page){
+        return modelService.list(page);
     }
 }
