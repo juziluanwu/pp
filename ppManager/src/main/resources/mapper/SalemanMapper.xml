@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.pp.mapper.SalemanMapper">
+    <select id="selectAll" parameterType="map" resultType="app.pp.entity.Saleman">
+        select * from `group` where isdel = 0
+          <if test="name != null and name != ''">
+              and name like '%${name}%'
+          </if>
+        <if test="phone != null and phone != ''">
+                and phone like '%${phone}%'
+        </if>
+        order by id desc
+    </select>
+
+    <select id="selectById" parameterType="Integer" resultType="app.pp.entity.Group">
+          select * from saleman where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="app.pp.entity.Saleman" useGeneratedKeys="true" keyProperty="id" >
+        insert into saleman
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="isdel != null">
+                isdel,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createdtime != null">
+                createdtime,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="phone != null">
+                #{phone},
+            </if>
+            <if test="isdel != null">
+                #{isdel},
+            </if>
+            <if test="creator != null">
+                #{creator},
+            </if>
+            <if test="createdtime != null">
+                #{createdtime},
+            </if>
+
+        </trim>
+    </insert>
+
+
+    <update id="update" parameterType="app.pp.entity.Saleman">
+        update saleman
+        <set>
+            <if test="name !=null">
+                name=#{name},
+            </if>
+            <if test="phone!=null">
+                phone=#{phone},
+            </if>
+            <if test="isdel != null">
+                isdel=#{isdel},
+            </if>
+            <if test="updator != null">
+                updator=#{updator},
+            </if>
+            <if test="updatedtime != null">
+                updatedtime=#{updatedtime},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>

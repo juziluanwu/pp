@@ -4,16 +4,11 @@ package app.pp.controller;
 import app.pp.common.AbstractController;
 import app.pp.common.Result;
 import app.pp.entity.Group;
-import app.pp.entity.SysUserEntity;
+import app.pp.entity.Saleman;
 import app.pp.enums.ErrorEnum;
 import app.pp.service.GroupService;
-import app.pp.utils.Assert;
-import app.pp.utils.GlobleUtils;
+import app.pp.service.SalemanService;
 import app.pp.utils.ResultUtils;
-import app.pp.vo.PasswordForm;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,18 +22,21 @@ import java.util.Map;
  * 账号分组
  */
 @RestController
-@RequestMapping("/group")
-public class GroupController extends AbstractController {
+@RequestMapping("/saleman")
+public class SalemanController extends AbstractController {
     @Autowired
-    private GroupService groupService;
+    private SalemanService salemanService;
 
     /**
      * 分组菜单
      */
     @GetMapping("/list")
-    public Result list() {
-        List<Group> list = groupService.selectall();
-        return ResultUtils.result(ErrorEnum.SUCCESS, list);
+    public Result list(@RequestParam(value = "name",required = false) String name,
+                       @RequestParam(value = "name",required = false) String phone) {
+        Map<String,Object> param = new HashMap<>();
+        param.put("name",name);
+        param.put("phone",phone);
+        return ResultUtils.result(ErrorEnum.SUCCESS, salemanService.selectall(param));
     }
 
 
@@ -48,11 +46,11 @@ public class GroupController extends AbstractController {
      * 新增分组
      */
     @PostMapping("/save")
-    @RequiresPermissions("sys:group:save")
-    public Result save(@RequestBody Group group) {
-        group.setCreator(getUserId());
-        group.setCreatedtime(new Date());
-        groupService.save(group);
+    @RequiresPermissions("sys:saleman:save")
+    public Result save(@RequestBody Saleman saleman) {
+        saleman.setCreator(getUserId());
+        saleman.setCreatedtime(new Date());
+        salemanService.save(saleman);
         return ResultUtils.result(ErrorEnum.SUCCESS, "新增成功");
     }
 
@@ -60,11 +58,11 @@ public class GroupController extends AbstractController {
      * 修改分组
      */
     @PostMapping("/update")
-    @RequiresPermissions("sys:group:update")
-    public Result update(@RequestBody Group group) {
-        group.setUpdator(getUserId());
-        group.setUpdatedtime(new Date());
-        groupService.update(group);
+    @RequiresPermissions("sys:saleman:update")
+    public Result update(@RequestBody Saleman saleman) {
+        saleman.setUpdator(getUserId());
+        saleman.setUpdatedtime(new Date());
+        salemanService.update(saleman);
         return ResultUtils.result(ErrorEnum.SUCCESS, "修改成功");
     }
 
@@ -72,9 +70,9 @@ public class GroupController extends AbstractController {
      * 删除分组
      */
     @GetMapping("/delete/{id}")
-    @RequiresPermissions("sys:group:delete")
+    @RequiresPermissions("sys:saleman:delete")
     public Result delete(@PathVariable(value = "id")Integer id) {
-        groupService.delete(id);
+        salemanService.delete(id);
         return ResultUtils.result(ErrorEnum.SUCCESS, "删除成功");
     }
 }
