@@ -75,4 +75,15 @@ public class SalemanController extends AbstractController {
         salemanService.delete(id);
         return ResultUtils.result(ErrorEnum.SUCCESS, "删除成功");
     }
+
+
+    /**
+     * 下拉框
+     */
+    @GetMapping("/selectlist")
+    public Result selectlist() {
+        Map<String,Object> param = new HashMap<>();
+        param.put("creator",getUserId());
+        return ResultUtils.result(ErrorEnum.SUCCESS, salemanService.selectall(param));
+    }
 }
