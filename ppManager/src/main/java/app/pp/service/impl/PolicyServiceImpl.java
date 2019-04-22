@@ -4,6 +4,7 @@ import app.pp.common.Result;
 import app.pp.entity.*;
 import app.pp.enums.ErrorEnum;
 import app.pp.mapper.PolicyMapper;
+import app.pp.service.GroupService;
 import app.pp.service.PolicyService;
 import app.pp.utils.GlobleUtils;
 import app.pp.utils.ResultUtils;
@@ -25,6 +26,8 @@ public class PolicyServiceImpl implements PolicyService {
 
     @Autowired
     PolicyMapper policyMapper;
+    @Autowired
+    GroupService groupService;
 
     //批量生成保单号
     @Override
@@ -122,6 +125,10 @@ public class PolicyServiceImpl implements PolicyService {
     @Override
     //保单号查询
     public Result list(PolicyEntity policy) {
+        if(policy.getGroupid()==null){
+            policy.setGroup(groupService.selectall());
+        }
+
         PageHelper.startPage(null == policy.getPage() ? 1 : policy.getPage(), GlobleUtils.DEFAULT_PAGE_SIZE);
         PageInfo<PolicyEntity> pageInfo = new PageInfo<PolicyEntity>(policyMapper.list(policy));
         return ResultUtils.result(ErrorEnum.SUCCESS,pageInfo);

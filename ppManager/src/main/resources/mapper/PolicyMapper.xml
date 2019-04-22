@@ -180,13 +180,19 @@
     <if test="groupid != null">
      and po.`groupid` = #{groupid}
     </if>
+    <if test="group != null">
+      and po.groupid in
+      <foreach collection="group" open="(" close=")" separator="," item="group">
+        #{group.id}
+      </foreach>
+    </if>
     <if test="pnum !=null and pnum!= ''">
     and po.pnum = #{pnum}
     </if>
     <if test="state !=null">
     and state = #{state}
     </if>
-    and po.`isdel` = 1
+    and po.`isdel` = 0
     order by createdtime desc
 
   </select>
