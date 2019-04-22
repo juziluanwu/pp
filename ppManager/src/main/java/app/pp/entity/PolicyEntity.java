@@ -1,6 +1,7 @@
 package app.pp.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class PolicyEntity {
 
@@ -14,6 +15,8 @@ public class PolicyEntity {
     private Integer saleid;
 
     private Integer groupid;
+
+    private List<Group> group;
 
     private Integer isdel;
 
@@ -32,6 +35,14 @@ public class PolicyEntity {
     private Integer buycartype;
 
     private Integer page;
+
+    public List<Group> getGroup() {
+        return group;
+    }
+
+    public void setGroup(List<Group> group) {
+        this.group = group;
+    }
 
     public Integer getPage() {
         return page;
