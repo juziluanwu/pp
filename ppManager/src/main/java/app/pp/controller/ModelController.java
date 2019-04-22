@@ -23,6 +23,7 @@ public class ModelController {
      */
     @PostMapping("/save")
     public Result saveModel(@RequestBody Model model){
+
         return modelService.saveModel(model);
     }
 
