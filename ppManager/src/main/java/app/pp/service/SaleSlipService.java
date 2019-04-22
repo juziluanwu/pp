@@ -3,6 +3,7 @@ package app.pp.service;
 
 import app.pp.entity.SaleSlip;
 import app.pp.entity.Saleman;
+import app.pp.vo.SaleSlipDelVO;
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public interface SaleSlipService {
     /**
      * 删除销售单
      */
-    void delete(Integer id);
+    void delete(SaleSlipDelVO vo);
 
     /**
      * 销售单列表
@@ -35,4 +36,10 @@ public interface SaleSlipService {
      * @return
      */
     List<SaleSlip> selectall(Map<String, Object> param);
+
+    /**
+     * 销售单详情
+     */
+
+    SaleSlip info(Integer id);
 }

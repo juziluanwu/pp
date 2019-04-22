@@ -165,4 +165,9 @@
   <delete id="del" parameterType="int">
     update set isdel = 0  where id = #{policyid}
   </delete>
+
+  <select id="selectByGroupid" parameterType="int" resultType="app.pp.entity.Policy">
+    select * from policy where isdel = 0 and state = 1 and groupid = #{groupid} limit 1
+  </select>
+
 </mapper>

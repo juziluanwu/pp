@@ -9,6 +9,7 @@ import app.pp.enums.ErrorEnum;
 import app.pp.service.SaleSlipService;
 import app.pp.service.SalemanService;
 import app.pp.utils.ResultUtils;
+import app.pp.vo.SaleSlipDelVO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -80,10 +81,19 @@ public class SaleSlipController extends AbstractController {
     /**
      * 作废销售单
      */
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete")
     @RequiresPermissions("sys:saleslip:delete")
-    public Result delete(@PathVariable(value = "id")Integer id) {
-        saleSlipService.delete(id);
+    public Result delete(@RequestBody SaleSlipDelVO vo) {
+        saleSlipService.delete(vo);
+        return ResultUtils.result(ErrorEnum.SUCCESS, "删除成功");
+    }
+
+    /**
+     * 销售单详情
+     */
+    @GetMapping("/info/{id}")
+    public Result info(@PathVariable(value = "id")Integer id) {
+        saleSlipService.info(id);
         return ResultUtils.result(ErrorEnum.SUCCESS, "删除成功");
     }
 

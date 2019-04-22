@@ -29,4 +29,7 @@ public interface PolicyMapper {
 
     //删除保单号
     int del(Integer policyid);
+
+    //获取车行分组对应未关联的保单号
+    Policy selectByGroupid(Integer groupid);
 }

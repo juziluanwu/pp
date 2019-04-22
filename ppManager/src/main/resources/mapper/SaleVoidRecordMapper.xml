@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="app.pp.mapper.SaleSlipMapper">
-    <select id="selectAll" parameterType="map" resultType="app.pp.entity.SaleSlip">
+<mapper namespace="app.pp.mapper.SaleVoidRecordMapper">
+    <select id="selectAll" parameterType="map" resultType="app.pp.entity.SaleVoidRecord">
         select ss.*,d.devicenum,p.pnum,su.name creatorname,g.name firstbeneficiaryname
-        from saleslip ss
+        from salevoidrecord ss
         left join device d on ss.deviceid = d.id
         left join policy p on p.id = ss.policyid
         left join sys_user su on ss.creator = su.name
@@ -45,12 +45,10 @@
         </where>
         order by ss.id desc
     </select>
-    <select id="findById" parameterType="int" resultType="app.pp.entity.SaleSlip">
-        select * from saleslip where id = #{id}
-    </select>
-    <select id="selectById" parameterType="Integer" resultType="app.pp.entity.SaleSlip">
+
+    <select id="selectById" parameterType="Integer" resultType="app.pp.entity.SaleVoidRecord">
           select ss.*,d.devicenum,p.pnum,su.name creatorname,g.name firstbeneficiaryname
-        from saleslip ss
+        from salevoidrecord ss
         left join device d on ss.deviceid = d.id
         left join policy p on p.id = ss.policyid
         left join sys_user su on ss.creator = su.name
@@ -58,8 +56,8 @@
         where ss.id = #{id}
     </select>
 
-    <insert id="insert" parameterType="app.pp.entity.SaleSlip" useGeneratedKeys="true" keyProperty="id" >
-        insert into saleslip
+    <insert id="insert" parameterType="app.pp.entity.SaleVoidRecord" useGeneratedKeys="true" keyProperty="id" >
+        insert into salevoidrecord
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="salenum != null">
                 salenum,
@@ -157,9 +155,16 @@
             <if test="createdtime != null">
                 createdtime,
             </if>
-            <if test="policystate != null">
-                policystate,
+            <if test="saleslipid != null">
+                saleslipid,
             </if>
+            <if test="reason != null">
+                reason,
+            </if>
+            <if test="reamrk != null">
+                reamrk,
+            </if>
+
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="salenum != null">
@@ -258,15 +263,21 @@
             <if test="createdtime != null">
                 #{createdtime},
             </if>
-            <if test="policystate != null">
-                #{policystate},
+            <if test="saleslipid != null">
+                #{saleslipid},
+            </if>
+            <if test="reason != null">
+                #{reason},
+            </if>
+            <if test="reamrk != null">
+                #{reamrk},
             </if>
         </trim>
     </insert>
 
 
-    <update id="update" parameterType="app.pp.entity.SaleSlip">
-        update saleslip
+    <update id="update" parameterType="app.pp.entity.SaleVoidRecord">
+        update salevoidrecord
         <set>
             <if test="salenum !=null">
                 salenum=#{salenum},
@@ -359,15 +370,16 @@
                 groupid=#{groupid},
             </if>
 
-            <if test="updator != null">
-                updator=#{updator},
+            <if test="saleslipid != null">
+                saleslipid=#{saleslipid},
             </if>
-            <if test="updatedtime != null">
-                updatedtime=#{updatedtime},
+            <if test="reason != null">
+                reason=#{reason},
             </if>
-            <if test="policystate != null">
-                policystate=#{policystate},
+            <if test="reamrk != null">
+                reamrk=#{reamrk},
             </if>
+
         </set>
         where id=#{id}
     </update>

@@ -1,20 +1,18 @@
 package app.pp.service.impl;
 
-import app.pp.entity.Group;
-import app.pp.entity.SaleSlip;
-import app.pp.entity.Saleman;
-import app.pp.entity.SysUserEntity;
+import app.pp.entity.*;
 import app.pp.exceptions.GlobleException;
-import app.pp.mapper.SaleSlipMapper;
-import app.pp.mapper.SalemanMapper;
-import app.pp.mapper.SysUserDao;
+import app.pp.mapper.*;
 import app.pp.service.GroupService;
 import app.pp.service.SaleSlipService;
 import app.pp.service.SalemanService;
 import app.pp.utils.OrderCodeUtils;
+import app.pp.vo.SaleSlipDelVO;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.GeneralSecurityException;
 import java.util.Calendar;
@@ -33,15 +31,23 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     private SaleSlipMapper saleSlipMapper;
     @Autowired
     private GroupService groupService;
+    @Autowired
+    private PolicyMapper policyMapper;
+    @Autowired
+    private SaleVoidRecordMapper saleVoidRecordMapper;
+
     public void save(SaleSlip slip) {
         //系统自动分配 当前账号车行  对应的  保单号
         Group group =  groupService.getCurrentGroup();
         if(3 != group.getType()){
             throw new GlobleException("当前账号不是车行账号，不能添加销售单");
         }
-
-
-
+        Policy policy = policyMapper.selectByGroupid(group.getId());
+        if(policy == null){
+            throw new GlobleException("没有可用的保单号，请先添加保单");
+        }
+        slip.setPolicyid(policy.getId());
+        slip.setShop4s(group.getName());
         slip.setSalenum(OrderCodeUtils.generateCode());
         //保险开始日期
         slip.setPstarttime(slip.getInstalltime());
@@ -50,20 +56,87 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         cal.setTime(slip.getInstalltime());
         cal.add(Calendar.YEAR, 1);//增加一年
         slip.setPendtime(cal.getTime());
+
+        //最高赔付金额 = 新车购入价格
+        slip.setCompensation(slip.getCarprice());
         saleSlipMapper.insert(slip);
     }
 
     public void update(SaleSlip slip) {
-        saleSlipMapper.update(slip);
+        SaleSlip oldslip =  saleSlipMapper.findById(slip.getId());
+        if(oldslip != null){
+            if(1 == oldslip.getPrintstate()) {
+                //判断设备号是否一致  不一致废弃老的设备号
+                if (oldslip.getDeviceid().equals(slip.getDeviceid())) {
+
+                }
+                //状态变成为 未打印
+                slip.setPrintstate(1);
+                SysUserEntity user = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
+                slip.setUpdator(user.getUserId());
+                slip.setUpdatedtime(new Date());
+                saleSlipMapper.update(slip);
+            }else{
+                throw  new GlobleException("已打印的销售单不能编辑");
+            }
+        }
+
+
     }
+    @Transactional
+    public void delete(SaleSlipDelVO vo) {
+        SaleSlip ss= saleSlipMapper.selectById(vo.getId());
+        if(ss != null){
+            SysUserEntity user = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
+            //将销售单变成为废弃状态
+            SaleSlip delss = new SaleSlip();
+            delss.setId(ss.getId());
+            delss.setPrintstate(3);
+            delss.setUpdatedtime(new Date());
+            delss.setUpdator(user.getUserId());
+            saleSlipMapper.update(delss);
 
-    public void delete(Integer id) {
+            //创建销售单废弃记录
+            SaleVoidRecord svr = new SaleVoidRecord();
+            svr.setReason(vo.getReason());
+            svr.setRemark(vo.getReamrk());
+            if(1 == ss.getPrintstate()){
+                BeanUtils.copyProperties(ss,svr);
+            }else if(2 == ss.getPrintstate()){
+                if(1 == vo.getReason()){
+                    svr.setDeviceid(ss.getDeviceid());
+                    svr.setPolicydate(ss.getPolicydate());
+                    svr.setPstarttime(ss.getPstarttime());
+                    svr.setPendtime(ss.getPendtime());
+                    svr.setBuycartype(ss.getBuycartype());
+                    svr.setCarprice(ss.getCarprice());
+                    svr.setCompensation(ss.getCompensation());
+                    svr.setFirstbeneficiary(ss.getFirstbeneficiary());
+                }else{
+                    svr.setCustomername(ss.getCustomername());
+                    svr.setCertificatenum(ss.getCertificatenum());
+                    svr.setAddress(ss.getAddress());
+                    svr.setPhone(ss.getPhone());
+                    svr.setCarbrandid(ss.getCarbrandid());
+                    svr.setCarsysid(ss.getCarsysid());
+                    svr.setEnginenum(ss.getEnginenum());
+                    svr.setFrame(ss.getFrame());
+                }
+            }
 
+            svr.setDelman(user.getUserId());
+            svr.setDeltime(new Date());
+            saleVoidRecordMapper.insert(svr);
+        }
     }
 
     public List<SaleSlip> selectall(Map<String,Object> param) {
         List<Group> groups = groupService.selectall();
         param.put("groups",groups);
         return saleSlipMapper.selectAll(param);
+    }
+
+    public SaleSlip info(Integer id){
+        return saleSlipMapper.selectById(id);
     }
 }
