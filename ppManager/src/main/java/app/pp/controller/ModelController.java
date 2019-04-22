@@ -4,10 +4,7 @@ import app.pp.common.Result;
 import app.pp.entity.Model;
 import app.pp.service.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /*
   保单模版相关接口
@@ -26,4 +23,26 @@ public class ModelController {
         return modelService.saveModel(model);
     }
 
+    /**
+     * 删除保单模板
+     */
+    @GetMapping("/del/{id}")
+    public Result del(@PathVariable(value = "id") Integer id){
+        return modelService.del(id);
+    }
+    /**
+     * 模板禁用启用
+     */
+    @GetMapping("disoren/{id}/{state}")
+    public Result disoren(@PathVariable(value = "id") Integer id,@PathVariable(value = "state") Integer state){
+
+        return modelService.disoren(id,state);
+    }
+    /**
+     * 模板列表
+     */
+    @GetMapping("list")
+    public Result list(){
+        return modelService.list();
+    }
 }

@@ -3,10 +3,12 @@ package app.pp.service.impl;
 import app.pp.common.Result;
 import app.pp.entity.Policy;
 import app.pp.entity.SysRoleMenuEntity;
+import app.pp.entity.SysUserEntity;
 import app.pp.enums.ErrorEnum;
 import app.pp.mapper.PolicyMapper;
 import app.pp.service.PolicyService;
 import app.pp.utils.ResultUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,13 +103,13 @@ public class PolicyServiceImpl implements PolicyService {
 
     public Policy set(String prefix,Integer number,String pnum,Integer groupid){
 
-        SysRoleMenuEntity sysRoleMenuEntity = new SysRoleMenuEntity();
+        SysUserEntity s = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
 
         Policy policys = new Policy();
 
         policys.setCreatedtime(new Date());
 
-        policys.setCreator(sysRoleMenuEntity.getId());
+        policys.setCreator(s.getUserId());
 
         policys.setNumber(number);
 
