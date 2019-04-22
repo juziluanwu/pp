@@ -21,6 +21,6 @@ public interface ModelService {
     public Result disoren(Integer id,Integer state);
 
     //查询模板列表
-    public Result list();
+    public Result list(Integer page);
 
 }

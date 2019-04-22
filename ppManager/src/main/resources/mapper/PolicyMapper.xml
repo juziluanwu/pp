@@ -163,11 +163,31 @@
   </select>
 
   <delete id="del" parameterType="int">
-    update set isdel = 0  where id = #{policyid}
+    update set isdel = 1  where id = #{policyid}
   </delete>
 
   <select id="selectByGroupid" parameterType="int" resultType="app.pp.entity.Policy">
     select * from policy where isdel = 0 and state = 1 and groupid = #{groupid} limit 1
   </select>
 
+
+
+  <select id="list" parameterType="app.pp.entity.PolicyEntity" resultType="app.pp.entity.PolicyEntity">
+    SELECT po.*,sa.buycartype,gr.`name` as groupname FROM `policy` po
+    LEFT JOIN `saleslip` sa ON  po.`saleid` = sa.`id`
+    LEFT JOIN `group` gr ON sa.`firstbeneficiary` = gr.`id`
+     WHERE 1=1
+    <if test="groupid != null">
+     and po.`groupid` = #{groupid}
+    </if>
+    <if test="pnum !=null and pnum!= ''">
+    and po.pnum = #{pnum}
+    </if>
+    <if test="state !=null">
+    and state = #{state}
+    </if>
+    and po.`isdel` = 1
+    order by createdtime desc
+
+  </select>
 </mapper>

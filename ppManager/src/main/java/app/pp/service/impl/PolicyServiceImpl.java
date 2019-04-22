@@ -1,17 +1,19 @@
 package app.pp.service.impl;
 
 import app.pp.common.Result;
-import app.pp.entity.Policy;
-import app.pp.entity.SysRoleMenuEntity;
-import app.pp.entity.SysUserEntity;
+import app.pp.entity.*;
 import app.pp.enums.ErrorEnum;
 import app.pp.mapper.PolicyMapper;
 import app.pp.service.PolicyService;
+import app.pp.utils.GlobleUtils;
 import app.pp.utils.ResultUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.channels.Pipe;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -98,6 +100,31 @@ public class PolicyServiceImpl implements PolicyService {
             return ResultUtils.fail("删除失败");
         }
 
+    }
+    //保单号转移车行
+    @Override
+    public Result transfer(TransferCarEntity transferCarEntity) {
+            int num = 0;
+        for (int i = 0;i<transferCarEntity.getPolicys().size();i++){
+            Policy policy = new Policy();
+            policy.setId(transferCarEntity.getPolicys().get(i));
+            policy.setGroupid(transferCarEntity.getGroupid());
+           num =  policyMapper.updateByPrimaryKeySelective(policy);
+        }
+        if(num>0){
+            return ResultUtils.result(ErrorEnum.SUCCESS,"车行转移成功");
+        }else{
+            return ResultUtils.fail("车行转移失败");
+        }
+
+    }
+
+    @Override
+    //保单号查询
+    public Result list(PolicyEntity policy) {
+        PageHelper.startPage(null == policy.getPage() ? 1 : policy.getPage(), GlobleUtils.DEFAULT_PAGE_SIZE);
+        PageInfo<PolicyEntity> pageInfo = new PageInfo<PolicyEntity>(policyMapper.list(policy));
+        return ResultUtils.result(ErrorEnum.SUCCESS,pageInfo);
     }
 
 

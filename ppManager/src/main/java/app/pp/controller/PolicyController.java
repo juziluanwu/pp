@@ -2,6 +2,8 @@ package app.pp.controller;
 
 import app.pp.common.Result;
 import app.pp.entity.Policy;
+import app.pp.entity.PolicyEntity;
+import app.pp.entity.TransferCarEntity;
 import app.pp.service.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,5 +28,16 @@ public class PolicyController {
 
         return policyService.del(policyid);
 
+    }
+
+    //保单号转移车行
+    @PostMapping("transfer")
+    public Result transfer(@RequestBody TransferCarEntity transferCarEntity){
+        return policyService.transfer(transferCarEntity);
+    }
+    //保单号查询
+    @PostMapping("list")
+    public Result list(@RequestBody PolicyEntity policy){
+        return policyService.list(policy);
     }
 }

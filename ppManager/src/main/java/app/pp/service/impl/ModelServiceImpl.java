@@ -2,12 +2,16 @@ package app.pp.service.impl;
 
 import app.pp.common.Result;
 import app.pp.entity.Model;
+import app.pp.entity.PolicyEntity;
 import app.pp.entity.SysRoleMenuEntity;
 import app.pp.entity.SysUserEntity;
 import app.pp.enums.ErrorEnum;
 import app.pp.mapper.ModelMapper;
 import app.pp.service.ModelService;
+import app.pp.utils.GlobleUtils;
 import app.pp.utils.ResultUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +47,7 @@ public class ModelServiceImpl implements ModelService {
     public Result del(Integer id) {
         Model model = new Model();
         model.setId(id);
-        model.setIsdel(0);
+        model.setIsdel(1);
         int i = modelMapper.updateByPrimaryKeySelective(model);
         if(i>0){
             return ResultUtils.result(ErrorEnum.SUCCESS,"模板删除成功");
@@ -69,8 +73,9 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     //模板列表查询
-    public Result list() {
-
-        return ResultUtils.result(ErrorEnum.SUCCESS,modelMapper.selectAll());
+    public Result list(Integer page) {
+        PageHelper.startPage(null == page ? 1 : page, GlobleUtils.DEFAULT_PAGE_SIZE);
+        PageInfo<Model> pageInfo = new PageInfo<Model>(modelMapper.selectAll());
+        return ResultUtils.result(ErrorEnum.SUCCESS,pageInfo);
     }
 }

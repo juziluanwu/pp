@@ -1,6 +1,7 @@
 package app.pp.mapper;
 
 import app.pp.entity.Policy;
+import app.pp.entity.PolicyEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -32,4 +33,7 @@ public interface PolicyMapper {
 
     //获取车行分组对应未关联的保单号
     Policy selectByGroupid(Integer groupid);
+
+    //保单号查询
+    List<PolicyEntity> list(PolicyEntity policyEntity);
 }

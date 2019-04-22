@@ -9,9 +9,10 @@
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="createuser" jdbcType="INTEGER" property="createuser" />
+    <result column="isdel" jdbcType="INTEGER" property="isdel" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, plimit, `state`, `path`, createtime, `createuser`
+    id, `name`, plimit, `state`, `path`, createtime, `createuser`, `isdel`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -55,6 +56,9 @@
       <if test="createuser != null">
         `createuser`,
       </if>
+      <if test="isdel != null">
+        `isdel`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -77,6 +81,9 @@
       </if>
       <if test="createuser != null">
         #{createuser,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -101,6 +108,9 @@
       <if test="createuser != null">
         `createuser` = #{createuser,jdbcType=INTEGER},
       </if>
+      <if test="isdel != null">
+        `isdel` = #{isdel,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -114,4 +124,8 @@
       `createuser` = #{createuser,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAll" resultType="app.pp.entity.Model">
+    select * from model where isdel = 1 order by createtime desc
+  </select>
 </mapper>
