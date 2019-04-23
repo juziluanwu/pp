@@ -169,6 +169,17 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     }
 
     public int getRenewalLimit(Integer id){
-        return printRecordMapper.selectSumdateBySaleslipid(id);
+        int num = 0;
+        SaleSlip ss = saleSlipMapper.findById(id);
+        if(ss != null){
+            int plimit = printRecordMapper.selectSumdateBySaleslipid(id);
+            if(plimit >= ss.getPolicydate()){
+                //已打印累计期限 >=销售单期限
+                throw new GlobleException("已超出销售单期限，不能续期");
+            }else{
+                num = ss.getPolicydate()-plimit;
+            }
+        }
+        return num;
     }
 }

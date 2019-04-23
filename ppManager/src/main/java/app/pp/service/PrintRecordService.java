@@ -3,6 +3,7 @@ package app.pp.service;
 
 import app.pp.entity.Group;
 import app.pp.entity.SaleSlip;
+import app.pp.vo.PrintVO;
 
 import java.util.List;
 
@@ -13,10 +14,7 @@ import java.util.List;
 public interface PrintRecordService {
 
 
-    /**
-     * 获取打印年限
-     */
-    int getPrintLimit(Integer id);
-
     SaleSlip getPrintInfo(Integer id);
+
+    void print(PrintVO vo);
 }

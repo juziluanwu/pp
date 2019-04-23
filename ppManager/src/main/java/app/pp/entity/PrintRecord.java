@@ -8,8 +8,6 @@ public class PrintRecord {
 
     private Integer saleslipid;
 
-    private Integer modelid;
-
     private Integer printlimit;
 
     private Date createdtime;
@@ -46,14 +44,6 @@ public class PrintRecord {
 
     public void setSaleslipid(Integer saleslipid) {
         this.saleslipid = saleslipid;
-    }
-
-    public Integer getModelid() {
-        return modelid;
-    }
-
-    public void setModelid(Integer modelid) {
-        this.modelid = modelid;
     }
 
     public Integer getPrintlimit() {
