@@ -116,4 +116,6 @@ public class SaleSlipController extends AbstractController {
         saleSlipService.getRenewalLimit(id);
         return ResultUtils.result(ErrorEnum.SUCCESS, "续期成功");
     }
+
+    //缺少验证设备号接口
 }

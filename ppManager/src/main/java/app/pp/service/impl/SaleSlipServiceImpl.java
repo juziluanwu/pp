@@ -63,6 +63,8 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         //最高赔付金额 = 新车购入价格
         slip.setCompensation(slip.getCarprice());
         saleSlipMapper.insert(slip);
+        //将保单变更为 关联状态
+
     }
 
     public void update(SaleSlip slip) {
@@ -108,7 +110,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 BeanUtils.copyProperties(ss, svr);
             } else if (2 == ss.getPrintstate()) {
                 if (1 == vo.getReason()) {
-                    //退保
+                    //退保   可以编辑所有？
                     svr.setDeviceid(ss.getDeviceid());
                     svr.setPolicydate(ss.getPolicydate());
                     svr.setPstarttime(ss.getPstarttime());
@@ -118,8 +120,6 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                     svr.setCompensation(ss.getCompensation());
                     svr.setFirstbeneficiary(ss.getFirstbeneficiary());
 
-                    //将打印记录清空
-                    printRecordMapper.deleteBySaleslipid(ss.getId());
                 } else {
                     //剩下所有原因
                     svr.setCustomername(ss.getCustomername());
