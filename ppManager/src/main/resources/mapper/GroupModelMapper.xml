@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.pp.mapper.GroupModelMapper">
+
+    <insert id="insert" parameterType="app.pp.entity.GroupModel" useGeneratedKeys="true" keyProperty="id" >
+        insert into group_model
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gid != null">
+                gid,
+            </if>
+            <if test="mid != null">
+                mid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gid != null">
+                #{gid},
+            </if>
+            <if test="mid != null">
+                #{mid},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByGid" parameterType="int">
+        delete from group_model where gid = #{gid}
+    </delete>
+
+    <delete id="deleteById" parameterType="int">
+        delete from group_model where id = #{id}
+    </delete>
+
+    <select id="selectByGid" parameterType="int" resultType="app.pp.entity.GroupModel">
+        select * from group_model where gid = #{gid}
+    </select>
+</mapper>

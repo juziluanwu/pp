@@ -1,6 +1,7 @@
 package app.pp.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Group {
 
@@ -21,6 +22,8 @@ public class Group {
     private Date updatedtime;
 
     private Long updator;
+
+    private List<GroupModel> groupModelList;
 
     public Integer getId() {
         return id;
@@ -92,5 +95,13 @@ public class Group {
 
     public void setIsdel(Integer isdel) {
         this.isdel = isdel;
+    }
+
+    public List<GroupModel> getGroupModelList() {
+        return groupModelList;
+    }
+
+    public void setGroupModelList(List<GroupModel> groupModelList) {
+        this.groupModelList = groupModelList;
     }
 }
