@@ -8,4 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public interface PrintRecordMapper {
     int insert(PrintRecord printRecord);
+    int deleteBySaleslipid(Integer saleslipid);
+    PrintRecord selectBySaleslipid(Integer saleslipid);
 }

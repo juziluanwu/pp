@@ -160,6 +160,9 @@
             <if test="policystate != null">
                 policystate,
             </if>
+            <if test="delstate != null">
+                delstate,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="salenum != null">
@@ -260,6 +263,9 @@
             </if>
             <if test="policystate != null">
                 #{policystate},
+            </if>
+            <if test="delstate != null">
+                #{delstate},
             </if>
         </trim>
     </insert>
@@ -367,6 +373,9 @@
             </if>
             <if test="policystate != null">
                 policystate=#{policystate},
+            </if>
+            <if test="delstate != null">
+                delstate=#{delstate},
             </if>
         </set>
         where id=#{id}

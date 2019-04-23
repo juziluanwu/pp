@@ -2,11 +2,14 @@ package app.pp.service.impl;
 
 import app.pp.entity.*;
 import app.pp.exceptions.GlobleException;
-import app.pp.mapper.*;
+import app.pp.mapper.PolicyMapper;
+import app.pp.mapper.PrintRecordMapper;
+import app.pp.mapper.SaleSlipMapper;
+import app.pp.mapper.SaleVoidRecordMapper;
 import app.pp.service.GroupService;
 import app.pp.service.SaleSlipService;
-import app.pp.service.SalemanService;
 import app.pp.utils.OrderCodeUtils;
+import app.pp.vo.RenewalVO;
 import app.pp.vo.SaleSlipDelVO;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.BeanUtils;
@@ -14,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.GeneralSecurityException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,15 +37,16 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     private PolicyMapper policyMapper;
     @Autowired
     private SaleVoidRecordMapper saleVoidRecordMapper;
-
+    @Autowired
+    private PrintRecordMapper printRecordMapper;
     public void save(SaleSlip slip) {
         //系统自动分配 当前账号车行  对应的  保单号
-        Group group =  groupService.getCurrentGroup();
-        if(3 != group.getType()){
+        Group group = groupService.getCurrentGroup();
+        if (3 != group.getType()) {
             throw new GlobleException("当前账号不是车行账号，不能添加销售单");
         }
         Policy policy = policyMapper.selectByGroupid(group.getId());
-        if(policy == null){
+        if (policy == null) {
             throw new GlobleException("没有可用的保单号，请先添加保单");
         }
         slip.setPolicyid(policy.getId());
@@ -63,9 +66,9 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     }
 
     public void update(SaleSlip slip) {
-        SaleSlip oldslip =  saleSlipMapper.findById(slip.getId());
-        if(oldslip != null){
-            if(1 == oldslip.getPrintstate()) {
+        SaleSlip oldslip = saleSlipMapper.findById(slip.getId());
+        if (oldslip != null) {
+            if (1 == oldslip.getPrintstate()) {
                 //判断设备号是否一致  不一致废弃老的设备号
                 if (oldslip.getDeviceid().equals(slip.getDeviceid())) {
 
@@ -76,17 +79,18 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 slip.setUpdator(user.getUserId());
                 slip.setUpdatedtime(new Date());
                 saleSlipMapper.update(slip);
-            }else{
-                throw  new GlobleException("已打印的销售单不能编辑");
+            } else {
+                throw new GlobleException("已打印的销售单不能编辑");
             }
         }
 
 
     }
+
     @Transactional
     public void delete(SaleSlipDelVO vo) {
-        SaleSlip ss= saleSlipMapper.selectById(vo.getId());
-        if(ss != null){
+        SaleSlip ss = saleSlipMapper.selectById(vo.getId());
+        if (ss != null) {
             SysUserEntity user = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
             //将销售单变成为废弃状态
             SaleSlip delss = new SaleSlip();
@@ -100,10 +104,11 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             SaleVoidRecord svr = new SaleVoidRecord();
             svr.setReason(vo.getReason());
             svr.setRemark(vo.getReamrk());
-            if(1 == ss.getPrintstate()){
-                BeanUtils.copyProperties(ss,svr);
-            }else if(2 == ss.getPrintstate()){
-                if(1 == vo.getReason()){
+            if (1 == ss.getPrintstate()) {
+                BeanUtils.copyProperties(ss, svr);
+            } else if (2 == ss.getPrintstate()) {
+                if (1 == vo.getReason()) {
+                    //退保
                     svr.setDeviceid(ss.getDeviceid());
                     svr.setPolicydate(ss.getPolicydate());
                     svr.setPstarttime(ss.getPstarttime());
@@ -112,7 +117,11 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                     svr.setCarprice(ss.getCarprice());
                     svr.setCompensation(ss.getCompensation());
                     svr.setFirstbeneficiary(ss.getFirstbeneficiary());
-                }else{
+
+                    //将打印记录清空
+                    printRecordMapper.deleteBySaleslipid(ss.getId());
+                } else {
+                    //剩下所有原因
                     svr.setCustomername(ss.getCustomername());
                     svr.setCertificatenum(ss.getCertificatenum());
                     svr.setAddress(ss.getAddress());
@@ -130,13 +139,38 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         }
     }
 
-    public List<SaleSlip> selectall(Map<String,Object> param) {
+    public List<SaleSlip> selectall(Map<String, Object> param) {
         List<Group> groups = groupService.selectall();
-        param.put("groups",groups);
+        param.put("groups", groups);
         return saleSlipMapper.selectAll(param);
     }
 
-    public SaleSlip info(Integer id){
+    public SaleSlip info(Integer id) {
         return saleSlipMapper.selectById(id);
+    }
+
+    @Transactional
+    public void renewal(RenewalVO vo) {
+
+        SaleSlip ss = saleSlipMapper.selectById(vo.getSaleslipid());
+        if (ss != null) {
+            //查询上次打印期限
+            PrintRecord pr = printRecordMapper.selectBySaleslipid(vo.getSaleslipid());
+            if(pr != null){
+                if(pr.getPrintlimit() + vo.getDate() >ss.getPolicydate()){
+
+                }
+            }
+            SaleSlip newss = new SaleSlip();
+            newss.setId(ss.getId());
+            //打印状态变更为 未打印
+            newss.setPrintstate(1);
+            //变更 保单生效时间为  以前的结束时间加1天
+
+
+
+        } else {
+            throw new GlobleException("保单不存在");
+        }
     }
 }
