@@ -187,7 +187,7 @@
       </foreach>
     </if>
     <if test="pnum !=null and pnum!= ''">
-    and po.pnum = #{pnum}
+        and po.pnum like concat(concat("%",#{pnum}),"%")
     </if>
     <if test="state !=null">
     and state = #{state}
