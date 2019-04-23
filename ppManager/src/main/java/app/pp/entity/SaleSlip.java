@@ -85,6 +85,8 @@ public class SaleSlip {
 
     private Integer delstate;//废弃状态
 
+    private Integer printlimit;//打印期限
+
     public Integer getId() {
         return id;
     }
@@ -403,5 +405,13 @@ public class SaleSlip {
 
     public void setDelstate(Integer delstate) {
         this.delstate = delstate;
+    }
+
+    public Integer getPrintlimit() {
+        return printlimit;
+    }
+
+    public void setPrintlimit(Integer printlimit) {
+        this.printlimit = printlimit;
     }
 }

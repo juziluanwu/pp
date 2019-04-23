@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component;
 public interface PrintRecordMapper {
     int insert(PrintRecord printRecord);
     int deleteBySaleslipid(Integer saleslipid);
-    PrintRecord selectBySaleslipid(Integer saleslipid);
+    int selectSumdateBySaleslipid(Integer saleslipid);
 }

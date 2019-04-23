@@ -45,4 +45,6 @@ public interface SaleSlipService {
     SaleSlip info(Integer id);
 
     void renewal(RenewalVO vo);
+
+    int getRenewalLimit(Integer id);
 }

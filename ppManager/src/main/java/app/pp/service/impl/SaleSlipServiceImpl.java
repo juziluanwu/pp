@@ -74,7 +74,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
 
                 }
                 //状态变成为 未打印
-                slip.setPrintstate(1);
+                //slip.setPrintstate(1);
                 SysUserEntity user = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
                 slip.setUpdator(user.getUserId());
                 slip.setUpdatedtime(new Date());
@@ -95,7 +95,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             //将销售单变成为废弃状态
             SaleSlip delss = new SaleSlip();
             delss.setId(ss.getId());
-            delss.setPrintstate(3);
+            delss.setDelstate(1);
             delss.setUpdatedtime(new Date());
             delss.setUpdator(user.getUserId());
             saleSlipMapper.update(delss);
@@ -151,26 +151,24 @@ public class SaleSlipServiceImpl implements SaleSlipService {
 
     @Transactional
     public void renewal(RenewalVO vo) {
-
         SaleSlip ss = saleSlipMapper.selectById(vo.getSaleslipid());
         if (ss != null) {
-            //查询上次打印期限
-            PrintRecord pr = printRecordMapper.selectBySaleslipid(vo.getSaleslipid());
-            if(pr != null){
-                if(pr.getPrintlimit() + vo.getDate() >ss.getPolicydate()){
-
-                }
-            }
             SaleSlip newss = new SaleSlip();
             newss.setId(ss.getId());
             //打印状态变更为 未打印
             newss.setPrintstate(1);
             //变更 保单生效时间为  以前的结束时间加1天
-
-
-
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(ss.getPendtime());
+            cal.add(Calendar.DAY_OF_MONTH, 1);//增加一年
+            newss.setPstarttime(cal.getTime());
+            saleSlipMapper.update(newss);
         } else {
             throw new GlobleException("保单不存在");
         }
+    }
+
+    public int getRenewalLimit(Integer id){
+        return printRecordMapper.selectSumdateBySaleslipid(id);
     }
 }

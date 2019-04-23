@@ -98,12 +98,22 @@ public class SaleSlipController extends AbstractController {
     }
 
     /**
-     * 保单续期
+     * 保单续期确认
      */
     @PostMapping("/renewal")
     @RequiresPermissions("sys:saleslip:renewal")
     public Result renewal(@RequestBody RenewalVO vo) {
         saleSlipService.renewal(vo);
+        return ResultUtils.result(ErrorEnum.SUCCESS, "续期成功");
+    }
+
+
+    /**
+     * 获取保单续期期限
+     */
+    @GetMapping("/getRenewalLimit/{id}")
+    public Result getRenewalLimit(@PathVariable(value = "id")Integer id) {
+        saleSlipService.getRenewalLimit(id);
         return ResultUtils.result(ErrorEnum.SUCCESS, "续期成功");
     }
 }

@@ -51,7 +51,7 @@
     <delete id="deleteBySaleslipid" parameterType="int">
         update printrecord set isdel = 1 where saleslipid = #{saleslipid}
     </delete>
-    <select id="selectBySaleslipid" parameterType="int" resultType="app.pp.entity.PrintRecord">
-        select * from printrecord where isdel = 0 and saleslipid = #{saleslipid}
+    <select id="selectSumdateBySaleslipid" parameterType="int" resultType="int">
+        select sum(printlimit) from printrecord where isdel = 0 and saleslipid = #{saleslipid}
     </select>
 </mapper>
