@@ -83,4 +83,13 @@ public class GroupController extends AbstractController {
         groupService.delete(id);
         return ResultUtils.result(ErrorEnum.SUCCESS, "删除成功");
     }
+
+    /**
+     * 获取第一受益人下拉框
+     *
+     */
+    @GetMapping("/firstbeneficiarylist")
+    public Result firstbeneficiarylist() {
+        return ResultUtils.result(ErrorEnum.SUCCESS, groupService.firstbeneficiarylist());
+    }
 }

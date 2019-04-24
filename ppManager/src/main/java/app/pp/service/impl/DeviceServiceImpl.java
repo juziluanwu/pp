@@ -171,7 +171,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     }
 
-    public void testDevice(String devicenum){
+    public Integer testDevice(String devicenum){
         Device d = deviceMapper.selectDeviceExsit(devicenum);
         if(d== null){
             throw new GlobleException("设备号不存在");
@@ -182,5 +182,6 @@ public class DeviceServiceImpl implements DeviceService {
                 throw new GlobleException("设备号已被作废");
             }
         }
+        return d.getId();
     }
 }

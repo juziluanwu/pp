@@ -34,4 +34,8 @@
     <select id="selectByGid" parameterType="int" resultType="app.pp.entity.GroupModel">
         select * from group_model where gid = #{gid}
     </select>
+    <select id="selectModelByGid" parameterType="int" resultType="app.pp.entity.Model">
+        select m.* from group_model gm left join model m on m.id = gm.mid where m.isdel = 0 and gm.gid = #{gid}
+    </select>
+
 </mapper>

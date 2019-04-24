@@ -50,4 +50,11 @@ public interface SaleSlipService {
      */
     void renewal(RenewalVO vo);
 
+    /**
+     * 获取保单续期信息
+     * @param id
+     * @return
+     */
+    Map<String,Object> getRenewalInfo(Integer id);
+
 }

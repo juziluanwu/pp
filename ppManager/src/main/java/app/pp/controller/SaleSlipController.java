@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 账号分组
+ * 销售单
  */
 @RestController
 @RequestMapping("/saleslip")
@@ -100,17 +100,23 @@ public class SaleSlipController extends AbstractController {
      * 保单续期确认
      */
     @PostMapping("/renewal")
-    @RequiresPermissions("sys:saleslip:renewal")
     public Result renewal(@RequestBody RenewalVO vo) {
         saleSlipService.renewal(vo);
         return ResultUtils.result(ErrorEnum.SUCCESS, "续期成功");
     }
+    /**
+     * 点击保单续期获取续期相关信息
+     */
+    @GetMapping("/getRenewalInfo/{id}")
+    @RequiresPermissions("sys:saleslip:renewal")
+    public Result getRenewalInfo(@PathVariable(value = "id") Integer id) {
+        return ResultUtils.result(ErrorEnum.SUCCESS, saleSlipService.getRenewalInfo(id));
+    }
 
 
     //验证设备号接口
-    @PostMapping("/testDevice")
+    @GetMapping("/testDevice")
     public Result renewal(@RequestParam(value = "devicenum") String devicenum) {
-        deviceService.testDevice(devicenum);
-        return ResultUtils.result(ErrorEnum.SUCCESS, "设备号可以使用");
+        return ResultUtils.result(ErrorEnum.SUCCESS,deviceService.testDevice(devicenum) );
     }
 }

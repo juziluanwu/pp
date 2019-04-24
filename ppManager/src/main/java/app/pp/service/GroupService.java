@@ -40,4 +40,6 @@ public interface GroupService {
     Group getCurrentGroup();
 
     Group info(Integer id);
+
+    List<Group> firstbeneficiarylist();
 }

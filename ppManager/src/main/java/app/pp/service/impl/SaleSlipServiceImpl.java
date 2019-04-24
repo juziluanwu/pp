@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -229,4 +226,19 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         }
     }
 
+   public Map<String,Object> getRenewalInfo(Integer id){
+       Map<String,Object> result = new HashMap<>();
+       SaleSlip ss = saleSlipMapper.selectById(id);
+       if(ss != null){
+           result.put("customername",ss.getCustomername());
+           result.put("carnum",ss.getCarnum());
+           result.put("pstarttime",ss.getPstarttime());
+           result.put("pendtime",ss.getPendtime());
+           result.put("pnum",ss.getPnum());
+           int i = printRecordMapper.selectSumdateBySaleslipid(id);
+           result.put("renewallimit",ss.getPolicydate()-i);
+       }
+       return  result;
+   }
 }
+

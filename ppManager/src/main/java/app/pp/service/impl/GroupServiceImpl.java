@@ -141,4 +141,8 @@ public class GroupServiceImpl implements GroupService {
         }
         return group;
     }
+
+    public List<Group> firstbeneficiarylist(){
+        return groupMapper.selectByType(5);
+    }
 }

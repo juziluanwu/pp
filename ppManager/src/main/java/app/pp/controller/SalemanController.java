@@ -29,7 +29,7 @@ public class SalemanController extends AbstractController {
      */
     @GetMapping("/list")
     public Result list(@RequestParam(value = "name", required = false) String name,
-                       @RequestParam(value = "name", required = false) String phone) {
+                       @RequestParam(value = "phone", required = false) String phone) {
         Map<String, Object> param = new HashMap<>();
         param.put("name", name);
         param.put("phone", phone);

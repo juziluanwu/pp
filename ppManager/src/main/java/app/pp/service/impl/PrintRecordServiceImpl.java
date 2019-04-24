@@ -5,6 +5,7 @@ import app.pp.entity.SaleSlip;
 import app.pp.entity.SysUserEntity;
 import app.pp.mapper.PrintRecordMapper;
 import app.pp.mapper.SaleSlipMapper;
+import app.pp.service.ModelService;
 import app.pp.service.PrintRecordService;
 import app.pp.service.SaleSlipService;
 import app.pp.vo.PrintVO;
@@ -25,6 +26,8 @@ public class PrintRecordServiceImpl implements PrintRecordService {
     private SaleSlipService saleSlipService;
     @Autowired
     private SaleSlipMapper saleSlipMapper;
+    @Autowired
+    private ModelService modelService;
 
     /**
      * 获取打印信息及年限
@@ -55,6 +58,8 @@ public class PrintRecordServiceImpl implements PrintRecordService {
                     result.put("printlimit",ss.getPolicydate()-pl);
                 }
             }
+
+            result.put("model",modelService.getCurrentGroupModel());
         }
         return  result;
     }

@@ -89,4 +89,8 @@
         </set>
         where id=#{id}
     </update>
+
+    <select id="selectByType" parameterType="int" resultType="app.pp.entity.Group">
+        select * from `group` where isdel = 0 and type = #{type}
+    </select>
 </mapper>

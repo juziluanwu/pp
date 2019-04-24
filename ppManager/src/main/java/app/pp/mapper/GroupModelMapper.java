@@ -1,6 +1,7 @@
 package app.pp.mapper;
 
 import app.pp.entity.GroupModel;
+import app.pp.entity.Model;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -16,4 +17,6 @@ public interface GroupModelMapper {
     int deleteByGid(Integer gid);
 
     List<GroupModel> selectByGid(Integer gid);
+
+    List<Model> selectModelByGid(Integer gid);
 }

@@ -9,6 +9,8 @@ package app.pp.service;
 import app.pp.common.Result;
 import app.pp.entity.Model;
 
+import java.util.List;
+
 public interface ModelService {
 
     //新增保单模版
@@ -23,4 +25,6 @@ public interface ModelService {
     //查询模板列表
     public Result list(Integer page);
 
+    //获取当前用户分组的打印模板
+    List<Model> getCurrentGroupModel();
 }

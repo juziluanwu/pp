@@ -29,4 +29,6 @@ public interface GroupMapper {
     int selectCountByPid(Integer id);
 
     List<Group> selectAll();
+
+    List<Group> selectByType(Integer type);
 }
