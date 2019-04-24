@@ -24,7 +24,7 @@ public class PrintRecordController extends AbstractController {
      * 获取打印信息
      */
     @GetMapping("/getPrintInfo/{id}")
-    @RequiresPermissions("sys:print:print")
+    @RequiresPermissions("sys:saleslip:print")
     public Result getPrintInfo(@PathVariable(value = "id") Integer id) {
         return ResultUtils.result(ErrorEnum.SUCCESS, printRecordService.getPrintInfo(id));
     }
