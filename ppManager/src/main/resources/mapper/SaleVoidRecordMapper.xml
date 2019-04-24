@@ -16,8 +16,11 @@
             <if test="salenum != null and salenum != ''">
                 and ss.salenum like '%${salenum}%'
             </if>
-            <if test="creator != null">
-                and ss.creator = #{creator}
+            <if test="creatorname != null and creatorname != ''">
+                and su.name like '%${creatorname}%'
+            </if>
+            <if test="shop4s != null and shop4s != ''">
+                and ss.shop4s like '%${shop4s}%'
             </if>
             <if test="dstarttime != null">
                 and ss.deltime  <![CDATA[ > ]]> #{dstarttime}

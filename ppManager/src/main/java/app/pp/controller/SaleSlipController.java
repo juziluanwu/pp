@@ -38,7 +38,7 @@ public class SaleSlipController extends AbstractController {
                        @RequestParam(value = "pnum",required = false) String pnum,
                        @RequestParam(value = "customername",required = false) String customername,
                        @RequestParam(value = "username",required = false) String username,
-                       @RequestParam(value = "firstbeneficiary",required = false) Integer firstbeneficiary,
+                       @RequestParam(value = "firstbeneficiary",required = false) String firstbeneficiary,
                        @RequestParam(value = "policystate",required = false) Integer policystate,
                        @RequestParam(value = "pstarttime",required = false) Date pstarttime,
                        @RequestParam(value = "pendtime",required = false) Date pendtime) {

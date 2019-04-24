@@ -3,12 +3,12 @@
 
 <mapper namespace="app.pp.mapper.SaleSlipMapper">
     <select id="selectAll" parameterType="map" resultType="app.pp.entity.SaleSlip">
-        select ss.*,d.devicenum,p.pnum,su.name creatorname,g.name firstbeneficiaryname,p.state policystate
+        select ss.*,d.devicenum,p.pnum,su.name creatorname,g_firstbeneficiary.name firstbeneficiaryname,p.state policystate
         from saleslip ss
         left join device d on ss.deviceid = d.id
         left join policy p on p.id = ss.policyid
         left join sys_user su on ss.creator = su.name
-        left join group g on g.id = ss.firstbeneficiary
+        left join `group` g_firstbeneficiary on g_firstbeneficiary.id = ss.firstbeneficiary
         <where>
             <if test="devicenum != null and devicenum != ''">
                 and d.devicenum like '%${devicenum}%'
@@ -22,8 +22,8 @@
             <if test="username != null and username != ''">
                 and su.name like '%${username}%'
             </if>
-            <if test="firstbeneficiary != null">
-                and ss.firstbeneficiary = #{firstbeneficiary}
+            <if test="firstbeneficiary != null and firstbeneficiary != ''">
+                and g_firstbeneficiary.firstbeneficiary  like '%${firstbeneficiary}%'
             </if>
             <if test="policystate != null">
                 and p.policystate = #{policystate}

@@ -26,14 +26,7 @@ public class SaleVoidRecordServiceImpl implements SaleVoidRecordService {
     private GroupService groupService;
 
     public List<SaleVoidRecord> selectall(Map<String, Object> param) {
-        List<Group> groups = new ArrayList<>();
-        if (param.get("groupid") != null) {
-            Group g = new Group();
-            g.setId((Integer) param.get("groupid"));
-            groups.add(g);
-        } else {
-            groups = groupService.selectall();
-        }
+        List<Group> groups= groupService.selectall();
         param.put("groups", groups);
         return saleVoidRecordMapper.selectAll(param);
     }
