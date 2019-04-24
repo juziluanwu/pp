@@ -27,4 +27,6 @@ public interface ModelService {
 
     //获取当前用户分组的打印模板
     List<Model> getCurrentGroupModel();
+
+    List<Model> select();
 }

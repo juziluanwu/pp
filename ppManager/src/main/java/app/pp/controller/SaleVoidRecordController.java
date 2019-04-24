@@ -3,14 +3,15 @@ package app.pp.controller;
 
 import app.pp.common.AbstractController;
 import app.pp.common.Result;
+import app.pp.entity.SaleVoidRecord;
 import app.pp.enums.ErrorEnum;
 import app.pp.service.SaleVoidRecordService;
+import app.pp.utils.GlobleUtils;
 import app.pp.utils.ResultUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,14 +28,16 @@ public class SaleVoidRecordController extends AbstractController {
     /**
      * 作废销售单列表
      */
-    @GetMapping("/list")
-    public Result list(@RequestParam(value = "devicenum", required = false) String devicenum,
+    @GetMapping("/list/{page}")
+    public Result list(@PathVariable(value = "page") Integer page,
+                       @RequestParam(value = "devicenum", required = false) String devicenum,
                        @RequestParam(value = "pnum", required = false) String pnum,
                        @RequestParam(value = "salenum", required = false) String salenum,
                        @RequestParam(value = "creatorname", required = false) String creatorname,//操作人
                        @RequestParam(value = "shop4s", required = false) String shop4s,//所属车行
                        @RequestParam(value = "dstarttime", required = false) String dstarttime,
                        @RequestParam(value = "dendtime", required = false) String dendtime) {
+        PageHelper.startPage(null == page ? 1 : page, GlobleUtils.DEFAULT_PAGE_SIZE);
         Map<String, Object> param = new HashMap<>();
         param.put("devicenum", devicenum);
         param.put("pnum", pnum);
@@ -43,6 +46,7 @@ public class SaleVoidRecordController extends AbstractController {
         param.put("shop4s", shop4s);
         param.put("dstarttime", dstarttime);
         param.put("dendtime", dendtime);
-        return ResultUtils.result(ErrorEnum.SUCCESS, saleVoidRecordService.selectall(param));
+        PageInfo<SaleVoidRecord> pageInfo = new PageInfo<>(saleVoidRecordService.selectall(param));
+        return ResultUtils.result(ErrorEnum.SUCCESS, pageInfo);
     }
 }

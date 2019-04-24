@@ -88,4 +88,8 @@ public class ModelServiceImpl implements ModelService {
         SysUserEntity user = sysUserService.getCurrentUser();
         return groupModelMapper.selectModelByGid(user.getGroupid());
     }
+
+    public List<Model> select() {
+        return modelMapper.selectAll();
+    }
 }

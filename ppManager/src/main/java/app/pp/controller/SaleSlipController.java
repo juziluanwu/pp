@@ -7,9 +7,12 @@ import app.pp.entity.SaleSlip;
 import app.pp.enums.ErrorEnum;
 import app.pp.service.DeviceService;
 import app.pp.service.SaleSlipService;
+import app.pp.utils.GlobleUtils;
 import app.pp.utils.ResultUtils;
 import app.pp.vo.RenewalVO;
 import app.pp.vo.SaleSlipDelVO;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +35,9 @@ public class SaleSlipController extends AbstractController {
     /**
      * 销售单列表
      */
-    @GetMapping("/list")
-    public Result list(@RequestParam(value = "devicenum", required = false) String devicenum,
+    @GetMapping("/list/{page}")
+    public Result list(@PathVariable(value = "page") Integer page,
+                       @RequestParam(value = "devicenum", required = false) String devicenum,
                        @RequestParam(value = "pnum", required = false) String pnum,
                        @RequestParam(value = "customername", required = false) String customername,
                        @RequestParam(value = "username", required = false) String username,
@@ -41,6 +45,7 @@ public class SaleSlipController extends AbstractController {
                        @RequestParam(value = "policystate", required = false) Integer policystate,
                        @RequestParam(value = "pstarttime", required = false) String pstarttime,
                        @RequestParam(value = "pendtime", required = false) String pendtime) {
+        PageHelper.startPage(null == page ? 1 : page, GlobleUtils.DEFAULT_PAGE_SIZE);
         Map<String, Object> param = new HashMap<>();
         param.put("devicenum", devicenum);
         param.put("pnum", pnum);
@@ -50,7 +55,8 @@ public class SaleSlipController extends AbstractController {
         param.put("policystate", policystate);
         param.put("pstarttime", pstarttime);
         param.put("pendtime", pendtime);
-        return ResultUtils.result(ErrorEnum.SUCCESS, saleSlipService.selectall(param));
+        PageInfo<SaleSlip> pageInfo = new PageInfo<>(saleSlipService.selectall(param));
+        return ResultUtils.result(ErrorEnum.SUCCESS, pageInfo);
     }
 
 
@@ -104,6 +110,7 @@ public class SaleSlipController extends AbstractController {
         saleSlipService.renewal(vo);
         return ResultUtils.result(ErrorEnum.SUCCESS, "续期成功");
     }
+
     /**
      * 点击保单续期获取续期相关信息
      */
@@ -117,6 +124,6 @@ public class SaleSlipController extends AbstractController {
     //验证设备号接口
     @GetMapping("/testDevice")
     public Result renewal(@RequestParam(value = "devicenum") String devicenum) {
-        return ResultUtils.result(ErrorEnum.SUCCESS,deviceService.testDevice(devicenum) );
+        return ResultUtils.result(ErrorEnum.SUCCESS, deviceService.testDevice(devicenum));
     }
 }

@@ -6,7 +6,10 @@ import app.pp.common.Result;
 import app.pp.entity.Saleman;
 import app.pp.enums.ErrorEnum;
 import app.pp.service.SalemanService;
+import app.pp.utils.GlobleUtils;
 import app.pp.utils.ResultUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +30,16 @@ public class SalemanController extends AbstractController {
     /**
      * 销售人员列表
      */
-    @GetMapping("/list")
-    public Result list(@RequestParam(value = "name", required = false) String name,
+    @GetMapping("/list/{page}")
+    public Result list(@PathVariable(value = "page") Integer page,
+                       @RequestParam(value = "name", required = false) String name,
                        @RequestParam(value = "phone", required = false) String phone) {
+        PageHelper.startPage(null == page ? 1 : page, GlobleUtils.DEFAULT_PAGE_SIZE);
         Map<String, Object> param = new HashMap<>();
         param.put("name", name);
         param.put("phone", phone);
-        return ResultUtils.result(ErrorEnum.SUCCESS, salemanService.selectall(param));
+        PageInfo<Saleman> pageInfo = new PageInfo<>(salemanService.selectall(param));
+        return ResultUtils.result(ErrorEnum.SUCCESS, pageInfo);
     }
 
 
