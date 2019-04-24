@@ -3,12 +3,9 @@
 
 <mapper namespace="app.pp.mapper.SaleVoidRecordMapper">
     <select id="selectAll" parameterType="map" resultType="app.pp.entity.SaleVoidRecord">
-        select ss.*,d.devicenum,p.pnum,su.name creatorname,g.name firstbeneficiaryname
+        select ss.*,su.name creatorname
         from salevoidrecord ss
-        left join device d on ss.deviceid = d.id
-        left join policy p on p.id = ss.policyid
         left join sys_user su on ss.creator = su.name
-        left join group g on g.id = ss.firstbeneficiary
         <where>
             <if test="devicenum != null and devicenum != ''">
                 and d.devicenum like '%${devicenum}%'
@@ -16,26 +13,18 @@
             <if test="pnum != null and pnum != ''">
                 and p.pnum like '%${pnum}%'
             </if>
-            <if test="customername != null and customername != ''">
-                and ss.customername like '%${customername}%'
+            <if test="salenum != null and salenum != ''">
+                and ss.salenum like '%${salenum}%'
             </if>
-            <if test="username != null and username != ''">
-                and su.name like '%${username}%'
+            <if test="creator != null">
+                and ss.creator = #{creator}
             </if>
-            <if test="firstbeneficiary != null">
-                and ss.firstbeneficiary = #{firstbeneficiary}
+            <if test="dstarttime != null">
+                and ss.deltime  <![CDATA[ > ]]> #{dstarttime}
             </if>
-            <if test="policystate != null">
-                and ss.policystate = #{policystate}
+            <if test="dendtime != null">
+                and ss.deltime <![CDATA[ <= ]]> #{dendtime}
             </if>
-
-               <if test="pstarttime != null">
-                and ss.pstarttime  <![CDATA[ >= ]]> #{pstarttime}
-              </if>
-              <if test="pendtime != null">
-                and ss.pendtime <![CDATA[ <= ]]> #{pendtime}
-              </if>
-
             <if test="groups != null">
                 and ss.groupid in
                 <foreach collection="groups" open="(" close=")" separator="," item="group">
@@ -46,27 +35,17 @@
         order by ss.id desc
     </select>
 
-    <select id="selectById" parameterType="Integer" resultType="app.pp.entity.SaleVoidRecord">
-          select ss.*,d.devicenum,p.pnum,su.name creatorname,g.name firstbeneficiaryname
-        from salevoidrecord ss
-        left join device d on ss.deviceid = d.id
-        left join policy p on p.id = ss.policyid
-        left join sys_user su on ss.creator = su.name
-        left join group g on g.id = ss.firstbeneficiary
-        where ss.id = #{id}
-    </select>
-
     <insert id="insert" parameterType="app.pp.entity.SaleVoidRecord" useGeneratedKeys="true" keyProperty="id" >
         insert into salevoidrecord
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="salenum != null">
                 salenum,
             </if>
-            <if test="deviceid != null">
-                deviceid,
+            <if test="devicenum != null">
+                devicenum,
             </if>
-            <if test="policyid != null">
-                policyid,
+            <if test="pnum != null">
+                pnum,
             </if>
             <if test="policydate != null">
                 policydate,
@@ -167,11 +146,11 @@
             <if test="salenum != null">
                 #{salenum},
             </if>
-            <if test="deviceid != null">
-                #{deviceid},
+            <if test="devicenum != null">
+                #{devicenum},
             </if>
-            <if test="policyid != null">
-                #{policyid},
+            <if test="pnum != null">
+                #{pnum},
             </if>
             <if test="policydate != null">
                 #{policydate},
@@ -276,11 +255,11 @@
             <if test="salenum !=null">
                 salenum=#{salenum},
             </if>
-            <if test="deviceid!=null">
-                deviceid=#{deviceid},
+            <if test="devicenum!=null">
+                devicenum=#{devicenum},
             </if>
-            <if test="policyid != null">
-                policyid=#{policyid},
+            <if test="pnum != null">
+                pnum=#{pnum},
             </if>
             <if test="policydate!=null">
                 policydate=#{policydate},

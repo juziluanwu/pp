@@ -26,7 +26,7 @@
                 and ss.firstbeneficiary = #{firstbeneficiary}
             </if>
             <if test="policystate != null">
-                and ss.policystate = #{policystate}
+                and p.policystate = #{policystate}
             </if>
 
                <if test="pstarttime != null">

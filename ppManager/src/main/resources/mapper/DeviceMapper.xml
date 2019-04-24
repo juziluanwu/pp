@@ -118,4 +118,8 @@
   <select id="list" resultType="app.pp.entity.Device">
     SELECT de.*,sa.`salenum`,gr.`name` FROM `device` de LEFT JOIN `saleslip` sa ON de.`id` = sa.`deviceid` LEFT JOIN `group` gr ON gr.`id` = sa.`groupid`  order by de.id desc
   </select>
+
+  <select id="selectDeviceExsit" parameterType="String" resultType="app.pp.entity.Device">
+    select * from device where devicenum = #{devicenum}
+  </select>
 </mapper>

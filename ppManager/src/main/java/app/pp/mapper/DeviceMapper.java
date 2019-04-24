@@ -28,4 +28,6 @@ public interface DeviceMapper {
     int updateSynState(@Param(value = "id") Integer id,@Param(value = "synstate") Integer synstate);
 
     List<Device> list();
+
+    Device selectDeviceExsit(String devicenum);
 }

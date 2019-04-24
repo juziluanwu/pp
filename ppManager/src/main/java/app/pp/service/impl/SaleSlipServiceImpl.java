@@ -41,7 +41,8 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     private SysUserService sysUserService;
     @Autowired
     private SlipRenewalMapper slipRenewalMapper;
-
+    @Autowired
+    private DeviceMapper deviceMapper;
     @Transactional
     public void save(SaleSlip slip) {
         //系统自动分配 当前账号车行  对应的  保单号
@@ -72,30 +73,35 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         policy.setState(2);
         policyMapper.updateByPrimaryKeySelective(policy);
         //将设备变更为 关联状态
-
-
+        Device d =new Device();
+        d.setId(slip.getDeviceid());
+        d.setState(2);
+        deviceMapper.updateByPrimaryKeySelective(d);
     }
 
+    /**
+     * 编辑
+     * @param slip
+     */
     public void update(SaleSlip slip) {
         SaleSlip oldslip = saleSlipMapper.findById(slip.getId());
         if (oldslip != null) {
             if (1 == oldslip.getPrintstate()) {
-                //判断设备号是否一致  不一致废弃老的设备号
-                if (oldslip.getDeviceid().equals(slip.getDeviceid())) {
-
+                if (!oldslip.getDeviceid().equals(slip.getDeviceid())) {
+                    //判断设备号是否一致  不一致废弃老的设备号
+                    Device d =new Device();
+                    d.setId(slip.getDeviceid());
+                    d.setState(3);
+                    deviceMapper.updateByPrimaryKeySelective(d);
                 }
                 //状态变成为 未打印
-                //slip.setPrintstate(1);
-                SysUserEntity user = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
-                slip.setUpdator(user.getUserId());
+                slip.setUpdator(sysUserService.getCurrentUser().getUserId());
                 slip.setUpdatedtime(new Date());
                 saleSlipMapper.update(slip);
             } else {
                 throw new GlobleException("已打印的销售单不能编辑");
             }
         }
-
-
     }
 
     /**
@@ -113,7 +119,6 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             delss.setId(ss.getId());
             //变更为未打印状态
             delss.setPrintstate(1);
-
 
             if (1 == vo.getReason()) {
                 //退保
@@ -169,12 +174,22 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         }
     }
 
+    /**
+     * 销售单列表
+     * @param param
+     * @return
+     */
     public List<SaleSlip> selectall(Map<String, Object> param) {
         List<Group> groups = groupService.selectall();
         param.put("groups", groups);
         return saleSlipMapper.selectAll(param);
     }
 
+    /**
+     * 获取销售单信息
+     * @param id
+     * @return
+     */
     public SaleSlip info(Integer id) {
         return saleSlipMapper.selectById(id);
     }

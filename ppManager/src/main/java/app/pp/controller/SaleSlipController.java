@@ -6,6 +6,7 @@ import app.pp.common.Result;
 import app.pp.entity.SaleSlip;
 import app.pp.entity.Saleman;
 import app.pp.enums.ErrorEnum;
+import app.pp.service.DeviceService;
 import app.pp.service.SaleSlipService;
 import app.pp.service.SalemanService;
 import app.pp.utils.ResultUtils;
@@ -27,7 +28,8 @@ import java.util.Map;
 public class SaleSlipController extends AbstractController {
     @Autowired
     private SaleSlipService saleSlipService;
-
+    @Autowired
+    private DeviceService deviceService;
     /**
      * 销售单列表
      */
@@ -108,5 +110,10 @@ public class SaleSlipController extends AbstractController {
     }
 
 
-    //缺少验证设备号接口
+    //验证设备号接口
+    @PostMapping("/testDevice")
+    public Result renewal(@RequestParam(value = "devicenum") String devicenum) {
+        deviceService.testDevice(devicenum);
+        return ResultUtils.result(ErrorEnum.SUCCESS, "设备号可以使用");
+    }
 }

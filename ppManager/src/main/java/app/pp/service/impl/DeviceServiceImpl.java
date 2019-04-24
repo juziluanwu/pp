@@ -7,6 +7,7 @@ import app.pp.entity.DeviceResult;
 import app.pp.entity.DeviceResultEntity;
 import app.pp.entity.PolicyEntity;
 import app.pp.enums.ErrorEnum;
+import app.pp.exceptions.GlobleException;
 import app.pp.mapper.DeviceMapper;
 import app.pp.service.DeviceService;
 import app.pp.utils.GlobleUtils;
@@ -170,5 +171,16 @@ public class DeviceServiceImpl implements DeviceService {
 
     }
 
-
+    public void testDevice(String devicenum){
+        Device d = deviceMapper.selectDeviceExsit(devicenum);
+        if(d== null){
+            throw new GlobleException("设备号不存在");
+        }else{
+            if(2 == d.getState()){
+                throw new GlobleException("设备号已被别的销售单绑定");
+            }else if(3 == d.getState()){
+                throw new GlobleException("设备号已被作废");
+            }
+        }
+    }
 }

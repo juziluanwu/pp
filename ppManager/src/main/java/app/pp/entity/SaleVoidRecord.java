@@ -9,11 +9,7 @@ public class SaleVoidRecord {
 
     private String salenum;//销售单号
 
-    private Integer deviceid;//设备id
-
     private String devicenum;//设备号
-
-    private Integer policyid;//保单id
 
     private String pnum;//保单号
 
@@ -107,22 +103,6 @@ public class SaleVoidRecord {
 
     public void setSalenum(String salenum) {
         this.salenum = salenum;
-    }
-
-    public Integer getDeviceid() {
-        return deviceid;
-    }
-
-    public void setDeviceid(Integer deviceid) {
-        this.deviceid = deviceid;
-    }
-
-    public Integer getPolicyid() {
-        return policyid;
-    }
-
-    public void setPolicyid(Integer policyid) {
-        this.policyid = policyid;
     }
 
     public Integer getPrintstate() {

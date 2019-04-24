@@ -14,7 +14,7 @@ public interface SaleVoidRecordMapper {
 
     int update(SaleVoidRecord slip);
 
-    SaleVoidRecord selectById(Integer id);
+   // SaleVoidRecord selectById(Integer id);
 
     List<SaleVoidRecord> selectAll(Map<String, Object> param);
 }
