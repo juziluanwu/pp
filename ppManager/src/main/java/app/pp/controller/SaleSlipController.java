@@ -4,11 +4,9 @@ package app.pp.controller;
 import app.pp.common.AbstractController;
 import app.pp.common.Result;
 import app.pp.entity.SaleSlip;
-import app.pp.entity.Saleman;
 import app.pp.enums.ErrorEnum;
 import app.pp.service.DeviceService;
 import app.pp.service.SaleSlipService;
-import app.pp.service.SalemanService;
 import app.pp.utils.ResultUtils;
 import app.pp.vo.RenewalVO;
 import app.pp.vo.SaleSlipDelVO;
@@ -30,31 +28,30 @@ public class SaleSlipController extends AbstractController {
     private SaleSlipService saleSlipService;
     @Autowired
     private DeviceService deviceService;
+
     /**
      * 销售单列表
      */
     @GetMapping("/list")
-    public Result list(@RequestParam(value = "devicenum",required = false) String devicenum,
-                       @RequestParam(value = "pnum",required = false) String pnum,
-                       @RequestParam(value = "customername",required = false) String customername,
-                       @RequestParam(value = "username",required = false) String username,
-                       @RequestParam(value = "firstbeneficiary",required = false) String firstbeneficiary,
-                       @RequestParam(value = "policystate",required = false) Integer policystate,
-                       @RequestParam(value = "pstarttime",required = false) Date pstarttime,
-                       @RequestParam(value = "pendtime",required = false) Date pendtime) {
-        Map<String,Object> param = new HashMap<>();
-        param.put("devicenum",devicenum);
-        param.put("pnum",pnum);
-        param.put("customername",customername);
-        param.put("username",username);
-        param.put("firstbeneficiary",firstbeneficiary);
-        param.put("policystate",policystate);
-        param.put("pstarttime",pstarttime);
-        param.put("pendtime",pendtime);
+    public Result list(@RequestParam(value = "devicenum", required = false) String devicenum,
+                       @RequestParam(value = "pnum", required = false) String pnum,
+                       @RequestParam(value = "customername", required = false) String customername,
+                       @RequestParam(value = "username", required = false) String username,
+                       @RequestParam(value = "firstbeneficiary", required = false) String firstbeneficiary,
+                       @RequestParam(value = "policystate", required = false) Integer policystate,
+                       @RequestParam(value = "pstarttime", required = false) String pstarttime,
+                       @RequestParam(value = "pendtime", required = false) String pendtime) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("devicenum", devicenum);
+        param.put("pnum", pnum);
+        param.put("customername", customername);
+        param.put("username", username);
+        param.put("firstbeneficiary", firstbeneficiary);
+        param.put("policystate", policystate);
+        param.put("pstarttime", pstarttime);
+        param.put("pendtime", pendtime);
         return ResultUtils.result(ErrorEnum.SUCCESS, saleSlipService.selectall(param));
     }
-
-
 
 
     /**
@@ -95,8 +92,8 @@ public class SaleSlipController extends AbstractController {
      * 销售单详情
      */
     @GetMapping("/info/{id}")
-    public Result info(@PathVariable(value = "id")Integer id) {
-        return ResultUtils.result(ErrorEnum.SUCCESS,  saleSlipService.info(id));
+    public Result info(@PathVariable(value = "id") Integer id) {
+        return ResultUtils.result(ErrorEnum.SUCCESS, saleSlipService.info(id));
     }
 
     /**
