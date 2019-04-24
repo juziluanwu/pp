@@ -83,6 +83,10 @@ public class SaleSlip {
 
     private String  firstbeneficiaryname;//第一受益人
 
+    private Integer delstate;//废弃状态
+
+    private Integer printlimit;//打印期限
+
     public Integer getId() {
         return id;
     }
@@ -393,5 +397,21 @@ public class SaleSlip {
 
     public void setFirstbeneficiaryname(String firstbeneficiaryname) {
         this.firstbeneficiaryname = firstbeneficiaryname;
+    }
+
+    public Integer getDelstate() {
+        return delstate;
+    }
+
+    public void setDelstate(Integer delstate) {
+        this.delstate = delstate;
+    }
+
+    public Integer getPrintlimit() {
+        return printlimit;
+    }
+
+    public void setPrintlimit(Integer printlimit) {
+        this.printlimit = printlimit;
     }
 }

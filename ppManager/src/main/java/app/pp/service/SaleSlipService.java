@@ -3,6 +3,7 @@ package app.pp.service;
 
 import app.pp.entity.SaleSlip;
 import app.pp.entity.Saleman;
+import app.pp.vo.RenewalVO;
 import app.pp.vo.SaleSlipDelVO;
 
 import java.util.List;
@@ -42,4 +43,8 @@ public interface SaleSlipService {
      */
 
     SaleSlip info(Integer id);
+
+    void renewal(RenewalVO vo);
+
+    int getRenewalLimit(Integer id);
 }

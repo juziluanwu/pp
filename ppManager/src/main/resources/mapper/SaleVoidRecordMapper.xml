@@ -68,9 +68,6 @@
             <if test="policyid != null">
                 policyid,
             </if>
-            <if test="printstate != null">
-                printstate,
-            </if>
             <if test="policydate != null">
                 policydate,
             </if>
@@ -175,9 +172,6 @@
             </if>
             <if test="policyid != null">
                 #{policyid},
-            </if>
-            <if test="printstate != null">
-                #{printstate},
             </if>
             <if test="policydate != null">
                 #{policydate},
@@ -287,9 +281,6 @@
             </if>
             <if test="policyid != null">
                 policyid=#{policyid},
-            </if>
-            <if test="printstate !=null">
-                printstate=#{printstate},
             </if>
             <if test="policydate!=null">
                 policydate=#{policydate},

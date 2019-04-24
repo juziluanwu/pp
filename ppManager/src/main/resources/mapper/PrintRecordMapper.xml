@@ -9,9 +9,6 @@
             <if test="saleslipid != null">
                 saleslipid,
             </if>
-            <if test="modelid != null">
-                modelid,
-            </if>
             <if test="printlimit != null">
                 printlimit,
             </if>
@@ -26,9 +23,6 @@
             <if test="saleslipid != null">
                 #{saleslipid},
             </if>
-            <if test="modelid != null">
-                #{modelid},
-            </if>
             <if test="printlimit != null">
                 #{printlimit},
             </if>
@@ -42,4 +36,14 @@
         </trim>
     </insert>
 
+    <delete id="deleteBySaleslipid" parameterType="int">
+        update printrecord set isdel = 1 where saleslipid = #{saleslipid}
+    </delete>
+    <select id="selectSumdateBySaleslipid" parameterType="int" resultType="int">
+        select sum(printlimit) from printrecord where  saleslipid = #{saleslipid}
+    </select>
+
+    <select id="selectLastLimitBySaleslipid" parameterType="int" resultType="int">
+        select printlimit from printrecord where  saleslipid = #{saleslipid} order by id desc limit 1
+    </select>
 </mapper>

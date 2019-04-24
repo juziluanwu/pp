@@ -41,7 +41,13 @@ public class GroupController extends AbstractController {
         return ResultUtils.result(ErrorEnum.SUCCESS, list);
     }
 
-
+    /**
+     * 分组详情
+     */
+    @GetMapping("/info/{id}")
+    public Result info(@PathVariable(value = "id")Integer id) {
+        return ResultUtils.result(ErrorEnum.SUCCESS,  groupService.info(id));
+    }
 
 
     /**

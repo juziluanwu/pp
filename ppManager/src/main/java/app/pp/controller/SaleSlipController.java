@@ -9,6 +9,7 @@ import app.pp.enums.ErrorEnum;
 import app.pp.service.SaleSlipService;
 import app.pp.service.SalemanService;
 import app.pp.utils.ResultUtils;
+import app.pp.vo.RenewalVO;
 import app.pp.vo.SaleSlipDelVO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,7 @@ public class SaleSlipController extends AbstractController {
     @RequiresPermissions("sys:saleslip:delete")
     public Result delete(@RequestBody SaleSlipDelVO vo) {
         saleSlipService.delete(vo);
-        return ResultUtils.result(ErrorEnum.SUCCESS, "删除成功");
+        return ResultUtils.result(ErrorEnum.SUCCESS, "作废成功");
     }
 
     /**
@@ -93,9 +94,28 @@ public class SaleSlipController extends AbstractController {
      */
     @GetMapping("/info/{id}")
     public Result info(@PathVariable(value = "id")Integer id) {
-        saleSlipService.info(id);
-        return ResultUtils.result(ErrorEnum.SUCCESS, "删除成功");
+        return ResultUtils.result(ErrorEnum.SUCCESS,  saleSlipService.info(id));
+    }
+
+    /**
+     * 保单续期确认
+     */
+    @PostMapping("/renewal")
+    @RequiresPermissions("sys:saleslip:renewal")
+    public Result renewal(@RequestBody RenewalVO vo) {
+        saleSlipService.renewal(vo);
+        return ResultUtils.result(ErrorEnum.SUCCESS, "续期成功");
     }
 
 
+    /**
+     * 获取保单续期期限
+     */
+    @GetMapping("/getRenewalLimit/{id}")
+    public Result getRenewalLimit(@PathVariable(value = "id")Integer id) {
+        saleSlipService.getRenewalLimit(id);
+        return ResultUtils.result(ErrorEnum.SUCCESS, "续期成功");
+    }
+
+    //缺少验证设备号接口
 }

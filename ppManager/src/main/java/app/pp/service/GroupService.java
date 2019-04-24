@@ -38,4 +38,6 @@ public interface GroupService {
      * @return
      */
     Group getCurrentGroup();
+
+    Group info(Integer id);
 }
