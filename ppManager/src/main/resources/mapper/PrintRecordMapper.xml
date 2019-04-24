@@ -12,6 +12,9 @@
             <if test="printlimit != null">
                 printlimit,
             </if>
+            <if test="pstarttime != null">
+                pstarttime,
+            </if>
             <if test="creator != null">
                 creator,
             </if>
@@ -25,6 +28,9 @@
             </if>
             <if test="printlimit != null">
                 #{printlimit},
+            </if>
+            <if test="pstarttime != null">
+                #{pstarttime},
             </if>
             <if test="creator != null">
                 #{creator},
@@ -43,7 +49,7 @@
         select sum(printlimit) from printrecord where  saleslipid = #{saleslipid}
     </select>
 
-    <select id="selectLastLimitBySaleslipid" parameterType="int" resultType="int">
+    <select id="selectLastBySaleslipid" parameterType="int" resultType="app.pp.entity.PrintRecord">
         select printlimit from printrecord where  saleslipid = #{saleslipid} order by id desc limit 1
     </select>
 </mapper>

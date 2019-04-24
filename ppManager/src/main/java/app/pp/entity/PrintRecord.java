@@ -10,6 +10,8 @@ public class PrintRecord {
 
     private Integer printlimit;
 
+    private Date pstarttime;
+
     private Date createdtime;
 
     private Long creator;
@@ -54,4 +56,11 @@ public class PrintRecord {
         this.printlimit = printlimit;
     }
 
+    public Date getPstarttime() {
+        return pstarttime;
+    }
+
+    public void setPstarttime(Date pstarttime) {
+        this.pstarttime = pstarttime;
+    }
 }

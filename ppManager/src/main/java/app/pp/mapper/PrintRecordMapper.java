@@ -11,6 +11,6 @@ public interface PrintRecordMapper {
     int deleteBySaleslipid(Integer saleslipid);
     //销售单打印期限总和
     int selectSumdateBySaleslipid(Integer saleslipid);
-    //查询最近一次打印的期限
-    int selectLastLimitBySaleslipid(Integer saleslipid);
+    //查询最近一次的打印记录
+    PrintRecord selectLastBySaleslipid(Integer saleslipid);
 }

@@ -180,4 +180,7 @@ public class SysUserServiceImpl implements SysUserService {
 		}*/
     }
 
+    public SysUserEntity getCurrentUser(){
+        return  (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
+    }
 }

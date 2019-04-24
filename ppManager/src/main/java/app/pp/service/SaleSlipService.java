@@ -44,7 +44,10 @@ public interface SaleSlipService {
 
     SaleSlip info(Integer id);
 
+    /**
+     * 保单续费
+     * @param vo
+     */
     void renewal(RenewalVO vo);
 
-    int getRenewalLimit(Integer id);
 }

@@ -108,14 +108,5 @@ public class SaleSlipController extends AbstractController {
     }
 
 
-    /**
-     * 获取保单续期期限
-     */
-    @GetMapping("/getRenewalLimit/{id}")
-    public Result getRenewalLimit(@PathVariable(value = "id")Integer id) {
-        saleSlipService.getRenewalLimit(id);
-        return ResultUtils.result(ErrorEnum.SUCCESS, "续期成功");
-    }
-
     //缺少验证设备号接口
 }

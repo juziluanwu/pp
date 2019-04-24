@@ -30,4 +30,8 @@ public interface SaleSlipMapper {
     SaleSlip findById(Integer id);
 
     List<SaleSlip> selectAll(Map<String, Object> param);
+
+    int setDeviceidNull(Integer id);
+
+    int setPolicyidNull(Integer id);
 }

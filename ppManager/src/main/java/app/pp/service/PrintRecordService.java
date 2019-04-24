@@ -6,6 +6,7 @@ import app.pp.entity.SaleSlip;
 import app.pp.vo.PrintVO;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
 public interface PrintRecordService {
 
 
-    SaleSlip getPrintInfo(Integer id);
+    Map<String,Object> getPrintInfo(Integer id);
 
     void print(PrintVO vo);
 }

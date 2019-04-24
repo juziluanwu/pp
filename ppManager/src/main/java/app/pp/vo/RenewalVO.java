@@ -25,7 +25,7 @@ public class RenewalVO {
 
     private Integer date;
 
-    private Integer opinion;
+    private String opinion;
 
     public Integer getSaleslipid() {
         return saleslipid;
@@ -43,11 +43,11 @@ public class RenewalVO {
         this.date = date;
     }
 
-    public Integer getOpinion() {
+    public String getOpinion() {
         return opinion;
     }
 
-    public void setOpinion(Integer opinion) {
+    public void setOpinion(String opinion) {
         this.opinion = opinion;
     }
 }
