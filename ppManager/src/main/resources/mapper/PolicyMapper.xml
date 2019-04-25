@@ -163,7 +163,7 @@
   </select>
 
   <delete id="del" parameterType="int">
-    update set isdel = 1  where id = #{policyid}
+    update policy set isdel = 1  where id = #{policyid}
   </delete>
 
   <select id="selectByGroupid" parameterType="int" resultType="app.pp.entity.Policy">

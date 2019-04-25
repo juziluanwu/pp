@@ -145,4 +145,38 @@ public class GroupServiceImpl implements GroupService {
     public List<Group> firstbeneficiarylist(){
         return groupMapper.selectByType(5);
     }
+
+
+
+    public List<Group> selecGroup() {
+        List<Group> list = new ArrayList<>();
+        Group group = getCurrentGroup();
+        if (group != null) {
+            if (0 == group.getType()) {
+                //管理员权限的分组   可以查看所有分组
+                list = groupMapper.selecGroup();
+
+            } else {
+                //其他权限分组 只能查看自己及子集
+                list.add(group);
+                List<Group> child = new ArrayList<>();
+                child.add(group);
+                getChild2(list, child);
+            }
+        }
+
+        return list;
+    }
+
+    public void getChild2(List<Group> list, List<Group> child) {
+        if (child != null && !child.isEmpty()) {
+            for (Group group : child) {
+                List<Group> childlist = groupMapper.selectByPidGroup(group.getId());
+                if (childlist != null && !childlist.isEmpty()) {
+                    list.addAll(childlist);
+                    getChild(list, childlist);
+                }
+            }
+        }
+    }
 }

@@ -31,4 +31,9 @@ public interface GroupMapper {
     List<Group> selectAll();
 
     List<Group> selectByType(Integer type);
+
+    //查询车行
+    List<Group> selecGroup();
+    //查询当前分组下的车行
+    List<Group> selectByPidGroup(Integer id);
 }

@@ -1,9 +1,12 @@
 package app.pp.service;
 
 import app.pp.common.Result;
+import app.pp.entity.Group;
 import app.pp.entity.Policy;
 import app.pp.entity.PolicyEntity;
 import app.pp.entity.TransferCarEntity;
+
+import java.util.List;
 
 //保单号
 public interface PolicyService {
@@ -19,5 +22,6 @@ public interface PolicyService {
 
     //保单号查询
     public Result list(PolicyEntity policy);
+
 
 }

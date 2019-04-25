@@ -42,4 +42,6 @@ public interface GroupService {
     Group info(Integer id);
 
     List<Group> firstbeneficiarylist();
+
+    public List<Group> selecGroup();
 }

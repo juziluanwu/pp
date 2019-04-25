@@ -69,8 +69,12 @@ public class PolicyServiceImpl implements PolicyService {
             NumberFormat f=new DecimalFormat("00000");
 
             for(int i=1;i<=policy.getVerb();i++){
+                StringBuilder stringBuilder = new StringBuilder();
 
-                list.add(set(policy.getPrefix(),i,f.format(i),policy.getGroupid()));
+                stringBuilder.append(policy.getPrefix());
+
+                stringBuilder.append(f.format(i));
+                list.add(set(policy.getPrefix(),i,stringBuilder.toString(),policy.getGroupid()));
 
             }
 
@@ -151,7 +155,7 @@ public class PolicyServiceImpl implements PolicyService {
 
         policys.setGroupid(groupid);
 
-        policys.setIsdel(1);
+        policys.setIsdel(0);
 
         policys.setPnum(pnum);
 
