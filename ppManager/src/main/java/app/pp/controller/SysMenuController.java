@@ -142,7 +142,7 @@ public class SysMenuController extends AbstractController {
 	 */
 
 	@GetMapping("/info/{menuId}")
-	@RequiresPermissions("sys:menu:info")
+	//@RequiresPermissions("sys:menu:info")
 	public Result info(@PathVariable("menuId") Long menuId){
 		SysMenuEntity menu = sysMenuService.selectById(menuId);
 		return ResultUtils.result(ErrorEnum.SUCCESS,menu);
@@ -152,7 +152,7 @@ public class SysMenuController extends AbstractController {
 	 * 保存
 	 */
 	@PostMapping("/save")
-	@RequiresPermissions("sys:menu:save")
+	//@RequiresPermissions("sys:menu:save")
 	public Result save(@RequestBody SysMenuEntity menu){
 		//数据校验
 		verifyForm(menu);
@@ -166,7 +166,7 @@ public class SysMenuController extends AbstractController {
 	 * 修改
 	 */
 	@PostMapping("/update")
-	@RequiresPermissions("sys:menu:update")
+	//@RequiresPermissions("sys:menu:update")
 	public Result update(@RequestBody SysMenuEntity menu){
 		//数据校验
 		verifyForm(menu);
@@ -180,7 +180,7 @@ public class SysMenuController extends AbstractController {
 	 * 删除
 	 */
 	@GetMapping("/delete/{menuId}")
-	@RequiresPermissions("sys:menu:delete")
+	//@RequiresPermissions("sys:menu:delete")
 	public Result delete(@PathVariable("menuId") long menuId){
 		if(menuId <= 31){
 			return ResultUtils.fail("系统菜单，不能删除");
