@@ -8,6 +8,7 @@ import app.pp.enums.ErrorEnum;
 import app.pp.service.GroupService;
 import app.pp.service.PolicyService;
 import app.pp.utils.ResultUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,12 +24,14 @@ public class PolicyController {
 
     //批量生成保单号
     @PostMapping("verb")
+    @RequiresPermissions("sys:policy:save")
     public Result verb(@RequestBody Policy policy){
         return policyService.verb(policy);
     }
 
     //删除保单号
     @GetMapping("del/{policyid}")
+    @RequiresPermissions("sys:policy:delete")
     public Result del(@PathVariable(value = "policyid") Integer policyid){
 
         return policyService.del(policyid);
@@ -37,11 +40,13 @@ public class PolicyController {
 
     //保单号转移车行
     @PostMapping("transfer")
+    @RequiresPermissions("sys:policy:transfer")
     public Result transfer(@RequestBody TransferCarEntity transferCarEntity){
         return policyService.transfer(transferCarEntity);
     }
     //保单号查询
     @PostMapping("list")
+    @RequiresPermissions("sys:policy:list")
     public Result list(@RequestBody PolicyEntity policy){
         return policyService.list(policy);
     }

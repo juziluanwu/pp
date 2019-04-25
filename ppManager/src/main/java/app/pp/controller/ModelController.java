@@ -5,6 +5,7 @@ import app.pp.entity.Model;
 import app.pp.enums.ErrorEnum;
 import app.pp.service.ModelService;
 import app.pp.utils.ResultUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class ModelController {
      * 新增保单模版
      */
     @PostMapping("/save")
+    @RequiresPermissions("sys:model:save")
     public Result saveModel(@RequestBody Model model) {
         return modelService.saveModel(model);
     }
@@ -30,6 +32,7 @@ public class ModelController {
      * 删除保单模板
      */
     @GetMapping("/del/{id}")
+    @RequiresPermissions("sys:model:delete")
     public Result del(@PathVariable(value = "id") Integer id) {
         return modelService.del(id);
     }
@@ -38,6 +41,7 @@ public class ModelController {
      * 模板禁用启用
      */
     @GetMapping("disoren/{id}/{state}")
+    @RequiresPermissions("sys:model:disoren")
     public Result disoren(@PathVariable(value = "id") Integer id, @PathVariable(value = "state") Integer state) {
 
         return modelService.disoren(id, state);
@@ -47,6 +51,7 @@ public class ModelController {
      * 模板列表
      */
     @GetMapping("list/{page}")
+    @RequiresPermissions("sys:model:list")
     public Result list(@PathVariable(value = "page") Integer page) {
         return modelService.list(page);
     }
