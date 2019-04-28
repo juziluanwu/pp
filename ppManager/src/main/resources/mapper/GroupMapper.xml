@@ -89,10 +89,13 @@
         </set>
         where id=#{id}
     </update>
+    <select id="selectByType" parameterType="int" resultType="app.pp.entity.Group">
+        select * from `group` where isdel = 0 and type = #{type}
+    </select>
 
     <select id="selecGroup"  resultType="app.pp.entity.Group">
       select * from `group` where isdel = 0 and type = 3
-</select>
+    </select>
 
     <select id="selectByPidGroup"  parameterType="Integer" resultType="app.pp.entity.Group">
     select * from `group` where isdel = 0 and pid = #{id} and type = 3
