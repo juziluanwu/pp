@@ -182,9 +182,9 @@ public class SysMenuController extends AbstractController {
 	@GetMapping("/delete/{menuId}")
 	//@RequiresPermissions("sys:menu:delete")
 	public Result delete(@PathVariable("menuId") long menuId){
-		if(menuId <= 31){
+		/*if(menuId <= 31){
 			return ResultUtils.fail("系统菜单，不能删除");
-		}
+		}*/
 		//判断是否有子菜单或按钮
 		List<SysMenuEntity> menuList = sysMenuService.queryListParentId(menuId);
 		if(menuList.size() > 0){
