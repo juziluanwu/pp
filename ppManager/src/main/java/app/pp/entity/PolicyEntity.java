@@ -36,13 +36,13 @@ public class PolicyEntity {
 
     private Integer page;
 
-    private Integer carname;
+    private String carname;
 
-    public Integer getCarname() {
+    public String getCarname() {
         return carname;
     }
 
-    public void setCarname(Integer carname) {
+    public void setCarname(String carname) {
         this.carname = carname;
     }
 
