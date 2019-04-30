@@ -102,7 +102,7 @@ public class DeviceServiceImpl implements DeviceService {
                 for(DeviceResult deviceResult : deviceResultEntity.getObj()){
                     Device device = new Device();
                     device.setDevicenum(deviceResult.getTerminalNo());
-                    device.setCarnum(deviceResult.getPlate());
+                    device.setCarnum(deviceResult.getId());
                     device.setCreatedtime(new Date());
                     device.setState(1);
                     device.setSynstate(2);

@@ -36,6 +36,16 @@ public class PolicyEntity {
 
     private Integer page;
 
+    private String carname;
+
+    public String getCarname() {
+        return carname;
+    }
+
+    public void setCarname(String carname) {
+        this.carname = carname;
+    }
+
     public List<Group> getGroup() {
         return group;
     }

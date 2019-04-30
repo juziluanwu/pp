@@ -38,6 +38,7 @@ public class ModelServiceImpl implements ModelService {
         SysUserEntity s = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
         model.setCreatetime(new Date());
         model.setCreateuser(s.getUserId());
+        model.setState(2);
         int i = modelMapper.insertSelective(model);
         if (i > 0) {
             return ResultUtils.result(ErrorEnum.SUCCESS, "保存成功");
