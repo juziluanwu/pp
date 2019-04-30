@@ -126,6 +126,6 @@
   </update>
 
   <select id="selectAll" resultType="app.pp.entity.Model">
-    select * from model where isdel = 1 order by createtime desc
+    select * from model where isdel = 0 order by createtime desc
   </select>
 </mapper>
