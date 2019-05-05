@@ -10,6 +10,8 @@ public class Saleman {
 
     private String phone;
 
+    private Integer groupid;
+
     private Integer isdel;
 
     private Date createdtime;
@@ -82,5 +84,13 @@ public class Saleman {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Integer getGroupid() {
+        return groupid;
+    }
+
+    public void setGroupid(Integer groupid) {
+        this.groupid = groupid;
     }
 }

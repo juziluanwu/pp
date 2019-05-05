@@ -84,7 +84,7 @@ public class SalemanController extends AbstractController {
     @GetMapping("/selectlist")
     public Result selectlist() {
         Map<String, Object> param = new HashMap<>();
-        param.put("creator", getUserId());
+        param.put("groupid", getUser().getGroupid());
         return ResultUtils.result(ErrorEnum.SUCCESS, salemanService.selectall(param));
     }
 }

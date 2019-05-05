@@ -10,8 +10,8 @@
         <if test="phone != null and phone != ''">
                 and phone like '%${phone}%'
         </if>
-        <if test="creator != null">
-            and creator = #{creator}
+        <if test="groupid != null">
+            and groupid = #{groupid}
         </if>
         order by id desc
     </select>
@@ -28,6 +28,9 @@
             </if>
             <if test="phone != null">
                 phone,
+            </if>
+            <if test="groupid != null">
+                groupid,
             </if>
             <if test="isdel != null">
                 isdel,
@@ -46,6 +49,9 @@
             </if>
             <if test="phone != null">
                 #{phone},
+            </if>
+            <if test="groupid != null">
+                #{groupid},
             </if>
             <if test="isdel != null">
                 #{isdel},
@@ -69,6 +75,9 @@
             </if>
             <if test="phone!=null">
                 phone=#{phone},
+            </if>
+            <if test="groupid != null">
+                groupid=#{groupid},
             </if>
             <if test="isdel != null">
                 isdel=#{isdel},
