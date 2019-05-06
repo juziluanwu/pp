@@ -10,8 +10,11 @@
         <if test="phone != null and phone != ''">
                 and phone like '%${phone}%'
         </if>
-        <if test="groupid != null">
-            and groupid = #{groupid}
+        <if test="groups != null">
+            and u.groupid in
+            <foreach collection="groups" open="(" close=")" separator="," item="group">
+                #{group.id}
+            </foreach>
         </if>
         order by id desc
     </select>

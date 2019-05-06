@@ -112,17 +112,17 @@ public class GroupServiceImpl implements GroupService {
         return list;
     }
 
-    public List<Group>  getChild(List<Group> list, List<Group> child) {
+    public void getChild(List<Group> list, List<Group> child) {
         if (child != null && !child.isEmpty()) {
             for (Group group : child) {
                 List<Group> childlist = groupMapper.selectByPid(group.getId());
                 if (childlist != null && !childlist.isEmpty()) {
                     list.addAll(childlist);
-                     getChild(list, childlist);
+                    getChild(list, childlist);
                 }
             }
         }
-        return list;
+        // return list;
     }
 
 
@@ -135,18 +135,17 @@ public class GroupServiceImpl implements GroupService {
         return group;
     }
 
-    public Group info(Integer id){
-        Group group =  groupMapper.selectById(id);
-        if(group != null){
+    public Group info(Integer id) {
+        Group group = groupMapper.selectById(id);
+        if (group != null) {
             group.setGroupModelList(groupModelMapper.selectByGid(id));
         }
         return group;
     }
 
-    public List<Group> firstbeneficiarylist(){
+    public List<Group> firstbeneficiarylist() {
         return groupMapper.selectByType(5);
     }
-
 
 
     public List<Group> selecGroup() {
@@ -175,10 +174,19 @@ public class GroupServiceImpl implements GroupService {
                 List<Group> childlist = groupMapper.selectByPidGroup(group.getId());
                 if (childlist != null && !childlist.isEmpty()) {
                     list.addAll(childlist);
-                   getChild(list, childlist);
+                    getChild(list, childlist);
                 }
             }
         }
+        return list;
+    }
+
+    public List<Group> getAllCarGroup() {
+        List<Group> list = new ArrayList<>();
+        Group group = getCurrentGroup();
+        List<Group> child = new ArrayList<>();
+        child.add(group);
+        getChild2(list, child);
         return list;
     }
 }

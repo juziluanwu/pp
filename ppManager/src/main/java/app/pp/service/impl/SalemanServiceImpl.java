@@ -1,19 +1,14 @@
 package app.pp.service.impl;
 
-import app.pp.entity.Group;
 import app.pp.entity.Saleman;
 import app.pp.entity.SysUserEntity;
-import app.pp.exceptions.GlobleException;
-import app.pp.mapper.GroupMapper;
 import app.pp.mapper.SalemanMapper;
-import app.pp.mapper.SysUserDao;
 import app.pp.service.GroupService;
 import app.pp.service.SalemanService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +24,7 @@ public class SalemanServiceImpl implements SalemanService {
     private SalemanMapper salemanMapper;
 
     @Autowired
-    private SysUserDao sysUserDao;
+    private GroupService groupService;
 
     public void save(Saleman saleman) {
         salemanMapper.insert(saleman);
@@ -50,9 +45,8 @@ public class SalemanServiceImpl implements SalemanService {
         salemanMapper.update(saleman);
     }
 
-    public List<Saleman> selectall(Map<String,Object> param) {
-
-
+    public List<Saleman> selectall(Map<String, Object> param) {
+        param.put("groups", groupService.getAllCarGroup());
         return salemanMapper.selectAll(param);
     }
 }
