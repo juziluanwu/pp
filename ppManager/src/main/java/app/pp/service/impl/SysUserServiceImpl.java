@@ -12,15 +12,16 @@ import app.pp.service.SysUserRoleService;
 import app.pp.service.SysUserService;
 import app.pp.utils.Constant;
 import app.pp.utils.ResultUtils;
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -145,18 +146,24 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public List<SysUserEntity> selectByMap(Map params) {
         SysUserEntity s = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
-        Group group =groupMapper.selectById(s.getGroupid());
-        if(group != null){
-            if(0 == group.getType()){
+        Group group = groupMapper.selectById(s.getGroupid());
+        if (group != null) {
+            if (0 == group.getType()) {
                 //管理员分组
 
-            }else{
+            } else {
                 //非管理员分组
                 List<Group> groups = groupService.selectall();
-                params.put("groups",groups);
+                params.put("groups", groups);
             }
         }
-        return sysUserDao.selectByMap(params);
+        List<SysUserEntity> list = sysUserDao.selectByMap(params);
+        if (list != null) {
+            for (SysUserEntity user : list) {
+                user.setGroupname(groupMapper.selectById(user.getGroupid()).getName());
+            }
+        }
+        return list;
     }
 
     /**
@@ -180,7 +187,7 @@ public class SysUserServiceImpl implements SysUserService {
 		}*/
     }
 
-    public SysUserEntity getCurrentUser(){
-        return  (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
+    public SysUserEntity getCurrentUser() {
+        return (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
     }
 }

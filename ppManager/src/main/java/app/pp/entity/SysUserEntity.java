@@ -72,7 +72,7 @@ public class SysUserEntity implements Serializable {
 
 	private Integer groupid;
 
-
+	private String groupname;
 
 	/**
 	 * 设置：
@@ -185,5 +185,13 @@ public class SysUserEntity implements Serializable {
 
 	public void setGroupid(Integer groupid) {
 		this.groupid = groupid;
+	}
+
+	public String getGroupname() {
+		return groupname;
+	}
+
+	public void setGroupname(String groupname) {
+		this.groupname = groupname;
 	}
 }
