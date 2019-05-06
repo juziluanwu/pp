@@ -112,16 +112,17 @@ public class GroupServiceImpl implements GroupService {
         return list;
     }
 
-    public void getChild(List<Group> list, List<Group> child) {
+    public List<Group>  getChild(List<Group> list, List<Group> child) {
         if (child != null && !child.isEmpty()) {
             for (Group group : child) {
                 List<Group> childlist = groupMapper.selectByPid(group.getId());
                 if (childlist != null && !childlist.isEmpty()) {
                     list.addAll(childlist);
-                    getChild(list, childlist);
+                     getChild(list, childlist);
                 }
             }
         }
+        return list;
     }
 
 
@@ -158,7 +159,7 @@ public class GroupServiceImpl implements GroupService {
 
             } else {
                 //其他权限分组 只能查看自己及子集
-                list.add(group);
+
                 List<Group> child = new ArrayList<>();
                 child.add(group);
                 getChild2(list, child);
@@ -168,15 +169,16 @@ public class GroupServiceImpl implements GroupService {
         return list;
     }
 
-    public void getChild2(List<Group> list, List<Group> child) {
+    public List<Group> getChild2(List<Group> list, List<Group> child) {
         if (child != null && !child.isEmpty()) {
             for (Group group : child) {
                 List<Group> childlist = groupMapper.selectByPidGroup(group.getId());
                 if (childlist != null && !childlist.isEmpty()) {
                     list.addAll(childlist);
-                    getChild(list, childlist);
+                   getChild(list, childlist);
                 }
             }
         }
+        return list;
     }
 }
