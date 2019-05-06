@@ -1,5 +1,6 @@
 package app.pp.service.impl;
 
+import app.pp.entity.Group;
 import app.pp.entity.Saleman;
 import app.pp.entity.SysUserEntity;
 import app.pp.mapper.SalemanMapper;
@@ -9,6 +10,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +48,10 @@ public class SalemanServiceImpl implements SalemanService {
     }
 
     public List<Saleman> selectall(Map<String, Object> param) {
-        param.put("groups", groupService.getAllCarGroup());
+        List<Group> list = new ArrayList<>();
+        if (list != null && !list.isEmpty()) {
+            param.put("groups", groupService.getAllCarGroup());
+        }
         return salemanMapper.selectAll(param);
     }
 }
