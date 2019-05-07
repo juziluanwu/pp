@@ -140,8 +140,8 @@
             <if test="reason != null">
                 reason,
             </if>
-            <if test="reamrk != null">
-                reamrk,
+            <if test="remark != null">
+                remark,
             </if>
 
         </trim>
@@ -245,8 +245,8 @@
             <if test="reason != null">
                 #{reason},
             </if>
-            <if test="reamrk != null">
-                #{reamrk},
+            <if test="remark != null">
+                #{remark},
             </if>
         </trim>
     </insert>
@@ -349,8 +349,8 @@
             <if test="reason != null">
                 reason=#{reason},
             </if>
-            <if test="reamrk != null">
-                reamrk=#{reamrk},
+            <if test="remark != null">
+                remark=#{remark},
             </if>
 
         </set>
