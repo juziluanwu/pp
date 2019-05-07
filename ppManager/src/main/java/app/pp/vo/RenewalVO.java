@@ -16,6 +16,8 @@
 
 package app.pp.vo;
 
+import java.util.Date;
+
 /**
  * 销售单续期
  */
@@ -23,7 +25,7 @@ public class RenewalVO {
 
     private Integer saleslipid;
 
-    private Integer date;
+    private Date date;
 
     private String opinion;
 
@@ -35,11 +37,11 @@ public class RenewalVO {
         this.saleslipid = saleslipid;
     }
 
-    public Integer getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Integer date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

@@ -8,7 +8,7 @@ public class SlipRenewal {
 
     private Integer saleslipid;
 
-    private Integer date;
+    private Date date;
 
     private String opinion;
 
@@ -48,11 +48,11 @@ public class SlipRenewal {
         this.saleslipid = saleslipid;
     }
 
-    public Integer getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Integer date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

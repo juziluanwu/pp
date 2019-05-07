@@ -62,9 +62,9 @@
             <if test="phone != null">
                 phone,
             </if>
-            <if test="policyid != null">
-                policyid,
-            </if>
+<!--            <if test="policyid != null">-->
+<!--                policyid,-->
+<!--            </if>-->
             <if test="address != null">
                 address,
             </if>
@@ -167,9 +167,9 @@
             <if test="phone != null">
                 #{phone},
             </if>
-            <if test="policyid != null">
-                #{policyid},
-            </if>
+<!--            <if test="policyid != null">-->
+<!--                #{policyid},-->
+<!--            </if>-->
             <if test="address != null">
                 #{address},
             </if>
