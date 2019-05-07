@@ -54,7 +54,7 @@
         left join device d on ss.deviceid = d.id
         left join policy p on p.id = ss.policyid
         left join sys_user su on ss.creator = su.name
-        left join group g on g.id = ss.firstbeneficiary
+        left join `group` g on g.id = ss.firstbeneficiary
         where ss.id = #{id}
     </select>
 
