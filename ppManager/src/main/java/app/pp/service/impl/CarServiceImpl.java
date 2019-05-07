@@ -43,18 +43,9 @@ public class CarServiceImpl implements CarService {
     //删除车行或车系
     public Result del(Integer id) {
         //先判断是品牌行还是车系
-        int num = 0;
-            //如果是品牌要把品牌和下面所属车系全部删除
-            //先查询该品牌下所有的车系
-            List<Car> cars = carMapper.selectByFid(id);
-            //先删除该品牌下所有车系
-            if(cars!=null&&cars.size()>0){
-               for(int i = 0;i<cars.size();i++){
-                   num =  carMapper.updateById(cars.get(i).getId());
-               }
-               //在删除品牌
-                num = carMapper.updateById(id);
-            }
+
+        int  num = carMapper.updateById(id);
+
         if(num==0){
             return  ResultUtils.fail("删除失败");
         }
