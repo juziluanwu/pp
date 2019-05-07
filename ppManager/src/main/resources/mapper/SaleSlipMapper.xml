@@ -29,10 +29,10 @@
                 and p.policystate = #{policystate}
             </if>
 
-               <if test="pstarttime != null">
+               <if test="pstarttime != null and pstarttime != ''">
                 and ss.pstarttime  <![CDATA[ >= ]]> #{pstarttime}
               </if>
-              <if test="pendtime != null">
+              <if test="pendtime != null and pendtime != ''">
                 and ss.pendtime <![CDATA[ <= ]]> #{pendtime}
               </if>
 
