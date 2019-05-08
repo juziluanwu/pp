@@ -140,10 +140,15 @@
             <if test="reason != null">
                 reason,
             </if>
-            <if test="remark != null">
-                remark,
+            <if test="delman != null">
+                delman,
             </if>
-
+            <if test="reason != null">
+                reason,
+            </if>
+            <if test="deltime != null">
+                deltime,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="salenum != null">
@@ -247,6 +252,12 @@
             </if>
             <if test="remark != null">
                 #{remark},
+            </if>
+            <if test="delman != null">
+                #{delman},
+            </if>
+            <if test="deltime != null">
+                #{deltime},
             </if>
         </trim>
     </insert>
