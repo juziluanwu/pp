@@ -140,11 +140,11 @@
             <if test="reason != null">
                 reason,
             </if>
+            <if test="remark != null">
+                remark,
+            </if>
             <if test="delman != null">
                 delman,
-            </if>
-            <if test="reason != null">
-                reason,
             </if>
             <if test="deltime != null">
                 deltime,
