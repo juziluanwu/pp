@@ -204,10 +204,12 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             newss.setId(ss.getId());
             //打印状态变更为 未打印状态
             newss.setPrintstate(1);
-            //变更 保单生效时间为  以前的结束时间加1天
+            //变更 保单生效时间为  以前的开始日期+打印年限
+            //查询打印年限
+            int i = printRecordMapper.selectSumdateBySaleslipid(vo.getSaleslipid());
             Calendar cal = Calendar.getInstance();
-            cal.setTime(ss.getPendtime());
-            cal.add(Calendar.DAY_OF_MONTH, 1);//增加一年
+            cal.setTime(ss.getPstarttime());
+            cal.add(Calendar.YEAR, i);
             newss.setPstarttime(cal.getTime());
             //销售单设置为不可编辑状态
             newss.setDelstate(3);
