@@ -142,6 +142,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             SaleVoidRecord svr = new SaleVoidRecord();
             svr.setReason(vo.getReason());
             svr.setRemark(vo.getReamrk());
+            svr.setGroupid(ss.getGroupid());
             svr.setDevicenum(ss.getDevicenum());
             svr.setPnum(ss.getPnum());
             if (1 == vo.getReason()) {
