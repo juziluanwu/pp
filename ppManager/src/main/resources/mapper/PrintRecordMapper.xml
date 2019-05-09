@@ -46,7 +46,7 @@
         update printrecord set isdel = 1 where saleslipid = #{saleslipid}
     </delete>
     <select id="selectSumdateBySaleslipid" parameterType="int" resultType="int">
-        select sum(printlimit) from printrecord where  saleslipid = #{saleslipid}
+        select IFNULL(SUM(printlimit),0) from printrecord where  saleslipid = #{saleslipid}
     </select>
 
     <select id="selectLastBySaleslipid" parameterType="int" resultType="app.pp.entity.PrintRecord">
