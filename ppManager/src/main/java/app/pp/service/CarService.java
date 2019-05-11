@@ -25,4 +25,8 @@ public interface CarService {
 
     //品牌车系列表、
     public Result list(Integer fid,Integer page);
+    //品牌下拉框
+    List<Car> select1();
+    //车系拉框
+    List<Car> selectByFid(Integer Fid);
 }

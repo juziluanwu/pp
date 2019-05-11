@@ -27,4 +27,8 @@ public interface CarMapper {
     int updateById(Integer id);
 
     Car selectById(Integer id);
+
+    List<Car> selectByType(Integer type);
+
+    List<Car> selectType2ByFid(Integer fid);
 }

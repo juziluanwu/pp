@@ -91,4 +91,13 @@ public class CarServiceImpl implements CarService {
         PageInfo<Car> pageInfo = new PageInfo<Car>(carMapper.selectByFid(fid));
         return ResultUtils.result(ErrorEnum.SUCCESS,pageInfo);
     }
+
+    //品牌下拉框
+    public List<Car> select1(){
+        return carMapper.selectByType(1);
+    }
+    //车系拉框
+    public   List<Car> selectByFid(Integer fid){
+        return carMapper.selectType2ByFid(fid);
+    }
 }
