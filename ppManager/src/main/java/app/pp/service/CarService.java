@@ -29,4 +29,7 @@ public interface CarService {
     List<Car> select1();
     //车系拉框
     List<Car> selectByFid(Integer Fid);
+
+    //品牌车系列表不分页、
+    public Result listtwo(Integer fid);
 }

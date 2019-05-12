@@ -72,4 +72,10 @@ public class CarController {
     public Result selectByFid(@PathVariable(value = "fid") Integer fid){
         return ResultUtils.result(ErrorEnum.SUCCESS, carService.selectByFid(fid));
     }
+
+    //品牌车系列表
+    @GetMapping("listtwo/{fid}")
+    public Result listtwo(@PathVariable(value = "fid") Integer fid){
+        return  carService.listtwo(fid);
+    }
 }
