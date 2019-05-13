@@ -2,7 +2,6 @@ package app.pp.service.impl;
 
 import app.pp.common.Result;
 import app.pp.entity.Car;
-import app.pp.entity.PolicyEntity;
 import app.pp.entity.SysUserEntity;
 import app.pp.enums.ErrorEnum;
 import app.pp.mapper.CarMapper;
@@ -90,5 +89,20 @@ public class CarServiceImpl implements CarService {
         PageHelper.startPage(null == page ? 1 : page, GlobleUtils.DEFAULT_PAGE_SIZE);
         PageInfo<Car> pageInfo = new PageInfo<Car>(carMapper.selectByFid(fid));
         return ResultUtils.result(ErrorEnum.SUCCESS,pageInfo);
+    }
+
+    //品牌下拉框
+    public List<Car> select1(){
+        return carMapper.selectByType(1);
+    }
+    //车系拉框
+    public   List<Car> selectByFid(Integer fid){
+        return carMapper.selectType2ByFid(fid);
+    }
+
+    //品牌列表不分页
+    @Override
+    public Result listtwo(Integer fid) {
+        return ResultUtils.result(ErrorEnum.SUCCESS,carMapper.selectByFidTwo(fid));
     }
 }

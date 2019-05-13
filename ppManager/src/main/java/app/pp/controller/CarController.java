@@ -2,7 +2,9 @@ package app.pp.controller;
 
 import app.pp.common.Result;
 import app.pp.entity.Car;
+import app.pp.enums.ErrorEnum;
 import app.pp.service.CarService;
+import app.pp.utils.ResultUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -58,5 +60,22 @@ public class CarController {
     @RequiresPermissions("sys:car:list")
     public Result list(@PathVariable(value = "fid") Integer fid,@PathVariable(value = "page") Integer page){
             return  carService.list(fid,page);
+    }
+
+    @GetMapping("select1")
+    public Result select1(){
+
+        return ResultUtils.result(ErrorEnum.SUCCESS, carService.select1());
+    }
+
+    @GetMapping("select2/{fid}")
+    public Result selectByFid(@PathVariable(value = "fid") Integer fid){
+        return ResultUtils.result(ErrorEnum.SUCCESS, carService.selectByFid(fid));
+    }
+
+    //品牌车系列表
+    @GetMapping("listtwo/{fid}")
+    public Result listtwo(@PathVariable(value = "fid") Integer fid){
+        return  carService.listtwo(fid);
     }
 }
