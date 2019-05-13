@@ -51,6 +51,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         if (policy == null) {
             throw new GlobleException("没有可用的保单号，请先添加保单");
         }
+        slip.setPolicyid(policy.getId());
         slip.setGroupid(group.getId());
         slip.setShop4s(group.getName());
         slip.setSalenum(OrderCodeUtils.generateCode());
