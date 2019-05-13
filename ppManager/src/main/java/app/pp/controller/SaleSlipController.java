@@ -49,8 +49,8 @@ public class SaleSlipController extends AbstractController {
                        @RequestParam(value = "username", required = false) String username,
                        @RequestParam(value = "firstbeneficiary", required = false) String firstbeneficiary,
                        @RequestParam(value = "policystate", required = false) Integer policystate,
-                       @RequestParam(value = "pstarttime", required = false) String pstarttime,
-                       @RequestParam(value = "pendtime", required = false) String pendtime) {
+                       @RequestParam(value = "pstarttime", required = false) Date pstarttime,
+                       @RequestParam(value = "pendtime", required = false) Date pendtime) {
         PageHelper.startPage(null == page ? 1 : page, GlobleUtils.DEFAULT_PAGE_SIZE);
         Map<String, Object> param = new HashMap<>();
         param.put("devicenum", devicenum);
@@ -81,8 +81,8 @@ public class SaleSlipController extends AbstractController {
                             @RequestParam(value = "username", required = false) String username,
                             @RequestParam(value = "firstbeneficiary", required = false) String firstbeneficiary,
                             @RequestParam(value = "policystate", required = false) Integer policystate,
-                            @RequestParam(value = "pstarttime", required = false) String pstarttime,
-                            @RequestParam(value = "pendtime", required = false) String pendtime
+                            @RequestParam(value = "pstarttime", required = false) Date pstarttime,
+                            @RequestParam(value = "pendtime", required = false) Date pendtime
     ) throws Exception {
         Map<String, Object> param = new HashMap<>();
         param.put("devicenum", devicenum);
