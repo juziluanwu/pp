@@ -194,7 +194,7 @@
     and state = #{state}
     </if>
     and po.`isdel` = 0
-    order by createdtime desc
+    order by id asc
 
   </select>
 </mapper>
