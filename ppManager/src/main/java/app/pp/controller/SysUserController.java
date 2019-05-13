@@ -42,9 +42,12 @@ public class SysUserController   extends AbstractController {
 	 * 所有用户列表
 	 */
 	@GetMapping("/list/{page}")
-	public Result list(@RequestParam(value = "username", required = false) String username, @PathVariable("page") Integer page){
+	public Result list(@RequestParam(value = "username", required = false) String username,
+					   @RequestParam(value = "groupid", required = false) Integer groupid,
+					   @PathVariable("page") Integer page){
 		Map params = new HashMap();
 		params.put("username",username);
+		params.put("groupid",groupid);
 		PageHelper.startPage(null == page ? 1 : page, GlobleUtils.DEFAULT_PAGE_SIZE);
 		List<SysUserEntity> list = sysUserService.selectByMap(params);
 		PageInfo<SysUserEntity> pageInfo = new PageInfo(list);

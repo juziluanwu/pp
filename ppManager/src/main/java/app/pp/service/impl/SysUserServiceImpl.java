@@ -18,10 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -145,18 +142,28 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public List<SysUserEntity> selectByMap(Map params) {
-        SysUserEntity s = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
-        Group group = groupMapper.selectById(s.getGroupid());
-        if (group != null) {
-            if (0 == group.getType()) {
-                //管理员分组
+        Integer groupid = (Integer) params.get("groupid");
+        if (groupid != null) {
+            List<Group> groups = new ArrayList<>();
+            Group group = new Group();
+            group.setId(groupid);
+            groups.add(group);
+            params.put("groups", groups);
+        } else {
+            SysUserEntity s = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
+            Group group = groupMapper.selectById(s.getGroupid());
+            if (group != null) {
+                if (0 == group.getType()) {
+                    //管理员分组
 
-            } else {
-                //非管理员分组
-                List<Group> groups = groupService.selectall();
-                params.put("groups", groups);
+                } else {
+                    //非管理员分组
+                    List<Group> groups = groupService.selectall();
+                    params.put("groups", groups);
+                }
             }
         }
+
         List<SysUserEntity> list = sysUserDao.selectByMap(params);
         if (list != null) {
             for (SysUserEntity user : list) {
