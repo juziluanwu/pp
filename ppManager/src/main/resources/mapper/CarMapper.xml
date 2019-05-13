@@ -143,11 +143,23 @@
     select * from car where isdel = 0 and fid = #{fid} order by createdtime desc
   </select>
 
+  <select id="selectByFidTwo" parameterType="int" resultType="app.pp.entity.Car">
+    select * from car where isdel = 0 and fid = #{fid}
+  </select>
+
   <update id="updateById" parameterType="int">
     update car set isdel = 1 where id = #{id}
   </update>
 
   <select id="selectById" parameterType="int" resultType="app.pp.entity.Car">
     select * from car where id = #{id}
+  </select>
+
+
+  <select id="selectByType" parameterType="int" resultType="app.pp.entity.Car">
+    select * from car where isdel = 0 and type =#{type}
+  </select>
+  <select id="selectType2ByFid" parameterType="int" resultType="app.pp.entity.Car">
+    select * from car where isdel = 0 and type =2 and fid =#{fid}
   </select>
 </mapper>

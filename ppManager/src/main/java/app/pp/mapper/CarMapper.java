@@ -4,7 +4,6 @@ import app.pp.entity.Car;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
-import javax.xml.ws.soap.MTOM;
 import java.util.List;
 
 @Component
@@ -27,4 +26,11 @@ public interface CarMapper {
     int updateById(Integer id);
 
     Car selectById(Integer id);
+
+    List<Car> selectByType(Integer type);
+
+    List<Car> selectType2ByFid(Integer fid);
+
+    List<Car> selectByFidTwo(Integer fid);
+
 }

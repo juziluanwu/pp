@@ -23,7 +23,7 @@
                 and su.name like '%${username}%'
             </if>
             <if test="firstbeneficiary != null and firstbeneficiary != ''">
-                and g_firstbeneficiary.firstbeneficiary  like '%${firstbeneficiary}%'
+                and g_firstbeneficiary.name  like '%${firstbeneficiary}%'
             </if>
             <if test="policystate != null">
                 and p.policystate = #{policystate}
