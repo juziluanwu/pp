@@ -11,7 +11,7 @@
                 and phone like '%${phone}%'
         </if>
         <if test="groups != null">
-            and u.groupid in
+            and groupid in
             <foreach collection="groups" open="(" close=")" separator="," item="group">
                 #{group.id}
             </foreach>
