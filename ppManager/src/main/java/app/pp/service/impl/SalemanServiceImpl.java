@@ -49,9 +49,11 @@ public class SalemanServiceImpl implements SalemanService {
 
     public List<Saleman> selectall(Map<String, Object> param) {
         List<Group> list = new ArrayList<>();
-        if (list != null && !list.isEmpty()) {
-            param.put("groups", groupService.getAllCarGroup());
-        }
+        Integer groupid = (Integer)param.get("groupid");
+        Group group = new Group();
+        group.setId(groupid);
+        list.add(group);
+        param.put("groups",list );
         return salemanMapper.selectAll(param);
     }
 }
