@@ -50,6 +50,6 @@
     </select>
 
     <select id="selectLastBySaleslipid" parameterType="int" resultType="app.pp.entity.PrintRecord">
-        select printlimit from printrecord where  saleslipid = #{saleslipid} order by id desc limit 1
+        select * from printrecord where  saleslipid = #{saleslipid} order by id desc limit 1
     </select>
 </mapper>

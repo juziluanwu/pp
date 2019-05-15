@@ -25,6 +25,12 @@
             <if test="firstbeneficiary != null and firstbeneficiary != ''">
                 and g_firstbeneficiary.name  like '%${firstbeneficiary}%'
             </if>
+            <if test="firstbeneficiarys != null">
+                and ss.firstbeneficiary in
+                <foreach collection="firstbeneficiarys" open="(" close=")" separator="," item="item">
+                    #{item.id}
+                </foreach>
+            </if>
             <if test="policystate != null">
                 and p.policystate = #{policystate}
             </if>

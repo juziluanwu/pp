@@ -181,8 +181,18 @@ public class SaleSlipServiceImpl implements SaleSlipService {
      * @return
      */
     public List<SaleSlip> selectall(Map<String, Object> param) {
-        List<Group> groups = groupService.selectall();
-        param.put("groups", groups);
+        Group group = groupService.getCurrentGroup();
+        if(group != null){
+            List<Group> groups = groupService.selectall();
+            if(4 == group.getType() || 5==group.getType()){
+                param.put("firstbeneficiarys", groups);
+            }else{
+                param.put("groups", groups);
+            }
+
+
+        }
+
         return saleSlipMapper.selectAll(param);
     }
 
