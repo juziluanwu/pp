@@ -32,7 +32,7 @@ public class PrintRecordController extends AbstractController {
     /**
      * 打印
      */
-    @PostMapping("/print/{id}")
+    @PostMapping("/print")
     public Result print(@RequestBody PrintVO vo)  {
         printRecordService.print(vo);
         return ResultUtils.result(ErrorEnum.SUCCESS, "");
