@@ -85,7 +85,7 @@ public class SaleVoidRecord {
 
     private String remark;
 
-    private Long delman;
+    private String delman;
 
     private Date deltime;
 
@@ -409,11 +409,11 @@ public class SaleVoidRecord {
         this.remark = remark;
     }
 
-    public Long getDelman() {
+    public String getDelman() {
         return delman;
     }
 
-    public void setDelman(Long delman) {
+    public void setDelman(String delman) {
         this.delman = delman;
     }
 

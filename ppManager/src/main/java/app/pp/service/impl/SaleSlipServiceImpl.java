@@ -142,7 +142,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             //创建销售单废弃记录
             SaleVoidRecord svr = new SaleVoidRecord();
             svr.setReason(vo.getReason());
-            svr.setRemark(vo.getReamrk());
+            svr.setRemark(vo.getRemark());
             svr.setGroupid(ss.getGroupid());
             svr.setDevicenum(ss.getDevicenum());
             svr.setPnum(ss.getPnum());
@@ -169,7 +169,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 svr.setEnginenum(ss.getEnginenum());
                 svr.setFrame(ss.getFrame());
             }
-            svr.setDelman(user.getUserId());
+            svr.setDelman(user.getName());
             svr.setDeltime(new Date());
             saleVoidRecordMapper.insert(svr);
         }

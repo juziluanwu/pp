@@ -25,7 +25,7 @@ public class SaleSlipDelVO {
 
     private Integer reason;
 
-    private String reamrk;
+    private String remark;
 
     public Integer getId() {
         return id;
@@ -43,11 +43,11 @@ public class SaleSlipDelVO {
         this.reason = reason;
     }
 
-    public String getReamrk() {
-        return reamrk;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setReamrk(String reamrk) {
-        this.reamrk = reamrk;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
