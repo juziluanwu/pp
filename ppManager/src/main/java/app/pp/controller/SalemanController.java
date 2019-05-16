@@ -38,6 +38,7 @@ public class SalemanController extends AbstractController {
         Map<String, Object> param = new HashMap<>();
         param.put("name", name);
         param.put("phone", phone);
+        param.put("groupid", getUser().getGroupid());
         PageInfo<Saleman> pageInfo = new PageInfo<>(salemanService.selectall(param));
         return ResultUtils.result(ErrorEnum.SUCCESS, pageInfo);
     }
