@@ -48,7 +48,7 @@ public class SaleSlipController extends AbstractController {
                        @RequestParam(value = "customername", required = false) String customername,
                        @RequestParam(value = "username", required = false) String username,
                        @RequestParam(value = "firstbeneficiary", required = false) String firstbeneficiary,
-                       @RequestParam(value = "policystate", required = false) Integer policystate,
+                       @RequestParam(value = "printstate", required = false) Integer printstate,
                        @RequestParam(value = "pstarttime", required = false) String pstarttime,
                        @RequestParam(value = "pendtime", required = false) String pendtime) {
         PageHelper.startPage(null == page ? 1 : page, GlobleUtils.DEFAULT_PAGE_SIZE);
@@ -58,7 +58,7 @@ public class SaleSlipController extends AbstractController {
         param.put("customername", customername);
         param.put("username", username);
         param.put("firstbeneficiary", firstbeneficiary);
-        param.put("policystate", policystate);
+        param.put("printstate", printstate);
         param.put("pstarttime", pstarttime);
         param.put("pendtime", pendtime);
         PageInfo<SaleSlip> pageInfo = new PageInfo<>(saleSlipService.selectall(param));

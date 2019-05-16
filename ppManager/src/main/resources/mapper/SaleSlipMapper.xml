@@ -3,7 +3,8 @@
 
 <mapper namespace="app.pp.mapper.SaleSlipMapper">
     <select id="selectAll" parameterType="map" resultType="app.pp.entity.SaleSlip">
-        select ss.*,d.devicenum,p.pnum,su.name creatorname,g_firstbeneficiary.name firstbeneficiaryname,p.state policystate
+        select ss.*,d.devicenum,p.pnum,su.name creatorname,g_firstbeneficiary.name firstbeneficiaryname,p.state
+        policystate
         from saleslip ss
         left join device d on ss.deviceid = d.id
         left join policy p on p.id = ss.policyid
@@ -23,7 +24,7 @@
                 and su.name like '%${username}%'
             </if>
             <if test="firstbeneficiary != null and firstbeneficiary != ''">
-                and g_firstbeneficiary.name  like '%${firstbeneficiary}%'
+                and g_firstbeneficiary.name like '%${firstbeneficiary}%'
             </if>
             <if test="firstbeneficiarys != null">
                 and ss.firstbeneficiary in
@@ -31,16 +32,16 @@
                     #{item.id}
                 </foreach>
             </if>
-            <if test="policystate != null">
-                and p.policystate = #{policystate}
+            <if test="printstate != null">
+                and ss.printstate = #{printstate}
             </if>
 
-               <if test="pstarttime != null and pstarttime != ''">
+            <if test="pstarttime != null and pstarttime != ''">
                 and ss.pstarttime  <![CDATA[ >= ]]> #{pstarttime}
-              </if>
-              <if test="pendtime != null and pendtime != ''">
+            </if>
+            <if test="pendtime != null and pendtime != ''">
                 and ss.pendtime <![CDATA[ <= ]]> #{pendtime}
-              </if>
+            </if>
 
             <if test="groups != null">
                 and ss.groupid in
@@ -64,7 +65,7 @@
         where ss.id = #{id}
     </select>
 
-    <insert id="insert" parameterType="app.pp.entity.SaleSlip" useGeneratedKeys="true" keyProperty="id" >
+    <insert id="insert" parameterType="app.pp.entity.SaleSlip" useGeneratedKeys="true" keyProperty="id">
         insert into saleslip
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="salenum != null">
