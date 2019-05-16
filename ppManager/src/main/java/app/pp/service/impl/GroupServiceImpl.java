@@ -158,7 +158,9 @@ public class GroupServiceImpl implements GroupService {
 
             } else {
                 //其他权限分组 只能查看自己及子集
-
+                if(group.getType()==3){
+                    list.add(group);
+                }
                 List<Group> child = new ArrayList<>();
                 child.add(group);
                 getChild2(list, child);
