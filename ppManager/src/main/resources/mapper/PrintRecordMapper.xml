@@ -43,7 +43,7 @@
     </insert>
 
     <delete id="deleteBySaleslipid" parameterType="int">
-        update printrecord set isdel = 1 where saleslipid = #{saleslipid}
+        delete  from printrecord  where saleslipid = #{saleslipid}
     </delete>
     <select id="selectSumdateBySaleslipid" parameterType="int" resultType="int">
         select IFNULL(SUM(printlimit),0) from printrecord where  saleslipid = #{saleslipid}
