@@ -8,7 +8,7 @@
         from saleslip ss
         left join device d on ss.deviceid = d.id
         left join policy p on p.id = ss.policyid
-        left join sys_user su on ss.creator = su.name
+        left join sys_user su on ss.creator = su.user_id
         left join `group` g_firstbeneficiary on g_firstbeneficiary.id = ss.firstbeneficiary
         <where>
             <if test="devicenum != null and devicenum != ''">
