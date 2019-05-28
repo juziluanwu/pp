@@ -119,11 +119,15 @@ public class SaleSlipController extends AbstractController {
                 } else if (2 == vo.getPrintstate()) {
                     row3.createCell(3).setCellValue("已打印");
                 }
-                row3.createCell(4).setCellValue(vo.getPolicyamount().toString());
+                if(vo.getPolicyamount() != null){
+                    row3.createCell(4).setCellValue(vo.getPolicyamount().toString());
+                }
                 row3.createCell(5).setCellValue(vo.getShop4s());
                 row3.createCell(6).setCellValue(vo.getCustomername());
                 row3.createCell(7).setCellValue(vo.getPhone());
-                row3.createCell(8).setCellValue(vo.getCompensation().toString());
+                if(vo.getCompensation() != null) {
+                    row3.createCell(8).setCellValue(vo.getCompensation().toString());
+                }
                 row3.createCell(9).setCellValue(vo.getCarnum());
                 row3.createCell(10).setCellValue(sdf.format(vo.getPstarttime()));
                 row3.createCell(11).setCellValue(sdf.format(vo.getPendtime()));
