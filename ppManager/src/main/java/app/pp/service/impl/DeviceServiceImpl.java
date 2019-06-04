@@ -72,7 +72,7 @@ public class DeviceServiceImpl implements DeviceService {
         //调用申请api密匙接口
         DeviceResultEntity deviceResultEntity = null;
         map.put("type", 1);
-        map.put("key", "1f87dd41-87c9-46a0-b74a-24e47a587a4e");
+        map.put("key", "6e1a70bd-06ef-45e0-9d8a-8330472f68e3");
 
         String url = getUrlByMap(apiAddress, map);
         try {
