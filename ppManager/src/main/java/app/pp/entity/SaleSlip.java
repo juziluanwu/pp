@@ -13,6 +13,8 @@ public class SaleSlip {
 
     private String devicenum;//设备号
 
+    private String devicenum2;//设备号
+
     private Integer policyid;//保单id
 
     private String pnum;//保单号
@@ -407,11 +409,11 @@ public class SaleSlip {
         this.delstate = delstate;
     }
 
-   /* public Integer getPrintlimit() {
-        return printlimit;
+    public String getDevicenum2() {
+        return devicenum2;
     }
 
-    public void setPrintlimit(Integer printlimit) {
-        this.printlimit = printlimit;
-    }*/
+    public void setDevicenum2(String devicenum2) {
+        this.devicenum2 = devicenum2;
+    }
 }

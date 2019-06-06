@@ -1,9 +1,8 @@
 spring:
   datasource:
-    url:
-    username:
-    password:
+    url: jdbc:mysql://47.110.76.255:3306/pp?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: T4pqL2jLC6FU
     driver-class-name: com.mysql.jdbc.Driver
-
 
 file.uplode.type: online

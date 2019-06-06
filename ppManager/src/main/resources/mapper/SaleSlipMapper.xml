@@ -167,6 +167,9 @@
             <if test="delstate != null">
                 delstate,
             </if>
+            <if test="devicenum2 != null">
+                devicenum2,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="salenum != null">
@@ -267,6 +270,9 @@
             </if>
             <if test="delstate != null">
                 #{delstate},
+            </if>
+            <if test="devicenum2 != null">
+                #{devicenum2},
             </if>
         </trim>
     </insert>
@@ -377,6 +383,9 @@
             </if>
             <if test="delstate != null">
                 delstate=#{delstate},
+            </if>
+            <if test="devicenum2 != null">
+                devicenum2=#{devicenum2},
             </if>
         </set>
         where id=#{id}
