@@ -38,6 +38,8 @@ public class PolicyEntity {
 
     private String carname;
 
+    private String salenum;
+
     public String getCarname() {
         return carname;
     }
@@ -164,5 +166,13 @@ public class PolicyEntity {
 
     public void setGroupname(String groupname) {
         this.groupname = groupname;
+    }
+
+    public String getSalenum() {
+        return salenum;
+    }
+
+    public void setSalenum(String salenum) {
+        this.salenum = salenum;
     }
 }

@@ -173,7 +173,7 @@
 
 
   <select id="list" parameterType="app.pp.entity.PolicyEntity" resultType="app.pp.entity.PolicyEntity">
-    SELECT po.*,sa.buycartype,gr.`name` as groupname,gr2.`name` as carname FROM `policy` po
+    SELECT po.*,sa.buycartype,gr.`name` as groupname,gr2.`name` as carname,sa.salenum FROM `policy` po
     LEFT JOIN `saleslip` sa ON  po.`saleid` = sa.`id`
     LEFT JOIN `group` gr ON sa.`firstbeneficiary` = gr.`id`
     LEFT JOIN `group` gr2 ON po.`groupid` =  gr2.`id`
