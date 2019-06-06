@@ -92,6 +92,14 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                     d.setState(3);
                     deviceMapper.updateByPrimaryKeySelective(d);
                 }
+                if(oldslip.getPolicyid() == null){
+                    Group group = groupService.getCurrentGroup();
+                    Policy policy = policyMapper.selectByGroupid(group.getId());
+                    if (policy == null) {
+                        throw new GlobleException("没有可用的保单号，请先添加保单");
+                    }
+                    slip.setPolicyid(policy.getId());
+                }
                 //状态变成为 未打印
                 slip.setUpdator(sysUserService.getCurrentUser().getUserId());
                 slip.setUpdatedtime(new Date());
