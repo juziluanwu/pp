@@ -3,6 +3,7 @@ package app.pp.service.impl;
 import app.pp.common.Result;
 import app.pp.entity.*;
 import app.pp.enums.ErrorEnum;
+import app.pp.exceptions.GlobleException;
 import app.pp.mapper.PolicyMapper;
 import app.pp.service.GroupService;
 import app.pp.service.PolicyService;
@@ -33,6 +34,9 @@ public class PolicyServiceImpl implements PolicyService {
     @Override
     public Result verb(Policy policy) {
         //首先先查询前缀是否已经生成过保单号
+        if(policy.getGroupid() == null){
+            throw new GlobleException("请先选择保单号所属的车行，再生成保单号！");
+        }
         int count = policyMapper.selectByPrefix(policy.getPrefix());
 
         List<Policy> list = new ArrayList<Policy>();
