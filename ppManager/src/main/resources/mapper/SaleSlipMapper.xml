@@ -161,9 +161,6 @@
             <if test="createdtime != null">
                 createdtime,
             </if>
-            <if test="policystate != null">
-                policystate,
-            </if>
             <if test="delstate != null">
                 delstate,
             </if>
@@ -264,9 +261,6 @@
             </if>
             <if test="createdtime != null">
                 #{createdtime},
-            </if>
-            <if test="policystate != null">
-                #{policystate},
             </if>
             <if test="delstate != null">
                 #{delstate},
@@ -377,9 +371,6 @@
             </if>
             <if test="updatedtime != null">
                 updatedtime=#{updatedtime},
-            </if>
-            <if test="policystate != null">
-                policystate=#{policystate},
             </if>
             <if test="delstate != null">
                 delstate=#{delstate},
