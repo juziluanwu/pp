@@ -103,7 +103,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                     //将保单修改为已关联状态
                     Policy p = new Policy();
                     p.setId(policy.getId());
-                    p.setState(1);
+                    p.setState(2);
                     policyMapper.updateByPrimaryKeySelective(p);
                 }
                 //状态变成为 未打印
