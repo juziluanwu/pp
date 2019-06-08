@@ -99,6 +99,11 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                         throw new GlobleException("没有可用的保单号，请先添加保单");
                     }
                     slip.setPolicyid(policy.getId());
+                    //将保单修改为已关联状态
+                    Policy p = new Policy();
+                    p.setId(policy.getId());
+                    p.setState(1);
+                    policyMapper.updateByPrimaryKeySelective(p);
                 }
                 //状态变成为 未打印
                 slip.setUpdator(sysUserService.getCurrentUser().getUserId());
