@@ -81,6 +81,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
      * 编辑
      * @param slip
      */
+    @Transactional
     public void update(SaleSlip slip) {
         SaleSlip oldslip = saleSlipMapper.findById(slip.getId());
         if (oldslip != null) {
