@@ -46,12 +46,21 @@ public class GroupServiceImpl implements GroupService {
 
     @Transactional
     public void update(Group group) {
-        Group oldgroup = groupMapper.selectById(group.getId());
-        if (3 == oldgroup.getType()) {
+        //Group oldgroup = groupMapper.selectById(group.getId());
+        Group pg = groupMapper.selectById(group.getPid());
+        if (3 == group.getType()) {
             //车行转移分组
-            Group pg = groupMapper.selectById(group.getPid());
             if( 4 == pg.getType() || 5 == pg.getType() || 3 == pg.getType() || (3 == pg.getType() && 0 != group.getPid())){
                 throw new GlobleException("无法迁移车行到此分组下");
+            }
+        }else if(0 == group.getType()){
+            //管理员
+            if( 0 != pg.getType() ){
+                throw new GlobleException("无法迁移到此分组下");
+            }
+        }else if(5 == group.getType()){
+            if( !(4 == pg.getType() ||  0 == group.getPid())){
+                throw new GlobleException("无法金融公司迁移到此分组下");
             }
         }
         groupMapper.update(group);
@@ -201,7 +210,7 @@ public class GroupServiceImpl implements GroupService {
         return list;
     }
 
-    public List<Group> changeGroupList(){
-        return  groupMapper.changeGroup();
+    public List<Group> selectAll(){
+        return  groupMapper.selectAll();
     }
 }

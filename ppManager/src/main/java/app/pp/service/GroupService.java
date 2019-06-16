@@ -48,5 +48,5 @@ public interface GroupService {
     List<Group> getAllCarGroup();
 
 
-    List<Group> changeGroupList();
+    List<Group> selectAll();
 }

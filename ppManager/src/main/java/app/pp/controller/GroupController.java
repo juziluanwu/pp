@@ -94,11 +94,11 @@ public class GroupController extends AbstractController {
     }
 
     /**
-     * 获取第一受益人下拉框
+     * 所有分组下拉框
      *
      */
-    @GetMapping("/changeGroupList")
-    public Result changeGroupList() {
-        return ResultUtils.result(ErrorEnum.SUCCESS, groupService.changeGroupList());
+    @GetMapping("/selectAll")
+    public Result selectAll() {
+        return ResultUtils.result(ErrorEnum.SUCCESS, groupService.selectAll());
     }
 }
