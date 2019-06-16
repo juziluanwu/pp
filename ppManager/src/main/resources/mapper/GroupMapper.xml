@@ -98,6 +98,9 @@
     </select>
 
     <select id="selectByPidGroup"  parameterType="Integer" resultType="app.pp.entity.Group">
-    select * from `group` where isdel = 0 and pid = #{id} and type = 3
-</select>
+        select * from `group` where isdel = 0 and pid = #{id} and type = 3
+    </select>
+    <select id="changeGroup" resultType="app.pp.entity.Group">
+        select * from `group` where isdel = 0 and (`type` in (1,2) or id = 0 )
+    </select>
 </mapper>

@@ -92,4 +92,13 @@ public class GroupController extends AbstractController {
     public Result firstbeneficiarylist() {
         return ResultUtils.result(ErrorEnum.SUCCESS, groupService.firstbeneficiarylist());
     }
+
+    /**
+     * 获取第一受益人下拉框
+     *
+     */
+    @GetMapping("/changeGroupList")
+    public Result changeGroupList() {
+        return ResultUtils.result(ErrorEnum.SUCCESS, groupService.changeGroupList());
+    }
 }

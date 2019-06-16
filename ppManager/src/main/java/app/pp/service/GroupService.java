@@ -43,7 +43,10 @@ public interface GroupService {
 
     List<Group> firstbeneficiarylist();
 
-    public List<Group> selecGroup();
+     List<Group> selecGroup();
 
     List<Group> getAllCarGroup();
+
+
+    List<Group> changeGroupList();
 }

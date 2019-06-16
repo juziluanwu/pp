@@ -36,4 +36,6 @@ public interface GroupMapper {
     List<Group> selecGroup();
     //查询当前分组下的车行
     List<Group> selectByPidGroup(Integer id);
+
+    List<Group> changeGroup();
 }
