@@ -50,44 +50,27 @@ public class GroupServiceImpl implements GroupService {
         Group pg = groupMapper.selectById(group.getPid());
         if (3 == group.getType()) {
             //车行转移分组
-            if( 4 == pg.getType() || 5 == pg.getType() || 3 == pg.getType() || (3 == pg.getType() && 0 != group.getPid())){
+            if (4 == pg.getType() || 5 == pg.getType() || 3 == pg.getType() || (3 == pg.getType() && 0 != group.getPid())) {
                 throw new GlobleException("无法迁移车行到此分组下");
             }
-        }else if(0 == group.getType()){
+        } else if (0 == group.getType()) {
             //管理员
-            if( 0 != pg.getType() ){
+            if (0 != pg.getType()) {
                 throw new GlobleException("无法迁移到此分组下");
             }
-        }else if(5 == group.getType()){
-            if( !(4 == pg.getType() ||  0 == group.getPid())){
+        } else if (5 == group.getType()) {
+            if (!(4 == pg.getType() || 0 == group.getPid())) {
                 throw new GlobleException("无法金融公司迁移到此分组下");
             }
         }
         groupMapper.update(group);
+        groupModelMapper.deleteByGid(group.getId());
         if (group.getGroupModelList() != null && !group.getGroupModelList().isEmpty()) {
-            List<GroupModel> oldlist = groupModelMapper.selectByGid(group.getId());
-            if (oldlist != null && !oldlist.isEmpty()) {
-                for (GroupModel gm : group.getGroupModelList()) {
-                    if (!oldlist.contains(gm)) {
-                        gm.setGid(group.getId());
-                        groupModelMapper.insert(gm);
-                    }
-                }
-                for (GroupModel gm : oldlist) {
-                    if (group.getGroupModelList().contains(gm)) {
-                        groupModelMapper.deleteById(gm.getId());
-                    }
-                }
-            } else {
-                for (GroupModel gm : group.getGroupModelList()) {
-                    gm.setGid(group.getId());
-                    groupModelMapper.insert(gm);
-                }
+            for (GroupModel gm : group.getGroupModelList()) {
+                gm.setGid(group.getId());
+                groupModelMapper.insert(gm);
             }
-        } else {
-            groupModelMapper.deleteByGid(group.getId());
         }
-
     }
 
     public void delete(Integer id) {
@@ -210,7 +193,7 @@ public class GroupServiceImpl implements GroupService {
         return list;
     }
 
-    public List<Group> selectAll(){
-        return  groupMapper.selectAll();
+    public List<Group> selectAll() {
+        return groupMapper.selectAll();
     }
 }
