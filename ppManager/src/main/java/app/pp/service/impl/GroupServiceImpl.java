@@ -46,21 +46,30 @@ public class GroupServiceImpl implements GroupService {
 
     @Transactional
     public void update(Group group) {
-        //Group oldgroup = groupMapper.selectById(group.getId());
+        Group oldgroup = groupMapper.selectById(group.getId());
         Group pg = groupMapper.selectById(group.getPid());
-        if (3 == group.getType()) {
-            //车行转移分组
-            if (4 == pg.getType() || 5 == pg.getType() || 3 == pg.getType() || (3 == pg.getType() && 0 != group.getPid())) {
-                throw new GlobleException("无法迁移车行到此分组下");
-            }
-        } else if (0 == group.getType()) {
-            //管理员
-            if (0 != pg.getType()) {
-                throw new GlobleException("无法迁移到此分组下");
-            }
-        } else if (5 == group.getType()) {
-            if (!(4 == pg.getType() || 0 == group.getPid())) {
-                throw new GlobleException("无法金融公司迁移到此分组下");
+        if (!oldgroup.getPid().equals(group.getPid())) {
+
+            if(2 == group.getType()){
+                if(!(1 == pg.getType() || 0 == group.getPid())){
+                    throw new GlobleException("无法迁移集团到此分组下");
+                }
+            } else if (3 == group.getType()) {
+                //车行转移分组
+                if (4 == pg.getType() || 5 == pg.getType() || 3 == pg.getType() || (3 == pg.getType() && 0 != group.getPid())) {
+                    throw new GlobleException("无法迁移车行到此分组下");
+                }
+            } else if (0 == group.getType()) {
+                //管理员
+                if (0 != pg.getType()) {
+                    throw new GlobleException("无法迁移到此分组下");
+                }
+            } else if (5 == group.getType()) {
+                if (!(4 == pg.getType() || 0 == group.getPid())) {
+                    throw new GlobleException("金融公司无法迁移到此分组下");
+                }
+            }else if(1 == group.getType() || 4 == group.getType()){
+                throw new GlobleException("改分组无法迁移");
             }
         }
         groupMapper.update(group);
