@@ -56,7 +56,7 @@ public class GroupServiceImpl implements GroupService {
                 }
             } else if (3 == group.getType()) {
                 //车行转移分组
-                if (4 == pg.getType() || 5 == pg.getType() || 3 == pg.getType() || (3 == pg.getType() && 0 != group.getPid())) {
+                if (4 == pg.getType() || 5 == pg.getType() || 3 == pg.getType() || (0 == pg.getType() && 0 != group.getPid())) {
                     throw new GlobleException("无法迁移车行到此分组下");
                 }
             } else if (0 == group.getType()) {
