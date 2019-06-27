@@ -61,6 +61,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         Calendar cal = Calendar.getInstance();
         cal.setTime(slip.getInstalltime());
         cal.add(Calendar.YEAR, slip.getPolicydate());//增加一年
+        cal.add(Calendar.MONTH, -1);//减1天
         slip.setPendtime(cal.getTime());
 
         //最高赔付金额 = 新车购入价格
