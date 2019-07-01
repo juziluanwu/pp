@@ -170,6 +170,9 @@
             <if test="devicenum2 != null">
                 devicenum2,
             </if>
+            <if test="installaddress != null">
+                installaddress,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="salenum != null">
@@ -270,6 +273,9 @@
             </if>
             <if test="devicenum2 != null">
                 #{devicenum2},
+            </if>
+            <if test="installaddress != null">
+                #{installaddress},
             </if>
         </trim>
     </insert>
@@ -380,6 +386,9 @@
             </if>
             <if test="devicenum2 != null">
                 devicenum2=#{devicenum2},
+            </if>
+            <if test="installaddress != null">
+                installaddress=#{installaddress},
             </if>
         </set>
         where id=#{id}

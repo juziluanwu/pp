@@ -129,7 +129,7 @@ public class DeviceServiceImpl implements DeviceService {
                 }
 
             //获得结果
-            System.err.println(result);
+            //System.err.println(result);
             }else{
                 logger.info("请求接口失败");
             }
