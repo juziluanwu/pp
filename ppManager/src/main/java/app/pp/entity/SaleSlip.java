@@ -89,6 +89,8 @@ public class SaleSlip {
 
     //private Integer printlimit;//打印期限
 
+    private String installaddress;
+
     public Integer getId() {
         return id;
     }
@@ -415,5 +417,13 @@ public class SaleSlip {
 
     public void setDevicenum2(String devicenum2) {
         this.devicenum2 = devicenum2;
+    }
+
+    public String getInstalladdress() {
+        return installaddress;
+    }
+
+    public void setInstalladdress(String installaddress) {
+        this.installaddress = installaddress;
     }
 }
