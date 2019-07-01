@@ -60,7 +60,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     //获取设备号
     @Override
-    public  void getDevice() {
+    public  void getDevice()throws Exception {
         //调用的地址
         String ip = "http://120.76.69.92:7515";
         //接口名称
@@ -85,31 +85,38 @@ public class DeviceServiceImpl implements DeviceService {
             if(deviceResultEntity.getFlag().equals("1")){
                 //从库里查询所有的设备号
             List<Device> devices = deviceMapper.selectAll();
-            for(int i = 0;i<deviceResultEntity.getObj().size();i++){
+                ArrayList<Device> data = new ArrayList<>();
+                for(int i = 0;i<deviceResultEntity.getObj().size();i++){
+                int no = 0;
                 for(Device device : devices){
                     if(deviceResultEntity.getObj().get(i).getTerminalNo().equals(device.getDevicenum())){
+                        no = 1;
                         //如果相同就删除当前list中的元素
                         if(device.getSynstate()==2){
                             deviceMapper.updateSynState(device.getId(),1);
                         }
-                       deviceResultEntity.getObj().remove(i);
+                        if(!device.getCarnum().equals(deviceResultEntity.getObj().get(i).getId())){
+                            device.setCarnum(deviceResultEntity.getObj().get(i).getId());
+                            deviceMapper.updateByPrimaryKeySelective(device);
+                        }
+                       //deviceResultEntity.getObj().remove(i);
                     }
                 }
-            }
-            //循环完成之后如果查询出的list的长度大于0就做插入操作
-            List<Device> list = new ArrayList<>();
-            if(deviceResultEntity.getObj().size()>0){
-                for(DeviceResult deviceResult : deviceResultEntity.getObj()){
+                if(no==0){
                     Device device = new Device();
-                    device.setDevicenum(deviceResult.getTerminalNo());
-                    device.setCarnum(deviceResult.getId());
+                    device.setDevicenum(deviceResultEntity.getObj().get(i).getTerminalNo());
+                    device.setCarnum(deviceResultEntity.getObj().get(i).getId());
                     device.setCreatedtime(new Date());
                     device.setState(1);
                     device.setSynstate(2);
-                    list.add(device);
+                    data.add(device);
                 }
-                deviceMapper.insert(list);
             }
+                if(data.size()>0){
+                    deviceMapper.insert(data);
+                }
+
+
 
             //保存完新的设备号后在做是否修改设备号状态操作
                 List<Device> devices2 = deviceMapper.selectAll();

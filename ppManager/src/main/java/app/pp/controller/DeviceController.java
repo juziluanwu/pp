@@ -1,7 +1,9 @@
 package app.pp.controller;
 
 import app.pp.common.Result;
+import app.pp.enums.ErrorEnum;
 import app.pp.service.DeviceService;
+import app.pp.utils.ResultUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,13 @@ public class DeviceController {
         return deviceService.list(page);
     }
 
+    @GetMapping("get")
+    //@RequiresPermissions("sys:device:list")
+    public Result get()throws Exception{
+        deviceService.getDevice();
+        return ResultUtils.result(ErrorEnum.SUCCESS,"00");
+
+    }
 
 
 }
