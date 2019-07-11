@@ -91,7 +91,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                     //判断设备号是否一致  不一致废弃老的设备号
                     Device d =new Device();
                     d.setId(slip.getDeviceid());
-                    d.setState(3);
+                    d.setState(1);
                     deviceMapper.updateByPrimaryKeySelective(d);
                 }
                 if(oldslip.getPolicyid() == null){
@@ -111,6 +111,11 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 slip.setUpdator(sysUserService.getCurrentUser().getUserId());
                 slip.setUpdatedtime(new Date());
                 saleSlipMapper.update(slip);
+                //将设备变更为 关联状态
+                Device d =new Device();
+                d.setId(slip.getDeviceid());
+                d.setState(2);
+                deviceMapper.updateByPrimaryKeySelective(d);
             } else {
                 throw new GlobleException("已打印的销售单不能编辑");
             }
