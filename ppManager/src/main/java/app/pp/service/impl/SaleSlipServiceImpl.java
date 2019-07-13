@@ -7,9 +7,11 @@ import app.pp.service.DeviceService;
 import app.pp.service.GroupService;
 import app.pp.service.SaleSlipService;
 import app.pp.service.SysUserService;
+import app.pp.utils.GlobleUtils;
 import app.pp.utils.OrderCodeUtils;
 import app.pp.vo.RenewalVO;
 import app.pp.vo.SaleSlipDelVO;
+import com.github.pagehelper.PageHelper;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -232,7 +234,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
 
 
         }
-
+        PageHelper.startPage(null == param.get("page") ? 1 : (int)param.get("page"), GlobleUtils.DEFAULT_PAGE_SIZE);
         return saleSlipMapper.selectAll(param);
     }
 
