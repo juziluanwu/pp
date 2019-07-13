@@ -5,6 +5,7 @@ import app.pp.entity.*;
 import app.pp.enums.ErrorEnum;
 import app.pp.exceptions.GlobleException;
 import app.pp.mapper.PolicyMapper;
+import app.pp.service.DeviceService;
 import app.pp.service.GroupService;
 import app.pp.service.PolicyService;
 import app.pp.utils.GlobleUtils;
@@ -26,9 +27,10 @@ import java.util.List;
 public class PolicyServiceImpl implements PolicyService {
 
     @Autowired
-    PolicyMapper policyMapper;
+    private PolicyMapper policyMapper;
     @Autowired
-    GroupService groupService;
+    private GroupService groupService;
+
 
     //批量生成保单号
     @Override

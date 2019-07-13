@@ -3,6 +3,7 @@ package app.pp.service.impl;
 import app.pp.entity.*;
 import app.pp.exceptions.GlobleException;
 import app.pp.mapper.*;
+import app.pp.service.DeviceService;
 import app.pp.service.GroupService;
 import app.pp.service.SaleSlipService;
 import app.pp.service.SysUserService;
@@ -40,8 +41,13 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     private SlipRenewalMapper slipRenewalMapper;
     @Autowired
     private DeviceMapper deviceMapper;
+    @Autowired
+    private DeviceService deviceService;
+
     @Transactional
     public void save(SaleSlip slip) {
+        Integer deviceid = deviceService.testDevice(slip.getDevicenum());
+        slip.setDeviceid(deviceid);
         //系统自动分配 当前账号车行  对应的  保单号
         Group group = groupService.getCurrentGroup();
         if (3 != group.getType()) {
@@ -72,7 +78,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         policy.setState(2);
         policyMapper.updateByPrimaryKeySelective(policy);
         //将设备变更为 关联状态
-        Device d =new Device();
+        Device d = new Device();
         d.setId(slip.getDeviceid());
         d.setState(2);
         deviceMapper.updateByPrimaryKeySelective(d);
@@ -80,6 +86,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
 
     /**
      * 编辑
+     *
      * @param slip
      */
     @Transactional
@@ -87,14 +94,26 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         SaleSlip oldslip = saleSlipMapper.findById(slip.getId());
         if (oldslip != null) {
             if (1 == oldslip.getPrintstate()) {
-                if (!oldslip.getDeviceid().equals(slip.getDeviceid())) {
+                Device device = deviceMapper.selectDeviceExsit(slip.getDevicenum());
+                if (device == null) {
+                    throw new GlobleException("设备号不存在");
+                }
+                slip.setDeviceid(device.getId());
+                if (!oldslip.getDeviceid().equals(slip.getId())) {
+                    //编辑后的设备号 和  编辑前的设备号 不一致     说明 修改了设备号
+                    if (2 == device.getState()) {
+                        throw new GlobleException("设备号已被别的销售单绑定");
+                    } else if (3 == device.getState()) {
+                        throw new GlobleException("设备号已被作废");
+                    }
                     //判断设备号是否一致  不一致废弃老的设备号
-                    Device d =new Device();
+                    Device d = new Device();
                     d.setId(slip.getDeviceid());
                     d.setState(1);
                     deviceMapper.updateByPrimaryKeySelective(d);
+
                 }
-                if(oldslip.getPolicyid() == null){
+                if (oldslip.getPolicyid() == null) {
                     Group group = groupService.getCurrentGroup();
                     Policy policy = policyMapper.selectByGroupid(group.getId());
                     if (policy == null) {
@@ -112,7 +131,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 slip.setUpdatedtime(new Date());
                 saleSlipMapper.update(slip);
                 //将设备变更为 关联状态
-                Device d =new Device();
+                Device d = new Device();
                 d.setId(slip.getDeviceid());
                 d.setState(2);
                 deviceMapper.updateByPrimaryKeySelective(d);
@@ -197,16 +216,17 @@ public class SaleSlipServiceImpl implements SaleSlipService {
 
     /**
      * 销售单列表
+     *
      * @param param
      * @return
      */
     public List<SaleSlip> selectall(Map<String, Object> param) {
         Group group = groupService.getCurrentGroup();
-        if(group != null){
+        if (group != null) {
             List<Group> groups = groupService.selectall();
-            if(4 == group.getType() || 5==group.getType()){
+            if (4 == group.getType() || 5 == group.getType()) {
                 param.put("firstbeneficiarys", groups);
-            }else{
+            } else {
                 param.put("groups", groups);
             }
 
@@ -218,6 +238,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
 
     /**
      * 获取销售单信息
+     *
      * @param id
      * @return
      */
@@ -262,19 +283,19 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         }
     }
 
-   public Map<String,Object> getRenewalInfo(Integer id){
-       Map<String,Object> result = new HashMap<>();
-       SaleSlip ss = saleSlipMapper.selectById(id);
-       if(ss != null){
-           result.put("customername",ss.getCustomername());
-           result.put("carnum",ss.getCarnum());
-           result.put("pstarttime",ss.getPstarttime());
-           result.put("pendtime",ss.getPendtime());
-           result.put("pnum",ss.getPnum());
-           int i = printRecordMapper.selectSumdateBySaleslipid(id);
-           result.put("renewallimit",ss.getPolicydate()-i);
-       }
-       return  result;
-   }
+    public Map<String, Object> getRenewalInfo(Integer id) {
+        Map<String, Object> result = new HashMap<>();
+        SaleSlip ss = saleSlipMapper.selectById(id);
+        if (ss != null) {
+            result.put("customername", ss.getCustomername());
+            result.put("carnum", ss.getCarnum());
+            result.put("pstarttime", ss.getPstarttime());
+            result.put("pendtime", ss.getPendtime());
+            result.put("pnum", ss.getPnum());
+            int i = printRecordMapper.selectSumdateBySaleslipid(id);
+            result.put("renewallimit", ss.getPolicydate() - i);
+        }
+        return result;
+    }
 }
 
