@@ -231,8 +231,6 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             } else {
                 param.put("groups", groups);
             }
-
-
         }
         PageHelper.startPage(null == param.get("page") ? 1 : (int)param.get("page"), GlobleUtils.DEFAULT_PAGE_SIZE);
         return saleSlipMapper.selectAll(param);
