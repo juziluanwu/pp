@@ -101,7 +101,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                     throw new GlobleException("设备号不存在");
                 }
                 slip.setDeviceid(device.getId());
-                if (!oldslip.getDeviceid().equals(slip.getId())) {
+                if (!oldslip.getDeviceid().equals(slip.getDeviceid())) {
                     //编辑后的设备号 和  编辑前的设备号 不一致     说明 修改了设备号
                     if (2 == device.getState()) {
                         throw new GlobleException("设备号已被别的销售单绑定");
