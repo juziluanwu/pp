@@ -131,6 +131,9 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 //状态变成为 未打印
                 slip.setUpdator(sysUserService.getCurrentUser().getUserId());
                 slip.setUpdatedtime(new Date());
+                if(2 == slip.getBuycartype()){
+                    saleSlipMapper.setFirstbeneficiaryNull(slip.getId());
+                }
                 saleSlipMapper.update(slip);
                 //将设备变更为 关联状态
                 Device d = new Device();

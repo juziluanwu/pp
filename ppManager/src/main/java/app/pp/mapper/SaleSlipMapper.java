@@ -34,4 +34,6 @@ public interface SaleSlipMapper {
     int setDeviceidNull(Integer id);
 
     int setPolicyidNull(Integer id);
+
+    int setFirstbeneficiaryNull(Integer id);
 }
