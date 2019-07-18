@@ -110,7 +110,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                     }
                     //判断设备号是否一致  不一致废弃老的设备号
                     Device d = new Device();
-                    d.setId(slip.getDeviceid());
+                    d.setId(oldslip.getDeviceid());
                     d.setState(1);
                     deviceMapper.updateByPrimaryKeySelective(d);
 
