@@ -101,7 +101,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                     throw new GlobleException("设备号不存在");
                 }
                 slip.setDeviceid(device.getId());
-                if (!oldslip.getDeviceid().equals(slip.getId())) {
+                if (!oldslip.getDeviceid().equals(slip.getDeviceid())) {
                     //编辑后的设备号 和  编辑前的设备号 不一致     说明 修改了设备号
                     if (2 == device.getState()) {
                         throw new GlobleException("设备号已被别的销售单绑定");
@@ -110,7 +110,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                     }
                     //判断设备号是否一致  不一致废弃老的设备号
                     Device d = new Device();
-                    d.setId(slip.getDeviceid());
+                    d.setId(oldslip.getDeviceid());
                     d.setState(1);
                     deviceMapper.updateByPrimaryKeySelective(d);
 
@@ -131,6 +131,9 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 //状态变成为 未打印
                 slip.setUpdator(sysUserService.getCurrentUser().getUserId());
                 slip.setUpdatedtime(new Date());
+                if(2 == slip.getBuycartype()){
+                    saleSlipMapper.setFirstbeneficiaryNull(slip.getId());
+                }
                 saleSlipMapper.update(slip);
                 //将设备变更为 关联状态
                 Device d = new Device();

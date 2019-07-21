@@ -402,4 +402,8 @@
     <update id="setPolicyidNull" parameterType="int">
         update saleslip set policyid = null where id = #{id}
     </update>
+
+    <update id="setFirstbeneficiaryNull" parameterType="int">
+        update saleslip set firstbeneficiary = null where id = #{id}
+    </update>
 </mapper>
