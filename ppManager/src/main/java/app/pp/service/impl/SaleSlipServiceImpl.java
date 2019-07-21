@@ -222,6 +222,20 @@ public class SaleSlipServiceImpl implements SaleSlipService {
      * @param param
      * @return
      */
+    public List<SaleSlip> selectallpage(Map<String, Object> param) {
+        Group group = groupService.getCurrentGroup();
+        if (group != null) {
+            List<Group> groups = groupService.selectall();
+            if (4 == group.getType() || 5 == group.getType()) {
+                param.put("firstbeneficiarys", groups);
+            } else {
+                param.put("groups", groups);
+            }
+        }
+        PageHelper.startPage(null == param.get("page") ? 1 : (int) param.get("page"), GlobleUtils.DEFAULT_PAGE_SIZE);
+        return saleSlipMapper.selectAll(param);
+    }
+
     public List<SaleSlip> selectall(Map<String, Object> param) {
         Group group = groupService.getCurrentGroup();
         if (group != null) {
@@ -232,7 +246,6 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 param.put("groups", groups);
             }
         }
-        PageHelper.startPage(null == param.get("page") ? 1 : (int)param.get("page"), GlobleUtils.DEFAULT_PAGE_SIZE);
         return saleSlipMapper.selectAll(param);
     }
 

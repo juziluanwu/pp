@@ -64,7 +64,7 @@ public class SaleSlipController extends AbstractController {
         param.put("pendtime", pendtime);
         param.put("chname", chname);
         param.put("page",page);
-        PageInfo<SaleSlip> pageInfo = new PageInfo<>(saleSlipService.selectall(param));
+        PageInfo<SaleSlip> pageInfo = new PageInfo<>(saleSlipService.selectallpage(param));
         return ResultUtils.result(ErrorEnum.SUCCESS, pageInfo);
     }
 

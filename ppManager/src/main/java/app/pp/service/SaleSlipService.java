@@ -39,6 +39,13 @@ public interface SaleSlipService {
     List<SaleSlip> selectall(Map<String, Object> param);
 
     /**
+     * 销售单列表
+     *
+     * @return
+     */
+    List<SaleSlip> selectallpage(Map<String, Object> param);
+
+    /**
      * 销售单详情
      */
 

@@ -38,10 +38,10 @@
             </if>
 
             <if test="pstarttime != null and pstarttime != ''">
-                and ss.pstarttime  <![CDATA[ >= ]]> #{pstarttime}
+                and ss.createdtime  <![CDATA[ >= ]]> #{pstarttime}
             </if>
             <if test="pendtime != null and pendtime != ''">
-                and ss.pendtime <![CDATA[ <= ]]> #{pendtime}
+                and ss.createdtime <![CDATA[ <= ]]> #{pendtime}
             </if>
             <if test="chname != null and chname != ''">
                 and group_ch.name like '%${chname}%'
