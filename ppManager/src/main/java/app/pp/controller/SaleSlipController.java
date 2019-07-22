@@ -103,7 +103,7 @@ public class SaleSlipController extends AbstractController {
             HSSFSheet sheet = workbook.createSheet("销售单");
             String[] headers = {"销售单号", "设备号", "保单号", "销售单状态",
                     "保单金额", "4S店名", "车主姓名", "手机号", "赔付限额",
-                    "车牌号码", "保险开始日期", "保险结束日期", "第一受益人"};
+                    "车牌号码", "保险开始日期", "保险结束日期", "第一受益人","车架号码"};
             HSSFRow row = sheet.createRow(0);
             for (int i = 0; i < headers.length; i++) {
                 HSSFCell cell = row.createCell(i);
@@ -135,6 +135,7 @@ public class SaleSlipController extends AbstractController {
                 row3.createCell(10).setCellValue(sdf.format(vo.getPstarttime()));
                 row3.createCell(11).setCellValue(sdf.format(vo.getPendtime()));
                 row3.createCell(12).setCellValue(vo.getFirstbeneficiaryname());
+                row3.createCell(13).setCellValue(vo.getFrame());
                 rowNum++;
             }
 
