@@ -85,7 +85,8 @@ public class SaleSlipController extends AbstractController {
                             @RequestParam(value = "firstbeneficiary", required = false) String firstbeneficiary,
                             @RequestParam(value = "printstate", required = false) Integer printstate,
                             @RequestParam(value = "pstarttime", required = false) String pstarttime,
-                            @RequestParam(value = "pendtime", required = false) String pendtime
+                            @RequestParam(value = "pendtime", required = false) String pendtime,
+                            @RequestParam(value = "chname", required = false) String chname
     ) throws Exception {
         Map<String, Object> param = new HashMap<>();
         param.put("devicenum", devicenum);
@@ -96,6 +97,7 @@ public class SaleSlipController extends AbstractController {
         param.put("printstate", printstate);
         param.put("pstarttime", pstarttime);
         param.put("pendtime", pendtime);
+        param.put("chname", chname);
         List<SaleSlip> list = saleSlipService.selectall(param);
         if (list != null && !list.isEmpty()) {
             String fileName = "销售单.xls";
