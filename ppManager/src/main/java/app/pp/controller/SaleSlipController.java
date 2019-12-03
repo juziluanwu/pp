@@ -5,6 +5,7 @@ import app.pp.common.AbstractController;
 import app.pp.common.Result;
 import app.pp.entity.SaleSlip;
 import app.pp.enums.ErrorEnum;
+import app.pp.exceptions.GlobleException;
 import app.pp.service.DeviceService;
 import app.pp.service.SaleSlipService;
 import app.pp.utils.GlobleUtils;
@@ -149,6 +150,8 @@ public class SaleSlipController extends AbstractController {
             workbook.write(outputStream);
             outputStream.flush();
             outputStream.close();
+        }else{
+           throw new GlobleException("没有查询数据");
         }
     }
 
