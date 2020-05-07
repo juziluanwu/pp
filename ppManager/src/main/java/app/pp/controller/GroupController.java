@@ -101,4 +101,13 @@ public class GroupController extends AbstractController {
     public Result selectAll() {
         return ResultUtils.result(ErrorEnum.SUCCESS, groupService.selectAll());
     }
+
+    /**
+     * 所有分组下拉框
+     *
+     */
+    @GetMapping("/chehang")
+    public Result chehang() {
+        return ResultUtils.result(ErrorEnum.SUCCESS, groupService.chehang());
+    }
 }

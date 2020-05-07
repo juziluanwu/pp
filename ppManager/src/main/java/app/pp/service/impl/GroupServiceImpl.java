@@ -50,8 +50,8 @@ public class GroupServiceImpl implements GroupService {
         Group pg = groupMapper.selectById(group.getPid());
         if (!oldgroup.getPid().equals(group.getPid())) {
 
-            if(2 == group.getType()){
-                if(!(1 == pg.getType() || 0 == group.getPid())){
+            if (2 == group.getType()) {
+                if (!(1 == pg.getType() || 0 == group.getPid())) {
                     throw new GlobleException("无法迁移集团到此分组下");
                 }
             } else if (3 == group.getType()) {
@@ -68,7 +68,7 @@ public class GroupServiceImpl implements GroupService {
                 if (!(4 == pg.getType() || 0 == group.getPid())) {
                     throw new GlobleException("金融公司无法迁移到此分组下");
                 }
-            }else if(1 == group.getType() || 4 == group.getType()){
+            } else if (1 == group.getType() || 4 == group.getType()) {
                 throw new GlobleException("改分组无法迁移");
             }
         }
@@ -204,5 +204,9 @@ public class GroupServiceImpl implements GroupService {
 
     public List<Group> selectAll() {
         return groupMapper.selectAll();
+    }
+
+    public List<Group> chehang() {
+        return groupMapper.selectByType(3);
     }
 }

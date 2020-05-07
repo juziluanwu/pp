@@ -46,7 +46,7 @@ public interface GroupService {
      List<Group> selecGroup();
 
     List<Group> getAllCarGroup();
-
+    List<Group> chehang();
 
     List<Group> selectAll();
 }
