@@ -55,7 +55,8 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         if (3 != group.getType()) {
             throw new GlobleException("当前账号不是车行账号，不能添加销售单");
         }
-        Policy policy = policyMapper.selectByGroupid(group.getId());
+        Policy policy = policyMapper.selectByCondition(group.getId(),slip.getCarprice(),slip.getPolicydate());
+
         if (policy == null) {
             throw new GlobleException("没有可用的保单号，请先添加保单");
         }

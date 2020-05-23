@@ -3,8 +3,10 @@ package app.pp.mapper;
 import app.pp.entity.Policy;
 import app.pp.entity.PolicyEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 @Component
 @Mapper
@@ -19,8 +21,6 @@ public interface PolicyMapper {
 
     int updateByPrimaryKeySelective(Policy record);
 
-    int updateByPrimaryKey(Policy record);
-
     //通过前缀查询该前缀是否已经生成过保单号
 
     int selectByPrefix(String prefix);
@@ -33,6 +33,10 @@ public interface PolicyMapper {
 
     //获取车行分组对应未关联的保单号
     Policy selectByGroupid(Integer groupid);
+
+
+    Policy  selectByCondition(@Param("groupid")Integer groupid, @Param("amount")BigDecimal amount,@Param("yearlimit")Integer yearlimit);
+
 
     //保单号查询
     List<PolicyEntity> list(PolicyEntity policyEntity);

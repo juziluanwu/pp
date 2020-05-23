@@ -30,13 +30,13 @@
     insert into policy (id, pnum, `state`, 
       saleid, groupid, isdel, 
       createdtime, creator, `prefix`, 
-      `number`)
+      `number`,amount1,amount2,yearlimit)
     values
     <foreach collection="list" item="item" index="index" separator=",">
     (#{item.id,jdbcType=INTEGER}, #{item.pnum,jdbcType=VARCHAR}, #{item.state,jdbcType=INTEGER},
       #{item.saleid,jdbcType=INTEGER}, #{item.groupid,jdbcType=INTEGER}, #{item.isdel,jdbcType=INTEGER},
       #{item.createdtime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=BIGINT}, #{item.prefix,jdbcType=VARCHAR},
-      #{item.number,jdbcType=INTEGER})
+      #{item.number,jdbcType=INTEGER},#{item.amount1},#{item.amount2},#{item.yearlimit})
     </foreach>
   </insert>
   <insert id="insertSelective" parameterType="app.pp.entity.Policy">
@@ -72,6 +72,15 @@
       <if test="number != null">
         `number`,
       </if>
+      <if test="amount1 != null">
+        `amount1`,
+      </if>
+      <if test="amount2 != null">
+        `amount2`,
+      </if>
+      <if test="yearlimit != null">
+        `yearlimit`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -103,6 +112,15 @@
       </if>
       <if test="number != null">
         #{number,jdbcType=INTEGER},
+      </if>
+      <if test="amount1 != null">
+        #{amount1},
+      </if>
+      <if test="amount2 != null">
+        #{amount2},
+      </if>
+      <if test="yearlimit != null">
+        #{yearlimit},
       </if>
     </trim>
   </insert>
@@ -136,20 +154,16 @@
       <if test="number != null">
         `number` = #{number,jdbcType=INTEGER},
       </if>
+      <if test="amount1 != null">
+        `amount1` = #{amount1},
+      </if>
+      <if test="amount2 != null">
+        `amount2` = #{amount2},
+      </if>
+      <if test="yearlimit != null">
+        `yearlimit` = #{yearlimit},
+      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="app.pp.entity.Policy">
-    update policy
-    set pnum = #{pnum,jdbcType=VARCHAR},
-      `state` = #{state,jdbcType=INTEGER},
-      saleid = #{saleid,jdbcType=INTEGER},
-      groupid = #{groupid,jdbcType=INTEGER},
-      isdel = #{isdel,jdbcType=INTEGER},
-      createdtime = #{createdtime,jdbcType=TIMESTAMP},
-      creator = #{creator,jdbcType=BIGINT},
-      `prefix` = #{prefix,jdbcType=VARCHAR},
-      `number` = #{number,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -170,7 +184,14 @@
     select * from policy where isdel = 0 and state = 1 and groupid = #{groupid} limit 1
   </select>
 
-
+  <select id="selectByCondition" parameterType="map" resultType="app.pp.entity.Policy">
+    select * from policy
+    where isdel = 0 and state = 1
+    and groupid = #{groupid} and yearlimit = #{yearlimit}
+    and amount1 &lt;= #{amount}
+    and amount2 >=#{amount}
+    limit 1
+  </select>
 
   <select id="list" parameterType="app.pp.entity.PolicyEntity" resultType="app.pp.entity.PolicyEntity">
     SELECT po.*,sa.buycartype,gr.`name` as groupname,gr2.`name` as carname,sa.salenum FROM `policy` po
