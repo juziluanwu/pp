@@ -59,12 +59,6 @@
 			<artifactId>mapper-spring-boot-starter</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-		<!--热部署集成 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
-		</dependency>
 		<!--mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -209,7 +203,8 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>1.18.10</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>

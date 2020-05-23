@@ -3,6 +3,6 @@ server:
   port: 8081
 spring:
   profiles:
-    active: offline
+    active: online
 mybatis:
   mapper-locations: classpath:mapper/**.xml
