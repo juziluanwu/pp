@@ -187,7 +187,8 @@
   <select id="selectByCondition" parameterType="map" resultType="app.pp.entity.Policy">
     select * from policy
     where isdel = 0 and state = 1
-    and groupid = #{groupid} and yearlimit = #{yearlimit}
+    and groupid = #{groupid}
+    and yearlimit like '%${yearlimit}%'
     and amount1 &lt;= #{amount}
     and amount2 >=#{amount}
     limit 1

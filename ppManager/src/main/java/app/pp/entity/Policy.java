@@ -32,6 +32,6 @@ public class Policy {
 
     private BigDecimal amount2;
 
-    private Integer yearlimit;
+    private String yearlimit;
 
 }
