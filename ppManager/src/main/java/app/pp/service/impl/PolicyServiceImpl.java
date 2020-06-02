@@ -16,6 +16,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.nio.channels.Pipe;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -66,7 +67,7 @@ public class PolicyServiceImpl implements PolicyService {
 
                 stringBuilder.append(f.format(i));
 
-                list.add(set(policy.getPrefix(),i,stringBuilder.toString(),policy.getGroupid()));
+                list.add(set(policy.getPrefix(),i,stringBuilder.toString(),policy.getGroupid(),policy.getAmount1(),policy.getAmount2(),policy.getYearlimit()));
 
             }
 
@@ -80,7 +81,7 @@ public class PolicyServiceImpl implements PolicyService {
                 stringBuilder.append(policy.getPrefix());
 
                 stringBuilder.append(f.format(i));
-                list.add(set(policy.getPrefix(),i,stringBuilder.toString(),policy.getGroupid()));
+                list.add(set(policy.getPrefix(),i,stringBuilder.toString(),policy.getGroupid(),policy.getAmount1(),policy.getAmount2(),policy.getYearlimit()));
 
             }
 
@@ -145,7 +146,7 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
 
-    public Policy set(String prefix,Integer number,String pnum,Integer groupid){
+    public Policy set(String prefix, Integer number, String pnum, Integer groupid, BigDecimal amount1, BigDecimal amount2, String yearlimit){
 
         SysUserEntity s = (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
 
@@ -166,7 +167,9 @@ public class PolicyServiceImpl implements PolicyService {
         policys.setPnum(pnum);
 
         policys.setState(1);
-
+        policys.setAmount1(amount1);
+        policys.setAmount2(amount2);
+        policys.setYearlimit(yearlimit);
         return  policys;
     }
 }
