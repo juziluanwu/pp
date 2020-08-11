@@ -298,4 +298,12 @@
   <select id="selectBySsid" parameterType="Integer" resultType="app.pp.entity.TyreSsinfo">
     select * from tyre_ssinfo where ssid = #{ssid}
   </select>
+
+  <select id="selectTyreById" parameterType="Integer" resultType="java.lang.String">
+    select `name` from tyre where id = #{id}
+  </select>
+
+  <select id="alltyre" resultType="app.pp.entity.Tyre">
+    select * from tyre
+  </select>
 </mapper>

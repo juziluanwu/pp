@@ -3,6 +3,7 @@ package app.pp.service.impl;
 import app.pp.entity.PrintRecord;
 import app.pp.entity.SaleSlip;
 import app.pp.entity.SysUserEntity;
+import app.pp.entity.TyreSsinfo;
 import app.pp.mapper.PrintRecordMapper;
 import app.pp.mapper.SaleSlipMapper;
 import app.pp.mapper.TyreSsinfoMapper;
@@ -42,7 +43,14 @@ public class PrintRecordServiceImpl implements PrintRecordService {
         Map<String, Object> result = new HashMap<>();
         SaleSlip ss = saleSlipService.info(id);
         if (ss != null) {
-            ss.setTyreSsinfo(tyreSsinfoMapper.selectBySsid(id));
+            TyreSsinfo tyreSsinfo = tyreSsinfoMapper.selectBySsid(id);
+            if(tyreSsinfo != null){
+                tyreSsinfo.setLfbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getLfbrand()));
+                tyreSsinfo.setLbbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getLbbrand()));
+                tyreSsinfo.setRfbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getRfbrand()));
+                tyreSsinfo.setRbbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getRbbrand()));
+                ss.setTyreSsinfo(tyreSsinfo);
+            }
             result.put("saleslip", ss);
             //已打印年限
             int pl = printRecordMapper.selectSumdateBySaleslipid(id);

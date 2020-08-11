@@ -224,4 +224,10 @@ public class SaleSlipController extends AbstractController {
     public Result renewal(@RequestParam(value = "devicenum") String devicenum) {
         return ResultUtils.result(ErrorEnum.SUCCESS, deviceService.testDevice(devicenum));
     }
+
+    @GetMapping("/tyre")
+    public Result tyre() {
+        return ResultUtils.result(ErrorEnum.SUCCESS, saleSlipService.tyre());
+    }
+
 }

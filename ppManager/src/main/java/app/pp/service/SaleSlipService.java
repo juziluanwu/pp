@@ -3,6 +3,7 @@ package app.pp.service;
 
 import app.pp.entity.SaleSlip;
 import app.pp.entity.Saleman;
+import app.pp.entity.Tyre;
 import app.pp.vo.RenewalVO;
 import app.pp.vo.SaleSlipDelVO;
 
@@ -63,5 +64,8 @@ public interface SaleSlipService {
      * @return
      */
     Map<String,Object> getRenewalInfo(Integer id);
+
+
+    List<Tyre> tyre();
 
 }

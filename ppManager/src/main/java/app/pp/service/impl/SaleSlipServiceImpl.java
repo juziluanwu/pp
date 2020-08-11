@@ -49,6 +49,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     private TyreSsinfoMapper tyreSsinfoMapper;
 
     @Transactional
+    @Override
     public void save(SaleSlip slip) {
         Integer deviceid = deviceService.testDevice(slip.getDevicenum());
         slip.setDeviceid(deviceid);
@@ -100,6 +101,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
      * @param slip
      */
     @Transactional
+    @Override
     public void update(SaleSlip slip) {
         SaleSlip oldslip = saleSlipMapper.findById(slip.getId());
         if (oldslip != null) {
@@ -165,6 +167,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
      * @param vo
      */
     @Transactional
+    @Override
     public void delete(SaleSlipDelVO vo) {
         SaleSlip ss = saleSlipMapper.selectById(vo.getId());
         if (ss != null) {
@@ -238,6 +241,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
      * @param param
      * @return
      */
+    @Override
     public List<SaleSlip> selectallpage(Map<String, Object> param) {
         Group group = groupService.getCurrentGroup();
         if (group != null) {
@@ -251,7 +255,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         PageHelper.startPage(null == param.get("page") ? 1 : (int) param.get("page"), GlobleUtils.DEFAULT_PAGE_SIZE);
         return saleSlipMapper.selectAll(param);
     }
-
+    @Override
     public List<SaleSlip> selectall(Map<String, Object> param) {
         Group group = groupService.getCurrentGroup();
         if (group != null) {
@@ -271,10 +275,19 @@ public class SaleSlipServiceImpl implements SaleSlipService {
      * @param id
      * @return
      */
+    @Override
     public SaleSlip info(Integer id) {
-        SaleSlip ss= saleSlipMapper.selectById(id);
-        if(ss != null){
-            ss.setTyreSsinfo(tyreSsinfoMapper.selectBySsid(id));
+        SaleSlip ss = saleSlipMapper.selectById(id);
+        if (ss != null) {
+            TyreSsinfo tyreSsinfo = tyreSsinfoMapper.selectBySsid(id);
+            if (tyreSsinfo != null) {
+                tyreSsinfo.setLfbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getLfbrand()));
+                tyreSsinfo.setLbbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getLbbrand()));
+                tyreSsinfo.setRfbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getRfbrand()));
+                tyreSsinfo.setRbbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getRbbrand()));
+                ss.setTyreSsinfo(tyreSsinfo);
+            }
+
         }
         return ss;
     }
@@ -285,6 +298,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
      * @param vo
      */
     @Transactional
+    @Override
     public void renewal(RenewalVO vo) {
         SaleSlip ss = saleSlipMapper.selectById(vo.getSaleslipid());
         if (ss != null) {
@@ -315,7 +329,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             throw new GlobleException("保单不存在");
         }
     }
-
+    @Override
     public Map<String, Object> getRenewalInfo(Integer id) {
         Map<String, Object> result = new HashMap<>();
         SaleSlip ss = saleSlipMapper.selectById(id);
@@ -329,6 +343,10 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             result.put("renewallimit", ss.getPolicydate() - i);
         }
         return result;
+    }
+    @Override
+    public List<Tyre> tyre() {
+        return tyreSsinfoMapper.alltyre();
     }
 }
 
