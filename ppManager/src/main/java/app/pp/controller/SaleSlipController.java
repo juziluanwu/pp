@@ -52,7 +52,8 @@ public class SaleSlipController extends AbstractController {
                        @RequestParam(value = "printstate", required = false) Integer printstate,
                        @RequestParam(value = "pstarttime", required = false) String pstarttime,
                        @RequestParam(value = "pendtime", required = false) String pendtime,
-                       @RequestParam(value = "chname", required = false) String chname) {
+                       @RequestParam(value = "chname", required = false) String chname,
+                       @RequestParam(value = "brandid", required = false) Integer brandid) {
 
         Map<String, Object> param = new HashMap<>();
         param.put("devicenum", devicenum);
@@ -64,6 +65,7 @@ public class SaleSlipController extends AbstractController {
         param.put("pstarttime", pstarttime);
         param.put("pendtime", pendtime);
         param.put("chname", chname);
+        param.put("brandid", brandid);
         param.put("page",page);
         PageInfo<SaleSlip> pageInfo = new PageInfo<>(saleSlipService.selectallpage(param));
         return ResultUtils.result(ErrorEnum.SUCCESS, pageInfo);

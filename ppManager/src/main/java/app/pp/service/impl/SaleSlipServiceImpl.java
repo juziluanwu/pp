@@ -45,6 +45,8 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     private DeviceMapper deviceMapper;
     @Autowired
     private DeviceService deviceService;
+    @Autowired
+    private TyreSsinfoMapper tyreSsinfoMapper;
 
     @Transactional
     public void save(SaleSlip slip) {
@@ -55,7 +57,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         if (3 != group.getType()) {
             throw new GlobleException("当前账号不是车行账号，不能添加销售单");
         }
-        Policy policy = policyMapper.selectByCondition(group.getId(),slip.getCarprice(),slip.getPolicydate());
+        Policy policy = policyMapper.selectByCondition(group.getId(), slip.getCarprice(), slip.getPolicydate());
 
         if (policy == null) {
             throw new GlobleException("没有可用的保单号，请先添加保单");
@@ -85,6 +87,11 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         d.setId(slip.getDeviceid());
         d.setState(2);
         deviceMapper.updateByPrimaryKeySelective(d);
+        //添加轮胎讯息
+        if (slip.getTyreSsinfo() != null) {
+            slip.getTyreSsinfo().setSsid(slip.getId());
+            tyreSsinfoMapper.insertSelective(slip.getTyreSsinfo());
+        }
     }
 
     /**
@@ -132,7 +139,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 //状态变成为 未打印
                 slip.setUpdator(sysUserService.getCurrentUser().getUserId());
                 slip.setUpdatedtime(new Date());
-                if(2 == slip.getBuycartype()){
+                if (2 == slip.getBuycartype()) {
                     saleSlipMapper.setFirstbeneficiaryNull(slip.getId());
                 }
                 saleSlipMapper.update(slip);
@@ -141,6 +148,11 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 d.setId(slip.getDeviceid());
                 d.setState(2);
                 deviceMapper.updateByPrimaryKeySelective(d);
+                if (slip == null) {
+                    tyreSsinfoMapper.deteleBySsid(slip.getId());
+                } else {
+                    tyreSsinfoMapper.updateByPrimaryKeySelective(slip.getTyreSsinfo());
+                }
             } else {
                 throw new GlobleException("已打印的销售单不能编辑");
             }
@@ -260,7 +272,11 @@ public class SaleSlipServiceImpl implements SaleSlipService {
      * @return
      */
     public SaleSlip info(Integer id) {
-        return saleSlipMapper.selectById(id);
+        SaleSlip ss= saleSlipMapper.selectById(id);
+        if(ss != null){
+            ss.setTyreSsinfo(tyreSsinfoMapper.selectBySsid(id));
+        }
+        return ss;
     }
 
     /**

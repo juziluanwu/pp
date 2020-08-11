@@ -91,6 +91,19 @@ public class SaleSlip {
 
     private String installaddress;
 
+    private TyreSsinfo tyreSsinfo;
+
+
+    private  String jxsname;
+
+    private String jxsphone;
+
+    private String jxsaddr;
+
+    private String servicenum;
+
+    private BigDecimal servicetotalamount;
+
     public Integer getId() {
         return id;
     }
@@ -425,5 +438,53 @@ public class SaleSlip {
 
     public void setInstalladdress(String installaddress) {
         this.installaddress = installaddress;
+    }
+
+    public TyreSsinfo getTyreSsinfo() {
+        return tyreSsinfo;
+    }
+
+    public void setTyreSsinfo(TyreSsinfo tyreSsinfo) {
+        this.tyreSsinfo = tyreSsinfo;
+    }
+
+    public String getJxsname() {
+        return jxsname;
+    }
+
+    public void setJxsname(String jxsname) {
+        this.jxsname = jxsname;
+    }
+
+    public String getJxsphone() {
+        return jxsphone;
+    }
+
+    public void setJxsphone(String jxsphone) {
+        this.jxsphone = jxsphone;
+    }
+
+    public String getJxsaddr() {
+        return jxsaddr;
+    }
+
+    public void setJxsaddr(String jxsaddr) {
+        this.jxsaddr = jxsaddr;
+    }
+
+    public String getServicenum() {
+        return servicenum;
+    }
+
+    public void setServicenum(String servicenum) {
+        this.servicenum = servicenum;
+    }
+
+    public BigDecimal getServicetotalamount() {
+        return servicetotalamount;
+    }
+
+    public void setServicetotalamount(BigDecimal servicetotalamount) {
+        this.servicetotalamount = servicetotalamount;
     }
 }

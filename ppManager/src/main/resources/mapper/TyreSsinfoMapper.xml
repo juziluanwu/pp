@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.pp.mapper.TyreSsinfoMapper">
+  <resultMap id="BaseResultMap" type="app.pp.entity.TyreSsinfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ssid" jdbcType="INTEGER" property="ssid" />
+    <result column="lfbrand" jdbcType="INTEGER" property="lfbrand" />
+    <result column="lfgg" jdbcType="VARCHAR" property="lfgg" />
+    <result column="lfpc" jdbcType="VARCHAR" property="lfpc" />
+    <result column="lfdot" jdbcType="VARCHAR" property="lfdot" />
+    <result column="lfamount" jdbcType="DECIMAL" property="lfamount" />
+    <result column="lbbrand" jdbcType="INTEGER" property="lbbrand" />
+    <result column="lbgg" jdbcType="VARCHAR" property="lbgg" />
+    <result column="lbpc" jdbcType="VARCHAR" property="lbpc" />
+    <result column="lbdot" jdbcType="VARCHAR" property="lbdot" />
+    <result column="lbamount" jdbcType="DECIMAL" property="lbamount" />
+    <result column="rfbrand" jdbcType="INTEGER" property="rfbrand" />
+    <result column="rfgg" jdbcType="VARCHAR" property="rfgg" />
+    <result column="rfpc" jdbcType="VARCHAR" property="rfpc" />
+    <result column="rfdot" jdbcType="VARCHAR" property="rfdot" />
+    <result column="rfamount" jdbcType="DECIMAL" property="rfamount" />
+    <result column="rbbrand" jdbcType="INTEGER" property="rbbrand" />
+    <result column="rbgg" jdbcType="VARCHAR" property="rbgg" />
+    <result column="rbpc" jdbcType="VARCHAR" property="rbpc" />
+    <result column="rbdot" jdbcType="VARCHAR" property="rbdot" />
+    <result column="rbamount" jdbcType="DECIMAL" property="rbamount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ssid, lfbrand, lfgg, lfpc, lfdot, lfamount, lbbrand, lbgg, lbpc, lbdot, lbamount, 
+    rfbrand, rfgg, rfpc, rfdot, rfamount, rbbrand, rbgg, rbpc, rbdot, rbamount
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tyre_ssinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tyre_ssinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="app.pp.entity.TyreSsinfo">
+    insert into tyre_ssinfo (id, ssid, lfbrand, 
+      lfgg, lfpc, lfdot, 
+      lfamount, lbbrand, lbgg, 
+      lbpc, lbdot, lbamount, 
+      rfbrand, rfgg, rfpc, 
+      rfdot, rfamount, rbbrand, 
+      rbgg, rbpc, rbdot, 
+      rbamount)
+    values (#{id,jdbcType=INTEGER}, #{ssid,jdbcType=INTEGER}, #{lfbrand,jdbcType=INTEGER}, 
+      #{lfgg,jdbcType=VARCHAR}, #{lfpc,jdbcType=VARCHAR}, #{lfdot,jdbcType=VARCHAR}, 
+      #{lfamount,jdbcType=DECIMAL}, #{lbbrand,jdbcType=INTEGER}, #{lbgg,jdbcType=VARCHAR}, 
+      #{lbpc,jdbcType=VARCHAR}, #{lbdot,jdbcType=VARCHAR}, #{lbamount,jdbcType=DECIMAL}, 
+      #{rfbrand,jdbcType=INTEGER}, #{rfgg,jdbcType=VARCHAR}, #{rfpc,jdbcType=VARCHAR}, 
+      #{rfdot,jdbcType=VARCHAR}, #{rfamount,jdbcType=DECIMAL}, #{rbbrand,jdbcType=INTEGER}, 
+      #{rbgg,jdbcType=VARCHAR}, #{rbpc,jdbcType=VARCHAR}, #{rbdot,jdbcType=VARCHAR}, 
+      #{rbamount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="app.pp.entity.TyreSsinfo">
+    insert into tyre_ssinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ssid != null">
+        ssid,
+      </if>
+      <if test="lfbrand != null">
+        lfbrand,
+      </if>
+      <if test="lfgg != null">
+        lfgg,
+      </if>
+      <if test="lfpc != null">
+        lfpc,
+      </if>
+      <if test="lfdot != null">
+        lfdot,
+      </if>
+      <if test="lfamount != null">
+        lfamount,
+      </if>
+      <if test="lbbrand != null">
+        lbbrand,
+      </if>
+      <if test="lbgg != null">
+        lbgg,
+      </if>
+      <if test="lbpc != null">
+        lbpc,
+      </if>
+      <if test="lbdot != null">
+        lbdot,
+      </if>
+      <if test="lbamount != null">
+        lbamount,
+      </if>
+      <if test="rfbrand != null">
+        rfbrand,
+      </if>
+      <if test="rfgg != null">
+        rfgg,
+      </if>
+      <if test="rfpc != null">
+        rfpc,
+      </if>
+      <if test="rfdot != null">
+        rfdot,
+      </if>
+      <if test="rfamount != null">
+        rfamount,
+      </if>
+      <if test="rbbrand != null">
+        rbbrand,
+      </if>
+      <if test="rbgg != null">
+        rbgg,
+      </if>
+      <if test="rbpc != null">
+        rbpc,
+      </if>
+      <if test="rbdot != null">
+        rbdot,
+      </if>
+      <if test="rbamount != null">
+        rbamount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ssid != null">
+        #{ssid,jdbcType=INTEGER},
+      </if>
+      <if test="lfbrand != null">
+        #{lfbrand,jdbcType=INTEGER},
+      </if>
+      <if test="lfgg != null">
+        #{lfgg,jdbcType=VARCHAR},
+      </if>
+      <if test="lfpc != null">
+        #{lfpc,jdbcType=VARCHAR},
+      </if>
+      <if test="lfdot != null">
+        #{lfdot,jdbcType=VARCHAR},
+      </if>
+      <if test="lfamount != null">
+        #{lfamount,jdbcType=DECIMAL},
+      </if>
+      <if test="lbbrand != null">
+        #{lbbrand,jdbcType=INTEGER},
+      </if>
+      <if test="lbgg != null">
+        #{lbgg,jdbcType=VARCHAR},
+      </if>
+      <if test="lbpc != null">
+        #{lbpc,jdbcType=VARCHAR},
+      </if>
+      <if test="lbdot != null">
+        #{lbdot,jdbcType=VARCHAR},
+      </if>
+      <if test="lbamount != null">
+        #{lbamount,jdbcType=DECIMAL},
+      </if>
+      <if test="rfbrand != null">
+        #{rfbrand,jdbcType=INTEGER},
+      </if>
+      <if test="rfgg != null">
+        #{rfgg,jdbcType=VARCHAR},
+      </if>
+      <if test="rfpc != null">
+        #{rfpc,jdbcType=VARCHAR},
+      </if>
+      <if test="rfdot != null">
+        #{rfdot,jdbcType=VARCHAR},
+      </if>
+      <if test="rfamount != null">
+        #{rfamount,jdbcType=DECIMAL},
+      </if>
+      <if test="rbbrand != null">
+        #{rbbrand,jdbcType=INTEGER},
+      </if>
+      <if test="rbgg != null">
+        #{rbgg,jdbcType=VARCHAR},
+      </if>
+      <if test="rbpc != null">
+        #{rbpc,jdbcType=VARCHAR},
+      </if>
+      <if test="rbdot != null">
+        #{rbdot,jdbcType=VARCHAR},
+      </if>
+      <if test="rbamount != null">
+        #{rbamount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="app.pp.entity.TyreSsinfo">
+    update tyre_ssinfo
+    <set>
+      <if test="ssid != null">
+        ssid = #{ssid,jdbcType=INTEGER},
+      </if>
+      <if test="lfbrand != null">
+        lfbrand = #{lfbrand,jdbcType=INTEGER},
+      </if>
+      <if test="lfgg != null">
+        lfgg = #{lfgg,jdbcType=VARCHAR},
+      </if>
+      <if test="lfpc != null">
+        lfpc = #{lfpc,jdbcType=VARCHAR},
+      </if>
+      <if test="lfdot != null">
+        lfdot = #{lfdot,jdbcType=VARCHAR},
+      </if>
+      <if test="lfamount != null">
+        lfamount = #{lfamount,jdbcType=DECIMAL},
+      </if>
+      <if test="lbbrand != null">
+        lbbrand = #{lbbrand,jdbcType=INTEGER},
+      </if>
+      <if test="lbgg != null">
+        lbgg = #{lbgg,jdbcType=VARCHAR},
+      </if>
+      <if test="lbpc != null">
+        lbpc = #{lbpc,jdbcType=VARCHAR},
+      </if>
+      <if test="lbdot != null">
+        lbdot = #{lbdot,jdbcType=VARCHAR},
+      </if>
+      <if test="lbamount != null">
+        lbamount = #{lbamount,jdbcType=DECIMAL},
+      </if>
+      <if test="rfbrand != null">
+        rfbrand = #{rfbrand,jdbcType=INTEGER},
+      </if>
+      <if test="rfgg != null">
+        rfgg = #{rfgg,jdbcType=VARCHAR},
+      </if>
+      <if test="rfpc != null">
+        rfpc = #{rfpc,jdbcType=VARCHAR},
+      </if>
+      <if test="rfdot != null">
+        rfdot = #{rfdot,jdbcType=VARCHAR},
+      </if>
+      <if test="rfamount != null">
+        rfamount = #{rfamount,jdbcType=DECIMAL},
+      </if>
+      <if test="rbbrand != null">
+        rbbrand = #{rbbrand,jdbcType=INTEGER},
+      </if>
+      <if test="rbgg != null">
+        rbgg = #{rbgg,jdbcType=VARCHAR},
+      </if>
+      <if test="rbpc != null">
+        rbpc = #{rbpc,jdbcType=VARCHAR},
+      </if>
+      <if test="rbdot != null">
+        rbdot = #{rbdot,jdbcType=VARCHAR},
+      </if>
+      <if test="rbamount != null">
+        rbamount = #{rbamount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="app.pp.entity.TyreSsinfo">
+    update tyre_ssinfo
+    set ssid = #{ssid,jdbcType=INTEGER},
+      lfbrand = #{lfbrand,jdbcType=INTEGER},
+      lfgg = #{lfgg,jdbcType=VARCHAR},
+      lfpc = #{lfpc,jdbcType=VARCHAR},
+      lfdot = #{lfdot,jdbcType=VARCHAR},
+      lfamount = #{lfamount,jdbcType=DECIMAL},
+      lbbrand = #{lbbrand,jdbcType=INTEGER},
+      lbgg = #{lbgg,jdbcType=VARCHAR},
+      lbpc = #{lbpc,jdbcType=VARCHAR},
+      lbdot = #{lbdot,jdbcType=VARCHAR},
+      lbamount = #{lbamount,jdbcType=DECIMAL},
+      rfbrand = #{rfbrand,jdbcType=INTEGER},
+      rfgg = #{rfgg,jdbcType=VARCHAR},
+      rfpc = #{rfpc,jdbcType=VARCHAR},
+      rfdot = #{rfdot,jdbcType=VARCHAR},
+      rfamount = #{rfamount,jdbcType=DECIMAL},
+      rbbrand = #{rbbrand,jdbcType=INTEGER},
+      rbgg = #{rbgg,jdbcType=VARCHAR},
+      rbpc = #{rbpc,jdbcType=VARCHAR},
+      rbdot = #{rbdot,jdbcType=VARCHAR},
+      rbamount = #{rbamount,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deteleBySsid" parameterType="Integer">
+    delete from tyre_ssinfo where ssid = #{ssid}
+  </delete>
+
+  <select id="selectBySsid" parameterType="Integer" resultType="app.pp.entity.TyreSsinfo">
+    select * from tyre_ssinfo where ssid = #{ssid}
+  </select>
+</mapper>

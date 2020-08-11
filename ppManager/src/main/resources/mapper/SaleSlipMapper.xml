@@ -11,6 +11,9 @@
         left join sys_user su on ss.creator = su.user_id
         left join `group` g_firstbeneficiary on g_firstbeneficiary.id = ss.firstbeneficiary
         left join `group` group_ch on group_ch.id = ss.groupid
+        <if test="brandid != null">
+            left join tyre_ssinfo tsi on tsi.ssid = ss.id
+        </if>
         <where>
             <if test="devicenum != null and devicenum != ''">
                 and d.devicenum like '%${devicenum}%'
@@ -51,6 +54,9 @@
                 <foreach collection="groups" open="(" close=")" separator="," item="group">
                     #{group.id}
                 </foreach>
+            </if>
+            <if test="brandid != null">
+                and  (tsi.lfbrand = #{brandid} or tsi.lbbrand = #{brandid} or tsi.rfbrand = #{brandid} or tsi.rbbrand = #{brandid})
             </if>
         </where>
         order by ss.id desc
@@ -173,6 +179,24 @@
             <if test="installaddress != null">
                 installaddress,
             </if>
+
+            <if test="jxsname != null">
+                jxsname,
+            </if>
+            <if test="jxsphone != null">
+                jxsphone,
+            </if>
+            <if test="jxsaddr != null">
+                jxsaddr,
+            </if>
+            <if test="servicenum != null">
+                servicenum,
+            </if>
+            <if test="servicetotalamount != null">
+                servicetotalamount,
+            </if>
+
+
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="salenum != null">
@@ -276,6 +300,22 @@
             </if>
             <if test="installaddress != null">
                 #{installaddress},
+            </if>
+
+            <if test="jxsname != null">
+                #{jxsname},
+            </if>
+            <if test="jxsphone != null">
+                #{jxsphone},
+            </if>
+            <if test="jxsaddr != null">
+                #{jxsaddr},
+            </if>
+            <if test="servicenum != null">
+                #{servicenum},
+            </if>
+            <if test="servicetotalamount != null">
+                #{servicetotalamount},
             </if>
         </trim>
     </insert>
@@ -390,6 +430,23 @@
             <if test="installaddress != null">
                 installaddress=#{installaddress},
             </if>
+
+            <if test="jxsname != null">
+                jxsname=#{jxsname},
+            </if>
+            <if test="jxsphone != null">
+                jxsphone=#{jxsphone},
+            </if>
+            <if test="jxsaddr != null">
+                jxsaddr=#{jxsaddr},
+            </if>
+            <if test="servicenum != null">
+                servicenum=#{servicenum},
+            </if>
+            <if test="servicetotalamount != null">
+                servicetotalamount=#{servicetotalamount},
+            </if>
+
         </set>
         where id=#{id}
     </update>
