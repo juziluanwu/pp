@@ -55,6 +55,11 @@ public class SaleSlip {
 
     private Integer carsysid;//车系id
 
+
+    private String carbrand;//车辆品牌
+
+    private String carsys;//车系
+
     private Integer buycartype;// 1贷款车 2全款车
 
     private Integer firstbeneficiary;//第一受益人分组id  分组中的金融公司
@@ -486,5 +491,21 @@ public class SaleSlip {
 
     public void setServicetotalamount(BigDecimal servicetotalamount) {
         this.servicetotalamount = servicetotalamount;
+    }
+
+    public String getCarbrand() {
+        return carbrand;
+    }
+
+    public void setCarbrand(String carbrand) {
+        this.carbrand = carbrand;
+    }
+
+    public String getCarsys() {
+        return carsys;
+    }
+
+    public void setCarsys(String carsys) {
+        this.carsys = carsys;
     }
 }

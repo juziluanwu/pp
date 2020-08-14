@@ -43,14 +43,6 @@ public class PrintRecordServiceImpl implements PrintRecordService {
         Map<String, Object> result = new HashMap<>();
         SaleSlip ss = saleSlipService.info(id);
         if (ss != null) {
-            TyreSsinfo tyreSsinfo = tyreSsinfoMapper.selectBySsid(id);
-            if(tyreSsinfo != null){
-                tyreSsinfo.setLfbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getLfbrand()));
-                tyreSsinfo.setLbbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getLbbrand()));
-                tyreSsinfo.setRfbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getRfbrand()));
-                tyreSsinfo.setRbbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getRbbrand()));
-                ss.setTyreSsinfo(tyreSsinfo);
-            }
             result.put("saleslip", ss);
             //已打印年限
             int pl = printRecordMapper.selectSumdateBySaleslipid(id);

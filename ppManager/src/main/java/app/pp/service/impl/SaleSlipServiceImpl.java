@@ -47,6 +47,8 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     private DeviceService deviceService;
     @Autowired
     private TyreSsinfoMapper tyreSsinfoMapper;
+    @Autowired
+    private CarMapper carMapper;
 
     @Transactional
     @Override
@@ -255,6 +257,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         PageHelper.startPage(null == param.get("page") ? 1 : (int) param.get("page"), GlobleUtils.DEFAULT_PAGE_SIZE);
         return saleSlipMapper.selectAll(param);
     }
+
     @Override
     public List<SaleSlip> selectall(Map<String, Object> param) {
         Group group = groupService.getCurrentGroup();
@@ -279,6 +282,10 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     public SaleSlip info(Integer id) {
         SaleSlip ss = saleSlipMapper.selectById(id);
         if (ss != null) {
+            Car car1 = carMapper.selectByPrimaryKey(ss.getCarbrandid());
+            ss.setCarbrand(car1.getName());
+            Car car2 = carMapper.selectByPrimaryKey(ss.getCarsysid());
+            ss.setCarsys(car2.getName());
             TyreSsinfo tyreSsinfo = tyreSsinfoMapper.selectBySsid(id);
             if (tyreSsinfo != null) {
                 tyreSsinfo.setLfbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getLfbrand()));
@@ -329,6 +336,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             throw new GlobleException("保单不存在");
         }
     }
+
     @Override
     public Map<String, Object> getRenewalInfo(Integer id) {
         Map<String, Object> result = new HashMap<>();
@@ -344,6 +352,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
         }
         return result;
     }
+
     @Override
     public List<Tyre> tyre() {
         return tyreSsinfoMapper.alltyre();
