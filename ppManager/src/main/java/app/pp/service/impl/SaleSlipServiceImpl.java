@@ -49,10 +49,15 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     private TyreSsinfoMapper tyreSsinfoMapper;
     @Autowired
     private CarMapper carMapper;
+    @Autowired
+    private SaleslipModelMapper saleslipModelMapper;
 
     @Transactional
     @Override
     public void save(SaleSlip slip) {
+        if (slip.getSaleslipModels() == null || slip.getSaleslipModels().size() == 0) {
+            throw new GlobleException("销售单必须绑定保单模板");
+        }
         Integer deviceid = deviceService.testDevice(slip.getDevicenum());
         slip.setDeviceid(deviceid);
         //系统自动分配 当前账号车行  对应的  保单号
@@ -95,6 +100,11 @@ public class SaleSlipServiceImpl implements SaleSlipService {
             slip.getTyreSsinfo().setSsid(slip.getId());
             tyreSsinfoMapper.insertSelective(slip.getTyreSsinfo());
         }
+        slip.getSaleslipModels().stream().forEach(e -> {
+            e.setSsid(slip.getId());
+            saleslipModelMapper.insertSelective(e);
+        });
+
     }
 
     /**
@@ -105,6 +115,9 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     @Transactional
     @Override
     public void update(SaleSlip slip) {
+        if (slip.getSaleslipModels() == null || slip.getSaleslipModels().size() == 0) {
+            throw new GlobleException("销售单必须绑定保单模板");
+        }
         SaleSlip oldslip = saleSlipMapper.findById(slip.getId());
         if (oldslip != null) {
             if (1 == oldslip.getPrintstate()) {
@@ -157,6 +170,11 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 } else {
                     tyreSsinfoMapper.updateByPrimaryKeySelective(slip.getTyreSsinfo());
                 }
+                saleslipModelMapper.deleteBySsid(slip.getId());
+                slip.getSaleslipModels().stream().forEach(e -> {
+                    e.setSsid(slip.getId());
+                    saleslipModelMapper.insertSelective(e);
+                });
             } else {
                 throw new GlobleException("已打印的销售单不能编辑");
             }

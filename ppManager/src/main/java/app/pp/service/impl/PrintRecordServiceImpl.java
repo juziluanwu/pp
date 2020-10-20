@@ -3,9 +3,9 @@ package app.pp.service.impl;
 import app.pp.entity.PrintRecord;
 import app.pp.entity.SaleSlip;
 import app.pp.entity.SysUserEntity;
-import app.pp.entity.TyreSsinfo;
 import app.pp.mapper.PrintRecordMapper;
 import app.pp.mapper.SaleSlipMapper;
+import app.pp.mapper.SaleslipModelMapper;
 import app.pp.mapper.TyreSsinfoMapper;
 import app.pp.service.ModelService;
 import app.pp.service.PrintRecordService;
@@ -32,6 +32,8 @@ public class PrintRecordServiceImpl implements PrintRecordService {
     private ModelService modelService;
     @Autowired
     private TyreSsinfoMapper tyreSsinfoMapper;
+    @Autowired
+    private SaleslipModelMapper saleslipModelMapper;
 
     /**
      * 获取打印信息及年限
@@ -63,8 +65,8 @@ public class PrintRecordServiceImpl implements PrintRecordService {
                     result.put("printlimit", ss.getPolicydate() - pl);
                 }
             }
-
-            result.put("model", modelService.getCurrentGroupModel());
+            result.put("model", saleslipModelMapper.selectModelBySsid(id));
+//            result.put("model", modelService.getCurrentGroupModel());
         }
         return result;
     }

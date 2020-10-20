@@ -2,6 +2,7 @@ package app.pp.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class SaleSlip {
 
@@ -108,6 +109,8 @@ public class SaleSlip {
     private String servicenum;
 
     private BigDecimal servicetotalamount;
+
+    private List<SaleslipModel> saleslipModels;
 
     public Integer getId() {
         return id;
@@ -507,5 +510,13 @@ public class SaleSlip {
 
     public void setCarsys(String carsys) {
         this.carsys = carsys;
+    }
+
+    public List<SaleslipModel> getSaleslipModels() {
+        return saleslipModels;
+    }
+
+    public void setSaleslipModels(List<SaleslipModel> saleslipModels) {
+        this.saleslipModels = saleslipModels;
     }
 }

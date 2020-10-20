@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.pp.mapper.SaleslipModelMapper">
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="app.pp.entity.SaleslipModel">
+    select 
+    *
+    from saleslip_model
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from saleslip_model
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="app.pp.entity.SaleslipModel">
+    insert into saleslip_model
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ssid != null">
+        `ssid`,
+      </if>
+      <if test="modelid != null">
+        `modelid`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ssid != null">
+        #{ssid},
+      </if>
+      <if test="modelid != null">
+        #{modelid},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="app.pp.entity.SaleslipModel">
+    update saleslip_model
+    <set>
+      <if test="ssid != null">
+        `ssid` = #{ssid},
+      </if>
+      <if test="modelid != null">
+        `modelid` = #{modelid},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <select id="selectBySsid" parameterType="Integer" resultType="app.pp.entity.SaleslipModel">
+    select * from saleslip_model where ssid = #{ssid}
+  </select>
+
+  <delete id="deleteBySsid" parameterType="Integer">
+    delete from saleslip_model where ssid = #{ssid}
+  </delete>
+
+  <select id="selectModelBySsid" parameterType="Integer" resultType="app.pp.entity.Model">
+    select m.* from saleslip_model ssm
+    left join model m on m.id = ssm.modelid
+    where ssm.ssid = #{ssid}
+  </select>
+</mapper>
