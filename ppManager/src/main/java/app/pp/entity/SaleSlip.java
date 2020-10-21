@@ -112,6 +112,8 @@ public class SaleSlip {
 
     private List<SaleslipModel> saleslipModels;
 
+    private List<Model> models;
+
     public Integer getId() {
         return id;
     }
@@ -518,5 +520,13 @@ public class SaleSlip {
 
     public void setSaleslipModels(List<SaleslipModel> saleslipModels) {
         this.saleslipModels = saleslipModels;
+    }
+
+    public List<Model> getModels() {
+        return models;
+    }
+
+    public void setModels(List<Model> models) {
+        this.models = models;
     }
 }

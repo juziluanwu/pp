@@ -312,7 +312,7 @@ public class SaleSlipServiceImpl implements SaleSlipService {
                 tyreSsinfo.setRbbrandname(tyreSsinfoMapper.selectTyreById(tyreSsinfo.getRbbrand()));
                 ss.setTyreSsinfo(tyreSsinfo);
             }
-
+            ss.setModels(saleslipModelMapper.selectModelBySsid(id));
         }
         return ss;
     }
