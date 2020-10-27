@@ -1,6 +1,7 @@
 package app.pp.service;
 
 
+import app.pp.entity.Model;
 import app.pp.entity.SaleSlip;
 import app.pp.entity.Saleman;
 import app.pp.entity.Tyre;
@@ -68,4 +69,5 @@ public interface SaleSlipService {
 
     List<Tyre> tyre();
 
+    List<Model> selectModelBySsid(Integer ssid);
 }

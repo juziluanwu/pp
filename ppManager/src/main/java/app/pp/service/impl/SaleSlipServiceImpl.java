@@ -375,5 +375,12 @@ public class SaleSlipServiceImpl implements SaleSlipService {
     public List<Tyre> tyre() {
         return tyreSsinfoMapper.alltyre();
     }
+
+
+    @Override
+    public List<Model> selectModelBySsid(Integer ssid) {
+        return  saleslipModelMapper.selectModelBySsid(ssid);
+    }
+
 }
 

@@ -3,16 +3,15 @@ package app.pp.controller;
 
 import app.pp.common.AbstractController;
 import app.pp.common.Result;
+import app.pp.entity.Model;
 import app.pp.entity.SaleSlip;
 import app.pp.enums.ErrorEnum;
 import app.pp.exceptions.GlobleException;
 import app.pp.service.DeviceService;
 import app.pp.service.SaleSlipService;
-import app.pp.utils.GlobleUtils;
 import app.pp.utils.ResultUtils;
 import app.pp.vo.RenewalVO;
 import app.pp.vo.SaleSlipDelVO;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -66,7 +65,7 @@ public class SaleSlipController extends AbstractController {
         param.put("pendtime", pendtime);
         param.put("chname", chname);
         param.put("brandid", brandid);
-        param.put("page",page);
+        param.put("page", page);
         PageInfo<SaleSlip> pageInfo = new PageInfo<>(saleSlipService.selectallpage(param));
         return ResultUtils.result(ErrorEnum.SUCCESS, pageInfo);
     }
@@ -108,7 +107,7 @@ public class SaleSlipController extends AbstractController {
             HSSFSheet sheet = workbook.createSheet("销售单");
             String[] headers = {"销售单号", "设备号", "保单号", "销售单状态",
                     "保单金额", "4S店名", "车主姓名", "手机号", "赔付限额",
-                    "车牌号码", "保险开始日期", "保险结束日期", "第一受益人","车架号码"};
+                    "车牌号码", "保险开始日期", "保险结束日期", "第一受益人", "车架号码", "模板"};
             HSSFRow row = sheet.createRow(0);
             for (int i = 0; i < headers.length; i++) {
                 HSSFCell cell = row.createCell(i);
@@ -127,13 +126,13 @@ public class SaleSlipController extends AbstractController {
                 } else if (2 == vo.getPrintstate()) {
                     row3.createCell(3).setCellValue("已打印");
                 }
-                if(vo.getPolicyamount() != null){
+                if (vo.getPolicyamount() != null) {
                     row3.createCell(4).setCellValue(vo.getPolicyamount().toString());
                 }
                 row3.createCell(5).setCellValue(vo.getShop4s());
                 row3.createCell(6).setCellValue(vo.getCustomername());
                 row3.createCell(7).setCellValue(vo.getPhone());
-                if(vo.getCompensation() != null) {
+                if (vo.getCompensation() != null) {
                     row3.createCell(8).setCellValue(vo.getCompensation().toString());
                 }
                 row3.createCell(9).setCellValue(vo.getCarnum());
@@ -141,6 +140,14 @@ public class SaleSlipController extends AbstractController {
                 row3.createCell(11).setCellValue(sdf.format(vo.getPendtime()));
                 row3.createCell(12).setCellValue(vo.getFirstbeneficiaryname());
                 row3.createCell(13).setCellValue(vo.getFrame());
+                List<Model> models = saleSlipService.selectModelBySsid(vo.getId());
+                if (models != null && models.size() > 0) {
+                    String name = "";
+                    for (Model m : models) {
+                        name = name + m.getName();
+                    }
+                    row3.createCell(14).setCellValue(name);
+                }
                 rowNum++;
             }
 
@@ -152,8 +159,8 @@ public class SaleSlipController extends AbstractController {
             workbook.write(outputStream);
             outputStream.flush();
             outputStream.close();
-        }else{
-           throw new GlobleException("没有查询数据");
+        } else {
+            throw new GlobleException("没有查询数据");
         }
     }
 

@@ -65,4 +65,9 @@ public class ModelController {
     public Result select() {
         return ResultUtils.result(ErrorEnum.SUCCESS, modelService.select());
     }
+
+    @GetMapping("curgroupselect")
+    public Result curgroupselect() {
+        return ResultUtils.result(ErrorEnum.SUCCESS, modelService.getCurrentGroupModel());
+    }
 }
