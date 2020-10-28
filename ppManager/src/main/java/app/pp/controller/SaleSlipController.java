@@ -144,7 +144,7 @@ public class SaleSlipController extends AbstractController {
                 if (models != null && models.size() > 0) {
                     String name = "";
                     for (Model m : models) {
-                        name = name + m.getName();
+                        name = name + m.getName()+",";
                     }
                     row3.createCell(14).setCellValue(name);
                 }
