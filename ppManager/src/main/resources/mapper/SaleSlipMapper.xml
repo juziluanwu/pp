@@ -196,7 +196,24 @@
                 servicetotalamount,
             </if>
 
-
+            <if test="dkContractNo != null">
+                dkContractNo,
+            </if>
+            <if test="dkAmount != null">
+                dkAmount,
+            </if>
+            <if test="bxFirstBeneficiary != null">
+                bxFirstBeneficiary,
+            </if>
+            <if test="bxBaofei != null">
+                bxBaofei,
+            </if>
+            <if test="bxStartdate != null">
+                bxStartdate,
+            </if>
+            <if test="bxEnddate != null">
+                bxEnddate,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="salenum != null">
@@ -316,6 +333,25 @@
             </if>
             <if test="servicetotalamount != null">
                 #{servicetotalamount},
+            </if>
+
+            <if test="dkContractNo != null">
+                #{dkContractNo},
+            </if>
+            <if test="dkAmount != null">
+                #{dkAmount},
+            </if>
+            <if test="bxFirstBeneficiary != null">
+                #{bxFirstBeneficiary},
+            </if>
+            <if test="bxBaofei != null">
+                #{bxBaofei},
+            </if>
+            <if test="bxStartdate != null">
+                #{bxStartdate},
+            </if>
+            <if test="bxEnddate != null">
+                #{bxEnddate},
             </if>
         </trim>
     </insert>
@@ -447,6 +483,24 @@
                 servicetotalamount=#{servicetotalamount},
             </if>
 
+            <if test="dkContractNo != null">
+                dkContractNo=#{dkContractNo},
+            </if>
+            <if test="dkAmount != null">
+                dkAmount=#{dkAmount},
+            </if>
+            <if test="bxFirstBeneficiary != null">
+                bxFirstBeneficiary=#{bxFirstBeneficiary},
+            </if>
+            <if test="bxBaofei != null">
+                bxBaofei=#{bxBaofei},
+            </if>
+            <if test="bxStartdate != null">
+                bxStartdate=#{bxStartdate},
+            </if>
+            <if test="bxEnddate != null">
+                bxEnddate=#{bxEnddate},
+            </if>
         </set>
         where id=#{id}
     </update>

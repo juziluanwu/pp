@@ -114,6 +114,19 @@ public class SaleSlip {
 
     private List<Model> models;
 
+    private String dkContractNo;
+
+    private BigDecimal dkAmount;
+
+    private String bxFirstBeneficiary;
+
+    private BigDecimal bxBaofei;
+
+    private Date bxStartdate;
+
+    private Date bxEnddate;
+
+
     public Integer getId() {
         return id;
     }
@@ -528,5 +541,53 @@ public class SaleSlip {
 
     public void setModels(List<Model> models) {
         this.models = models;
+    }
+
+    public String getDkContractNo() {
+        return dkContractNo;
+    }
+
+    public void setDkContractNo(String dkContractNo) {
+        this.dkContractNo = dkContractNo;
+    }
+
+    public BigDecimal getDkAmount() {
+        return dkAmount;
+    }
+
+    public void setDkAmount(BigDecimal dkAmount) {
+        this.dkAmount = dkAmount;
+    }
+
+    public String getBxFirstBeneficiary() {
+        return bxFirstBeneficiary;
+    }
+
+    public void setBxFirstBeneficiary(String bxFirstBeneficiary) {
+        this.bxFirstBeneficiary = bxFirstBeneficiary;
+    }
+
+    public BigDecimal getBxBaofei() {
+        return bxBaofei;
+    }
+
+    public void setBxBaofei(BigDecimal bxBaofei) {
+        this.bxBaofei = bxBaofei;
+    }
+
+    public Date getBxStartdate() {
+        return bxStartdate;
+    }
+
+    public void setBxStartdate(Date bxStartdate) {
+        this.bxStartdate = bxStartdate;
+    }
+
+    public Date getBxEnddate() {
+        return bxEnddate;
+    }
+
+    public void setBxEnddate(Date bxEnddate) {
+        this.bxEnddate = bxEnddate;
     }
 }
